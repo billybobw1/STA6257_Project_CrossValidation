@@ -17,7 +17,7 @@ editor:
     wrap: 72
 ---
 
-### Week 2 Individual Work
+### Week 2 Individual Work (2+ Peer-Reviewed Sources)
 
 
 
