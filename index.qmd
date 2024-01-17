@@ -1,6 +1,6 @@
 ---
-title: "Report Sample for Data Science Capstone Project"
-author: "Student name"
+title: "STA6257 Data Science Capstone Project"
+author: "Jesse Buntyn"
 date: '`r Sys.Date()`'
 format:
   html:
@@ -16,6 +16,18 @@ editor:
   markdown: 
     wrap: 72
 ---
+
+### Week 2 Individual Work
+
+
+
+### Week 3 Individual Work
+
+
+
+### Week 4 Individual Work
+
+
 
 ## Introduction
 
