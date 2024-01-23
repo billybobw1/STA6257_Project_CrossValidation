@@ -19,15 +19,58 @@ editor:
 
 ### Week 2 Individual Work (2+ Peer-Reviewed Sources)
 
+#### Source 1 - Cross Validation, by Daniel Berrar ([@berrar2019cross])
 
+Cross-validation, as described in Daniel Berrar's paper, is a vital
+resampling method in data science for assessing the predictive
+performance of models. It helps in avoiding overfitting and
+underfitting, ensuring that models generalize well to unseen data.
+Common types include:
+
+Single Hold-Out Method: Divides data into a training set and a test set,
+usually in a 70-30 or 90-10 split.
+
+K-Fold Cross-Validation: The dataset is split into k equally sized
+folds. Each fold is used once as a test set while the rest serve as the
+training set.
+
+Leave-One-Out Cross-Validation (LOOCV): A special case of k-fold
+cross-validation where k equals the number of data points. Each data
+point is used once as a test set.
+
+Stratified Cross-Validation: Ensures each fold reflects the class
+proportions in the dataset, particularly useful for imbalanced datasets.
+
+Cross-validation is crucial for parameter tuning and model selection. It
+provides a more robust measure of model performance compared to a single
+split, as it averages performance across multiple splits. This ensures
+the model's ability to perform consistently across different subsets of
+the dataset.
+
+The selection of a particular cross-validation method depends on the
+dataset's size and nature. For large datasets, k-fold cross-validation
+is generally preferred, while LOOCV is suitable for smaller datasets
+despite its higher computational cost. The key is to balance the
+bias-variance tradeoff and ensure that the model's predictive
+performance is not overly optimistic. [@berrar2019cross]
+
+#### Source 2 - Selecting a classification method by cross-validation, by Cullen Schaffer ([@schaffer1993selecting])
+
+In "Selecting a Classification Method by Cross-Validation," Cullen Schaffer provides an in-depth exploration of cross-validation, a critical technique in evaluating machine learning models. Cross-validation helps determine how well a model will generalize to an independent data set. It involves partitioning the data into complementary subsets, performing the analysis on one subset (training set), and validating the analysis on the other subset (test set).
+
+Schaffer emphasizes the role of cross-validation in the context of selecting machine learning classification methods. The paper delves into various cross-validation methods, notably:
+
+K-Fold Cross-Validation: This method involves dividing the data into k subsets. Each time, one of the k subsets is used as the test set and the other k-1 subsets are put together to form a training set. The process is repeated k times, with each of the k subsets used exactly once as the test set.
+
+Leave-One-Out Cross-Validation (LOOCV): This is a special case of cross-validation where the number of folds equals the number of instances in the dataset. It is particularly useful for small datasets but can be computationally intensive.
+
+Stratified Cross-Validation: Especially useful in dealing with imbalanced datasets. This method ensures that each fold of the dataset contains approximately the same percentage of samples of each target class as the complete set.
+
+Schaffer's analysis is crucial for understanding the nuances of these techniques and their application in real-world scenarios, highlighting the importance of choosing the right method based on the dataset and the specific requirements of the model. [@schaffer1993selecting]
 
 ### Week 3 Individual Work
 
-
-
 ### Week 4 Individual Work
-
-
 
 ## Introduction
 
@@ -97,3 +140,7 @@ ggplot1 = murders %>% ggplot(mapping = aes(x=population/10^6, y=total))
 ### Conlusion
 
 ## References
+
+Berrar, D. (2019). Cross-Validation. [@berrar2019cross]
+
+Schaffer, C. (1993). Selecting a classification method by cross-validation. Machine learning, 13, 135-143. [@schaffer1993selecting]
