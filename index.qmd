@@ -70,6 +70,71 @@ Schaffer's analysis is crucial for understanding the nuances of these techniques
 
 ### Week 3 Individual Work
 
+#### Source 1 - Making Sense of Model Generalizability: A Tutorial on Cross-Validation in R and Shiny, by Song, Wang, & Wee ([@song2021making])
+
+The document "Making Sense of Model Generalizability: A Tutorial on Cross-Validation in R and Shiny" by Song, Tang, and Wee provides a comprehensive tutorial on cross-validation as a statistical technique to assess model generalizability. The paper delineates a structured, five-step approach to cross-validation, emphasizing the division of data into training and testing sets, model fitting and parameter estimation, prediction accuracy assessment, repetition of these steps, and the computation of average prediction accuracy across repetitions.
+
+Furthermore, the article expands on the important concept of k-folds cross-validation, particularly the repeated k-folds technique. This approach involves multiple iterations of k-folds cross-validation, each with a unique partitioning of the data, enhancing the unbiased nature of model predictors. However, this method's thoroughness comes at the cost of increased time and labor, potentially escalating overall costs.
+
+
+Cross-Validation Process:
+
+Data Partitioning: Distinguish between training and testing datasets.
+
+Model Training: Fit the model on the training dataset and derive the model parameters.
+
+Model Testing: Apply the trained model to the test dataset to determine predictive accuracy.
+Reiteration: Perform steps 1 to 3 multiple times.
+
+Accuracy Estimation: Compute the average prediction accuracy from all iterations for cross-validation. 
+
+
+Repeated k-Folds Technique:
+
+Data Division: Randomly split the dataset into k equal parts.
+
+Training Phase: Use (k-1) portions of the data for model training.
+
+Prediction and Validation: Predict the response variable in the unused kth portion and assess prediction error.
+
+Cycling Through Folds: Repeat steps 2 and 3 for each of the k segments.
+
+Multiple Iterations: Execute the entire process (steps 1-4) n times.
+
+Performance Evaluation: Average the model’s performance indicators across all repetitions for a comprehensive model assessment. [@song2021making]
+
+#### Source 2 - A K-fold Averaging Cross-validation Procedure, by Yoonsuh Jung and Jianhua Hu ([@jung2015ak])
+
+"A K-fold Averaging Cross-validation Procedure" by Jung and Hu, offers an advanced perspective on cross-validation methods with a focus on k-fold averaging cross-validation (ACV) in linear models. The authors propose a procedure for model selection and parameter estimation, where instead of selecting a single 'optimal' model from the k-folds, an ultimate model is derived by averaging the parameter estimates from the 'optimal' models of each fold. This method is postulated to yield more stable and efficient parameter estimates than the classical k-fold cross-validation (CV) approach.
+
+The article discusses the application of this procedure to high-dimensional data through penalization methods like LASSO and quantile smoothing splines, illustrating the flexibility and broad applicability of the ACV method. Theoretical properties are established, showing the asymptotic equivalence between the ACV and classical CV procedures in linear regression settings.
+
+In terms of the mathematical methodology, the article provides important equations for calculating the mean squared prediction error (MSPE) and mean squared error (MSE) as metrics to evaluate model performance. For instance, the overall test predictors are evaluated using the MSPE, calculated as:
+
+$$
+MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i
+$$
+
+where MSEi is the mean squared error for the ith fold, and K is the number of folds.
+
+For the k-fold cross-validation process, the steps outlined in the document are as follows:
+
+1. Randomly and evenly split the dataset into k-folds.
+
+2. Use k-1 folds as the training set to fit the model.
+
+3. Predict the response variable in the hold-out (kth) fold using the fitted model.
+
+4. Calculate the prediction error for the response variable in the hold-out fold.
+
+5. Repeat steps 2-4 k times, using each fold as a hold-out once.
+
+6. Calculate the overall test predictors by averaging all k test predictors.
+
+The ACV method further develops the k-folds technique by averaging the parameter estimates from the selected 'optimal' models of each fold to create the ultimate model. This approach potentially reduces the variance of the parameter estimates, leading to more robust model selection and parameter estimation. However, the efficacy of ACV compared to CV is conditional on the true underlying model and the complexity of the model, as well as the sample size and number of folds chosen.
+
+In summary, the article presents an innovative take on k-fold cross-validation, aiming to improve model selection and parameter estimation by introducing an averaging step to the procedure, and showcasing its benefits through theoretical discussion and empirical examples. [@jung2015ak]
+
 ### Week 4 Individual Work
 
 ## Introduction
@@ -143,4 +208,9 @@ ggplot1 = murders %>% ggplot(mapping = aes(x=population/10^6, y=total))
 
 Berrar, D. (2019). Cross-Validation. [@berrar2019cross]
 
+Jung, Y., & Hu, J. (2015). AK-fold averaging cross-validation procedure. Journal of nonparametric statistics, 27(2), 167-179. [@jung2015ak]
+
 Schaffer, C. (1993). Selecting a classification method by cross-validation. Machine learning, 13, 135-143. [@schaffer1993selecting]
+
+Song, Q. C., Tang, C., & Wee, S. (2021). Making sense of model generalizability: A tutorial on cross-validation in R and Shiny. Advances in Methods and Practices in Psychological Science, 4(1), 2515245920947067. [@song2021making]
+
