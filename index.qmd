@@ -137,6 +137,19 @@ In summary, the article presents an innovative take on k-fold cross-validation, 
 
 ### Week 4 Individual Work
 
+#### Source 1 - Cross-validation for selecting a model selection procedure, by Zhang and Yang (2015) ([@zhang2015cross])
+
+
+Zhang and Yang's 2015 work delves into the utilization of cross-validation for the purpose of model selection. They explore the division of data to optimize model fitting and performance evaluation, emphasizing the challenges in high-dimensional contexts. The discourse includes the comparison of Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC), with an emphasis on the choice between parametric or non-parametric models. The paper addresses the strategic implementation of cross-validation, recognizing that while fixed ratios are theoretically ideal, the actual impact on cross-validation performance can vary. 
+
+They demonstrate, through simulations, how a larger evaluation set can influence the reliability of cross-validation outcomes. Furthermore, they present a concept known as the 'half-half' ratio in non-parametric scenarios, suggesting it can lead to more accurate model selection. The paper also confronts common misunderstandings regarding cross-validation and suggests a synthesis of AIC and BIC methods to achieve asymptotically optimal estimations in varied settings. [@zhang2015cross]
+
+#### Source 2 - Reliable Accuracy Estimates from k-Fold Cross Validation, by Yong and Weh (2020) ([@wong2019reliable])
+
+In their 2020 study, Wong and Yeh examine the repeated use of k-fold cross-validation for deriving reliable accuracy estimates in classification algorithms. They highlight that the variance of accuracy estimates tends to decrease with multiple replications, which some argue could lead to more reliable estimates. However, the study also notes the potential pitfalls of this approach, such as the underestimation of variance due to the correlation between replications, which previous studies may have overlooked.
+
+The researchers propose new statistical methods to evaluate the dependency of accuracy estimates and test the strength of these dependencies. Their experiments across 20 datasets indicate that accuracy estimates from different replications of k-fold cross-validation are generally highly correlated, especially as the number of folds increases. They recommend using a larger number of folds with fewer replications for performance evaluation. Particularly, their research provides evidence that ten-fold cross-validation yields the most significant scores among k-fold cross-validation techniques. Ultimately, their findings challenge the notion that simply increasing the number of replications will inherently lead to more reliable accuracy estimates, bringing attention to the importance of considering the dependency relationships between replications.[@wong2019reliable]
+
 ## Introduction
 
 This is an introduction to Kernel regression, which is a non-parametric
@@ -213,4 +226,8 @@ Jung, Y., & Hu, J. (2015). AK-fold averaging cross-validation procedure. Journal
 Schaffer, C. (1993). Selecting a classification method by cross-validation. Machine learning, 13, 135-143. [@schaffer1993selecting]
 
 Song, Q. C., Tang, C., & Wee, S. (2021). Making sense of model generalizability: A tutorial on cross-validation in R and Shiny. Advances in Methods and Practices in Psychological Science, 4(1), 2515245920947067. [@song2021making]
+
+Wong, T. T., & Yeh, P. Y. (2019). Reliable accuracy estimates from k-fold cross validation. IEEE Transactions on Knowledge and Data Engineering, 32(8), 1586-1594. [@wong2019reliable]
+
+Zhang, Y., & Yang, Y. (2015). Cross-validation for selecting a model selection procedure. Journal of Econometrics, 187(1), 95-112. [@zhang2015cross]
 
