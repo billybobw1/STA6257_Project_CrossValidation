@@ -150,7 +150,7 @@ In their 2020 study, Wong and Yeh examine the repeated use of k-fold cross-valid
 
 The researchers propose new statistical methods to evaluate the dependency of accuracy estimates and test the strength of these dependencies. Their experiments across 20 datasets indicate that accuracy estimates from different replications of k-fold cross-validation are generally highly correlated, especially as the number of folds increases. They recommend using a larger number of folds with fewer replications for performance evaluation. Particularly, their research provides evidence that ten-fold cross-validation yields the most significant scores among k-fold cross-validation techniques. Ultimately, their findings challenge the notion that simply increasing the number of replications will inherently lead to more reliable accuracy estimates, bringing attention to the importance of considering the dependency relationships between replications.[@wong2019reliable]
 
-## Intro
+## Introduction
 
 This is an introduction to Kernel regression, which is a non-parametric
 estimator that estimates the conditional expectation of two variables
