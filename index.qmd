@@ -17,7 +17,7 @@ editor:
     wrap: 72
 ---
 
-### Week 2 Individual Work (2+ Peer-Reviewed Sources)
+### Week 2 Individual Work
 
 #### Source 1 - Cross Validation, by Daniel Berrar ([@berrar2019cross])
 
@@ -150,33 +150,31 @@ In their 2020 study, Wong and Yeh examine the repeated use of k-fold cross-valid
 
 The researchers propose new statistical methods to evaluate the dependency of accuracy estimates and test the strength of these dependencies. Their experiments across 20 datasets indicate that accuracy estimates from different replications of k-fold cross-validation are generally highly correlated, especially as the number of folds increases. They recommend using a larger number of folds with fewer replications for performance evaluation. Particularly, their research provides evidence that ten-fold cross-validation yields the most significant scores among k-fold cross-validation techniques. Ultimately, their findings challenge the notion that simply increasing the number of replications will inherently lead to more reliable accuracy estimates, bringing attention to the importance of considering the dependency relationships between replications.[@wong2019reliable]
 
-## Intro
+## Introduction
 
-This is an introduction to Kernel regression, which is a non-parametric
-estimator that estimates the conditional expectation of two variables
-which is random. The goal of a kernel regression is to discover the
-non-linear relationship between two random variables. To discover the
-non-linear relationship, kernel estimator or kernel smoothing is the
-main method to estimate the curve for non-parametric statistics. In
-kernel estimator, weight function is known as kernel function
-[@efr2008]. Cite this paper [@bro2014principal]. The GEE [@wang2014].
+This is an introduction to understanding cross-validation, its methods, and its importance in data science and statistics. 
+
+Cross-validation is a cornerstone methodology in the field of data science, essential for assessing the predictive performance of statistical models and ensuring their generalizability to unseen data. This resampling technique allows researchers to evaluate how models will perform in practice, addressing critical challenges like overfitting and underfitting, thereby ensuring robustness and reliability of model predictions across various data subsets.
+
+Daniel Berrar's (2019) exposition on cross-validation underscores its importance in parameter tuning and model selection, providing a detailed overview of its common types, including k-fold and leave-one-out cross-validation, and emphasizing its role in balancing the bias-variance tradeoff for improved model performance [@berrar2019cross]. This perspective is enriched by Cullen Schaffer (1993), who explores the significance of cross-validation in selecting optimal classification methods, highlighting its necessity in dealing with imbalanced datasets through stratified approaches [@schaffer1993selecting].
+
+The tutorial by Song, Tang, and Wee (2021) further elaborates on the practical application of cross-validation, presenting a structured, step-by-step approach to assessing model generalizability and emphasizing the significance of the repeated k-folds technique for reducing bias in model evaluation [@song2021making].
+
+Yoonsuh Jung and Jianhua Hu (2015) introduce an advanced k-fold averaging cross-validation procedure, advocating for the averaging of parameter estimates across folds to yield more stable and efficient outcomes. This method demonstrates significant potential in handling high-dimensional data and improving parameter estimation [@jung2015ak].
+
+Zhang and Yang (2015) delve into the strategic use of cross-validation for model selection, particularly in high-dimensional settings, challenging traditional approaches and proposing the integration of AIC and BIC for optimal model estimation [@zhang2015cross]. AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion) are both measures used to evaluate the quality of a statistical model, often in the context of model selection. While they are not directly used for cross-validation, they serve a similar purpose in helping to choose between different models by considering both the goodness of fit and the complexity of the model. Likewise, Wong and Yeh (2019) contribute to the discourse by examining the reliability of accuracy estimates derived from k-fold cross-validation, cautioning against the uncritical increase of replications without considering the correlation between them, and recommending specific strategies for achieving more dependable accuracy estimates [@wong2019reliable].
+
+Collectively, these papers illuminate the multifaceted nature of cross-validation, showcasing its critical role in model evaluation, selection, and generalization. From theoretical underpinnings to practical implementations, cross-validation emerges as an essential tool in a data scientist's arsenal, ensuring models are not only predictive but also generalizable across diverse datasets and contexts.
 
 ## Methods
 
-The common non-parametric regression model is
-$Y_i = m(X_i) + \varepsilon_i$, where $Y_i$ can be defined as the sum of
-the regression function value $m(x)$ for $X_i$. Here $m(x)$ is unknown
-and $\varepsilon_i$ some errors. With the help of this definition, we
-can create the estimation for local averaging i.e. $m(x)$ can be
-estimated with the product of $Y_i$ average and $X_i$ is near to $x$. In
-other words, this means that we are discovering the line through the
-data points with the help of surrounding data points. The estimation
-formula is printed below [@R-base]:
+In terms of the mathematical methodology, the article by Jung and Hu (2015) provides important equations for calculating the mean squared prediction error (MSPE) and mean squared error (MSE) as metrics to evaluate model performance. For instance, the overall test predictors are evaluated using the MSPE, calculated as:
 
 $$
-M_n(x) = \sum_{i=1}^{n} W_n (X_i) Y_i  \tag{1}
-$$ $W_n(x)$ is the sum of weights that belongs to all real numbers.
-Weights are positive numbers and small if $X_i$ is far from $x$.
+MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i
+$$
+
+where MSEi is the mean squared error for the ith fold, and K is the number of folds [@jung2015ak].
 
 ## Analysis and Results
 
