@@ -167,8 +167,6 @@ Zhang and Yang (2015) delve into the strategic use of cross-validation for model
 Collectively, these papers illuminate the multifaceted nature of cross-validation, showcasing its critical role in model evaluation, selection, and generalization. From theoretical underpinnings to practical implementations, cross-validation emerges as an essential tool in a data scientist's arsenal, ensuring models are not only predictive but also generalizable across diverse datasets and contexts.
 
 
-## Test line 3 danielle
-## Test line 4
 ## Methods
 
 In terms of the mathematical methodology, the article by Jung and Hu (2015) provides important equations for calculating the mean squared prediction error (MSPE) and mean squared error (MSE) as metrics to evaluate model performance. For instance, the overall test predictors are evaluated using the MSPE, calculated as:
