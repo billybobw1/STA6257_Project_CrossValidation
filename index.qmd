@@ -215,18 +215,3 @@ ggplot1 = murders %>% ggplot(mapping = aes(x=population/10^6, y=total))
 ### Statistical Modeling
 
 ### Conlusion
-
-## References
-
-Berrar, D. (2019). Cross-Validation. [@berrar2019cross]
-
-Jung, Y., & Hu, J. (2015). AK-fold averaging cross-validation procedure. Journal of nonparametric statistics, 27(2), 167-179. [@jung2015ak]
-
-Schaffer, C. (1993). Selecting a classification method by cross-validation. Machine learning, 13, 135-143. [@schaffer1993selecting]
-
-Song, Q. C., Tang, C., & Wee, S. (2021). Making sense of model generalizability: A tutorial on cross-validation in R and Shiny. Advances in Methods and Practices in Psychological Science, 4(1), 2515245920947067. [@song2021making]
-
-Wong, T. T., & Yeh, P. Y. (2019). Reliable accuracy estimates from k-fold cross validation. IEEE Transactions on Knowledge and Data Engineering, 32(8), 1586-1594. [@wong2019reliable]
-
-Zhang, Y., & Yang, Y. (2015). Cross-validation for selecting a model selection procedure. Journal of Econometrics, 187(1), 95-112. [@zhang2015cross]
-
