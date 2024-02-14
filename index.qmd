@@ -1,6 +1,6 @@
 ---
-title: "STA6257 Data Science Capstone Project"
-author: "Jesse Buntyn"
+title: "Cross Validation Capstone Project"
+author: "Jesse Buntyn, Jolie Wise, Danielle Koche, Waleed Chaudhry"
 date: '`r Sys.Date()`'
 format:
   html:
@@ -160,7 +160,21 @@ Daniel Berrar's (2019) exposition on cross-validation underscores its importance
 
 The tutorial by Song, Tang, and Wee (2021) further elaborates on the practical application of cross-validation, presenting a structured, step-by-step approach to assessing model generalizability and emphasizing the significance of the repeated k-folds technique for reducing bias in model evaluation [@song2021making].
 
-Yoonsuh Jung and Jianhua Hu (2015) introduce an advanced k-fold averaging cross-validation procedure, advocating for the averaging of parameter estimates across folds to yield more stable and efficient outcomes. This method demonstrates significant potential in handling high-dimensional data and improving parameter estimation [@jung2015ak].
+Yoonsuh Jung and Jianhua Hu (2015) introduce an advanced k-fold averaging cross-validation procedure, advocating for the averaging of parameter estimates across folds to yield more stable and efficient outcomes. This method demonstrates significant potential in handling high-dimensional data and improving parameter estimation. 
+
+For the k-fold cross-validation process, the steps outlined in the document are as follows:
+
+1. Randomly and evenly split the dataset into k-folds.
+
+2. Use k-1 folds as the training set to fit the model.
+
+3. Predict the response variable in the hold-out (kth) fold using the fitted model.
+
+4. Calculate the prediction error for the response variable in the hold-out fold.
+
+5. Repeat steps 2-4 k times, using each fold as a hold-out once.
+
+6. Calculate the overall test predictors by averaging all k test predictors.[@jung2015ak].
 
 Zhang and Yang (2015) delve into the strategic use of cross-validation for model selection, particularly in high-dimensional settings, challenging traditional approaches and proposing the integration of AIC and BIC for optimal model estimation [@zhang2015cross]. AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion) are both measures used to evaluate the quality of a statistical model, often in the context of model selection. While they are not directly used for cross-validation, they serve a similar purpose in helping to choose between different models by considering both the goodness of fit and the complexity of the model. Likewise, Wong and Yeh (2019) contribute to the discourse by examining the reliability of accuracy estimates derived from k-fold cross-validation, cautioning against the uncritical increase of replications without considering the correlation between them, and recommending specific strategies for achieving more dependable accuracy estimates [@wong2019reliable].
 
