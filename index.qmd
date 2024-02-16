@@ -47,7 +47,7 @@ Notably, this technique is especially useful when the data set is not too large 
 
 Daniel Berrar's (2019) exposition on cross-validation underscores its importance in parameter tuning and model selection, providing a detailed overview of its common types, including k-fold and leave-one-out cross-validation, and emphasizing its role in balancing the bias-variance tradeoff for improved model performance [@berrar2019cross].
 
-Specifically, common types of cross-validation include:
+**Specifically, common types of cross-validation include:**
 
 **Single Hold-Out Method:** Divides data into a training set and a test set,
 usually in a 70-30 or 90-10 split.
