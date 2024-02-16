@@ -23,13 +23,31 @@ This is an introduction to understanding cross-validation, its methods, and its 
 
 Cross-validation is a cornerstone methodology in the field of data science, essential for assessing the predictive performance of statistical models and ensuring their generalizability to unseen data. This resampling technique allows researchers to evaluate how models will perform in practice, addressing critical challenges like overfitting and underfitting, thereby ensuring robustness and reliability of model predictions across various data subsets.
 
-Daniel Berrar's (2019) exposition on cross-validation underscores its importance in parameter tuning and model selection, providing a detailed overview of its common types, including k-fold and leave-one-out cross-validation, and emphasizing its role in balancing the bias-variance tradeoff for improved model performance [@berrar2019cross]. This perspective is enriched by Cullen Schaffer (1993), who explores the significance of cross-validation in selecting optimal classification methods, highlighting its necessity in dealing with imbalanced datasets through stratified approaches [@schaffer1993selecting].
+Daniel Berrar's (2019) exposition on cross-validation underscores its importance in parameter tuning and model selection, providing a detailed overview of its common types, including k-fold and leave-one-out cross-validation, and emphasizing its role in balancing the bias-variance tradeoff for improved model performance [@berrar2019cross].
+
+Specifically, common types of cross-validation include:
+
+Single Hold-Out Method: Divides data into a training set and a test set,
+usually in a 70-30 or 90-10 split.
+
+K-Fold Cross-Validation: The dataset is split into k equally sized
+folds. Each fold is used once as a test set while the rest serve as the
+training set.
+
+Leave-One-Out Cross-Validation (LOOCV): A special case of k-fold
+cross-validation where k equals the number of data points. Each data
+point is used once as a test set.
+
+Stratified Cross-Validation: Ensures each fold reflects the class
+proportions in the dataset, particularly useful for imbalanced datasets.
+
+This perspective is enriched by Cullen Schaffer (1993), who explores the significance of cross-validation in selecting optimal classification methods, highlighting its necessity in dealing with imbalanced datasets through stratified approaches [@schaffer1993selecting].
 
 The tutorial by Song, Tang, and Wee (2021) further elaborates on the practical application of cross-validation, presenting a structured, step-by-step approach to assessing model generalizability and emphasizing the significance of the repeated k-folds technique for reducing bias in model evaluation [@song2021making].
 
 Yoonsuh Jung and Jianhua Hu (2015) introduce an advanced k-fold averaging cross-validation procedure, advocating for the averaging of parameter estimates across folds to yield more stable and efficient outcomes. This method demonstrates significant potential in handling high-dimensional data and improving parameter estimation. 
 
-For the k-fold cross-validation process, the steps outlined in the document are as follows:
+For the k-fold cross-validation process, the steps are as follows:
 
 1. Randomly and evenly split the dataset into k-folds.
 
