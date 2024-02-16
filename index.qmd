@@ -25,7 +25,7 @@ Cross-validation is a cornerstone methodology in the field of data science, esse
 
 The tutorial by Song, Tang, and Wee (2021) further elaborates on the practical application of cross-validation, presenting a structured, step-by-step approach to assessing model generalizability and emphasizing the significance of the repeated k-folds technique for reducing bias in model evaluation.
 
-The overall 5-step process to cross-validation introduced by them is as follows:
+**The overall 5-step process to cross-validation introduced by them is as follows:**
 
 1. Split the data into a training set and test set, typically 80/20 or 70/30.
 2. Fit a model to the training set and obtain the model parameters.
@@ -33,7 +33,7 @@ The overall 5-step process to cross-validation introduced by them is as follows:
 4. Repeat steps one through three.
 5. Calculate the average cross-validation prediction accuracy across all repetitions [@song2021making].
 
-The difference between K-folds and repeated K-folds being as follows:
+**The difference between K-folds and repeated K-folds being as follows:**
 
 Repeated K-Fold Cross-Validation enhances the robustness of K-Fold by repeating the process multiple times and averaging the results. This method helps to reduce the variability of the single trial of K-Fold cross-validation, providing a more accurate estimate of the model’s ability to generalize to unseen data. Here’s the process:
 
@@ -67,7 +67,7 @@ This perspective is enriched by Cullen Schaffer (1993), who explores the signifi
 
 Yoonsuh Jung and Jianhua Hu (2015) introduce an advanced k-fold averaging cross-validation procedure, advocating for the averaging of parameter estimates across folds to yield more stable and efficient outcomes. This method demonstrates significant potential in handling high-dimensional data and improving parameter estimation. 
 
-For the k-fold cross-validation process, the steps are as follows:
+**For the k-fold cross-validation process, the steps are as follows:**
 
 1. Randomly and evenly split the dataset into k-folds.
 
