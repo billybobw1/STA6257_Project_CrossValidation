@@ -33,18 +33,6 @@ The tutorial by Song, Tang, and Wee (2021) further elaborates on the practical a
 4. Repeat steps one through three.
 5. Calculate the average cross-validation prediction accuracy across all repetitions [@song2021making].
 
-**The difference between K-folds and repeated K-folds being as follows:**
-
-Repeated K-Fold Cross-Validation enhances the robustness of K-Fold by repeating the process multiple times and averaging the results. This method helps to reduce the variability of the single trial of K-Fold cross-validation, providing a more accurate estimate of the model’s ability to generalize to unseen data. Here’s the process:
-
-**Repeated Splitting:** The data is split into k folds as before, but this process is repeated n times, with a different random split each time.
-
-**Model Evaluation:** Just like in K-Fold, models are trained and evaluated k times on each repetition with different splits, leading to n*k total evaluations.
-
-**Final Estimation:** The scores across all repeats are aggregated to provide a final measure.
-
-Notably, this technique is especially useful when the data set is not too large and there is a need to ensure the stability of the evaluation metrics across different splits of the data.
-
 Daniel Berrar's (2019) exposition on cross-validation underscores its importance in parameter tuning and model selection, providing a detailed overview of its common types, including k-fold and leave-one-out cross-validation, and emphasizing its role in balancing the bias-variance tradeoff for improved model performance [@berrar2019cross].
 
 **Specifically, common types of cross-validation include:**
@@ -56,6 +44,8 @@ usually in a 70-30 or 90-10 split.
 folds. Each fold is used once as a test set while the rest serve as the
 training set.
 
+**Repeated K-Fold Cross-Validation:** Repeats the K-Fold process multiple times and averages the results.
+
 **Leave-One-Out Cross-Validation (LOOCV):** A special case of k-fold
 cross-validation where k equals the number of data points. Each data
 point is used once as a test set.
@@ -63,7 +53,19 @@ point is used once as a test set.
 **Stratified Cross-Validation:** Ensures each fold reflects the class
 proportions in the dataset, particularly useful for imbalanced datasets.
 
-This perspective is enriched by Cullen Schaffer (1993), who explores the significance of cross-validation in selecting optimal classification methods, highlighting its necessity in dealing with imbalanced datasets through stratified approaches [@schaffer1993selecting].
+**For clarity, the difference between K-folds and repeated K-folds is as follows:**
+
+Repeated K-Fold Cross-Validation enhances the robustness of K-Fold by repeating the process multiple times and averaging the results. This method helps to reduce the variability of the single trial of K-Fold cross-validation, providing a more accurate estimate of the model’s ability to generalize to unseen data. Here’s the process:
+
+**Repeated Splitting:** The data is split into k folds as before, but this process is repeated n times, with a different random split each time.
+
+**Model Evaluation:** Just like in K-Fold, models are trained and evaluated k times on each repetition with different splits, leading to n*k total evaluations.
+
+**Final Estimation:** The scores across all repeats are aggregated to provide a final measure.
+
+Notably, this technique of repeated K-Folds is especially useful when the data set is not too large and there is a need to ensure the stability of the evaluation metrics across different splits of the data.
+
+The perspective of Berrar is enriched by Cullen Schaffer (1993), who explores the significance of cross-validation in selecting optimal classification methods, highlighting its necessity in dealing with imbalanced datasets through stratified approaches [@schaffer1993selecting].
 
 Yoonsuh Jung and Jianhua Hu (2015) introduce an advanced k-fold averaging cross-validation procedure, advocating for the averaging of parameter estimates across folds to yield more stable and efficient outcomes. This method demonstrates significant potential in handling high-dimensional data and improving parameter estimation. 
 
@@ -83,7 +85,7 @@ Yoonsuh Jung and Jianhua Hu (2015) introduce an advanced k-fold averaging cross-
 
 Zhang and Yang (2015) delve into the strategic use of cross-validation for model selection, particularly in high-dimensional settings, challenging traditional approaches and proposing the integration of AIC and BIC for optimal model estimation [@zhang2015cross]. AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion) are both measures used to evaluate the quality of a statistical model, often in the context of model selection. While they are not directly used for cross-validation, they serve a similar purpose in helping to choose between different models by considering both the goodness of fit and the complexity of the model. 
 
-Likewise, Wong and Yeh (2019) contribute to the discourse by examining the reliability of accuracy estimates derived from k-fold cross-validation, cautioning against the uncritical increase of replications without considering the correlation between them, and recommending specific strategies for achieving more dependable accuracy estimates. More specifically, their experiments across 20 datasets indicate that accuracy estimates from different replications of k-fold cross-validation are generally highly correlated, especially as the number of folds increases. They instead recommend using a larger number of folds with fewer replications for performance evaluation. Particularly, their research concludes that ten-fold cross-validation yields the most significant scores among k-fold cross-validation techniques [@wong2019reliable].
+Likewise, Wong and Yeh (2019) contribute to the discourse by examining the reliability of accuracy estimates derived from k-fold cross-validation, cautioning against the uncritical increase of replications without considering the correlation between them, and recommending specific strategies for achieving more dependable accuracy estimates. More specifically, their experiments across 20 datasets indicate that accuracy estimates from different replications of k-fold cross-validation are generally highly correlated, especially as the number of folds increases. They instead recommend using a larger number of folds with fewer replications for performance evaluation. Particularly, their research concludes that ten-fold cross-validation yields the most significant scores among k-fold cross-validation techniques [@wong2019reliable]. A similar conclusion of the optimal for k is shared by Marcot, B. G., & Hanea, A. M. (2020), as their evidence from their study that explores the ideal value of k for k-fold cross validation analysis showed that the ideal value of k is 10, however, 5 can be sufficient in some cases [@marcot2021optimal]. 
 
 Collectively, these papers illuminate the multifaceted nature of cross-validation, showcasing its critical role in model evaluation, selection, and generalization. From theoretical underpinnings to practical implementations, cross-validation emerges as an essential tool in a data scientist's arsenal, ensuring models are not only predictive but also generalizable across diverse datasets and contexts.
 
