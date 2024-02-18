@@ -87,15 +87,15 @@ method helps to reduce the variability of the single trial of K-Fold
 cross-validation, providing a more accurate estimate of the model's
 ability to generalize to unseen data. Here's the process:
 
-**Repeated Splitting:** The data is split into k folds as before, but
+1.  **Repeated Splitting:** The data is split into k folds as before, but
 this process is repeated n times, with a different random split each
 time.
 
-**Model Evaluation:** Just like in K-Fold, models are trained and
+2.  **Model Evaluation:** Just like in K-Fold, models are trained and
 evaluated k times on each repetition with different splits, leading to
 n\*k total evaluations.
 
-**Final Estimation:** The scores across all repeats are aggregated to
+3.  **Final Estimation:** The scores across all repeats are aggregated to
 provide a final measure.
 
 Notably, this technique of repeated K-Folds is especially useful when
