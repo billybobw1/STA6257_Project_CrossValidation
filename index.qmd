@@ -165,51 +165,15 @@ from their study that explores the ideal value of k for k-fold
 cross-validation analysis showed that the ideal value of k is 10,
 however, 5 can be sufficient in some cases [@marcot2021optimal].
 
-Researchers are constantly proposing new ways to perform
-cross-validation to fit their needs and address issues with existing
-methods. Filzmoser et al. (2009) aimed to test a strategy that would
-enhance complex linear models from small datasets, as well as estimate
-prediction errors for new observations [@filzmoser2009repeated]. Their
-focus was repeated double cross-validation (rdCV).This strategy involves
-splitting the data into training and testing sets in an outer loop for
-estimating prediction, then an inner loop uses the training set produced
-in the outer loop to perform cross-validation. This process is repeated
-many times, producing an increasing number of predicted outcome values.
-These values can be used for better model performance and variability
-estimation. Xu et al. (2018) propose yet another method of
-cross-validation called representative splitting cross-validation
-(RSCV), with their goal being to ensure the calibration and validation
-sets are representative and uniformly distributed in the experimental
-space as possible [@xu2018representative]. They also highlight how this
-method can be used for latent variable selection. RSCV uses the DUPLEX
-algorithm to split the data sets, then k-fold cross-validation is
-applied using the split sets. Rabinowicz & Rosset (2022) intend to
-address how correlation structure affects cross-validation and introduce
-a measure that corrects for bias in cross-validation (CVc)
-[@rabinowicz2022cross]. Correction to cross-validation is not needed
-when splitting the dataset does not change the distributional
-relationship between training and testing sets. In this scenario,
-cross-validation is unbiased, as well as when the weights are zero. Its
-performance was compared to that of standard cross-validation, and the
-bias-correction measure estimates the generalization error better than
-standard cross-validation. Also, as long as the covariance structure is
-specified, the proposed measure will remain unbiased even if the
-appropriate prediction method is not used.
+Ultimately, in statistical analysis, researchers are constantly innovating and refining cross-validation techniques to enhance model performance and address challenges associated with existing methodologies. Filzmoser et al. (2009) sought to explore a method intended to improve the reliability and predictive accuracy of complex linear models, particularly those developed from small datasets, and to provide more accurate prediction error estimates for future observations [@filzmoser2009repeated]. Their investigation was centered around the concept of repeated double cross-validation (rdCV), an advanced technique that entails a dual-phase partitioning of the dataset.
 
-Lei (2020) creates what they call cross-validation with confidence (CVC)
-that intends to address the issue that traditional cross-validation
-methods can be prone to overfitting due to the standard small split
-ratio [@lei2020cross]. The smaller training set creates an
-oversimplified model that fails to account for uncertainty in the
-testing set. CVC compares the predictive risk of each candidate model,
-and it finds the p-values of the residuals of each candidate model to
-pick out the models where the null hypothesis is not rejected. CVC was
-found to stand up against other linear model selection methods when the
-sample size is moderately large and the true model has a lower number of
-predictors, as it was able to provide a predictive model with fewer
-predictors while still being easier to interpret. However, this method
-has yet to consider unsupervised methods, and binary response variables
-require other considerations from what was tested in the article.
+The initial phase involves dividing the data into training and testing sets, which serves as the foundation for prediction accuracy estimation. Subsequently, the second phase employs the training set from the first division in a further round of cross-validation. This dual-loop process is repeated multiple iterations, generating a comprehensive set of predicted outcomes. The aggregate of these outcomes not only facilitates the enhancement of the model's performance but also aids in the more precise estimation of the variability in the model's predictions. 
+
+Another technique, introduced by Xu et al. (2018) is Representative Splitting Cross-Validation (RSCV), aiming to enhance the representativeness and uniformity of calibration and validation sets in experimental studies, with an emphasis on its utility for latent variable selection. This method employs the DUPLEX algorithm for data segmentation, followed by k-fold cross-validation on the divided sets [@xu2018representative].
+
+Building on this, Rabinowicz & Rosset (2022) explore the influence of correlation structures on cross-validation effectiveness, proposing a bias-correction measure, CVc, to address potential biases. This correction is unnecessary when dataset splitting maintains the distributional relationship between training and testing sets, ensuring unbiased cross-validation. Their analysis showed that CVc more accurately estimates generalization error compared to traditional cross-validation, remaining unbiased provided the covariance structure is correctly specified, even without the ideal prediction method [@rabinowicz2022cross]. This research contributes to refining cross-validation techniques, particularly in handling complex data correlations.
+
+Finally, Lei (2020) introduces a method called Cross-Validation with Confidence (CVC) aimed at reducing overfitting, a common problem with traditional cross-validation that uses small splits and ends up with too-simple models [@lei2020cross]. CVC works by checking the predicted risk of different models and using p-values to choose models that best fit without being overly complex. It has proven effective, particularly when dealing with a decent amount of data and models that don't use too many predictors, resulting in simpler, easy-to-understand predictive models. However, CVC hasn't yet been applied to unsupervised learning or models with binary outcomes, pointing out areas for further exploration.
 
 Collectively, these papers illuminate the multifaceted nature of
 cross-validation, showcasing its critical role in model evaluation,
