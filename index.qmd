@@ -197,6 +197,8 @@ $$
 where MSEi is the mean squared error for the ith fold, and K is the
 number of folds [@jung2015ak].
 
+de Rooij and Weeda (2020) once again highlight the ways in which cross-validation can be implemented on a dataset [@de2020cross].  
+
 ## Analysis and Results
 
 ### Data and Vizualisation
@@ -237,3 +239,4 @@ ggplot1 = murders %>% ggplot(mapping = aes(x=population/10^6, y=total))
 ### Conclusion
 
 ### References
+
