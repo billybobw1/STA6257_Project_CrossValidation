@@ -1,5 +1,5 @@
 ---
-title: "Cross-Validation Capstone Project"
+title: "Cross-Validation - Methods & Importance in Data Science and Statistics"
 author: "Jesse Buntyn, Jolie Wise, Danielle Koche, Waleed Chaudhry"
 date: '`r Sys.Date()`'
 format:
@@ -30,7 +30,7 @@ perform in practice, addressing critical challenges like overfitting and
 underfitting, thereby ensuring robustness and reliability of model
 predictions across various data subsets.
 
-The tutorial by Song, Tang, and Wee (2021) further elaborates on the
+The tutorial by [@song2021making] further elaborates on the
 practical application of cross-validation, presenting a structured,
 step-by-step approach to assessing model generalizability and
 emphasizing the significance of the repeated k-folds technique for
@@ -46,14 +46,13 @@ as follows:**
     accuracy.
 4.  Repeat steps one through three.
 5.  Calculate the average cross-validation prediction accuracy across
-    all repetitions [@song2021making].
+    all repetitions.
 
-Daniel Berrar's (2019) exposition on cross-validation underscores its
+[@berrar2019cross] exposition on cross-validation underscores its
 importance in parameter tuning and model selection, providing a detailed
 overview of its common types, including k-fold and leave-one-out
 cross-validation, and emphasizing its role in balancing the
-bias-variance tradeoff for improved model performance
-[@berrar2019cross].
+bias-variance tradeoff for improved model performance.
 
 **Specifically, common types of cross-validation include:**
 
@@ -78,68 +77,15 @@ proportions in the dataset, particularly useful for imbalanced datasets.
 **Repeated K-Fold Cross-Validation:** Repeats the K-Fold process
 multiple times and averages the results.
 
-**For clarity, the difference between K-folds and repeated K-folds is as
-follows:**
-
-Repeated K-Fold Cross-Validation enhances the robustness of K-Fold by
-repeating the process multiple times and averaging the results. This
-method helps to reduce the variability of the single trial of K-Fold
-cross-validation, providing a more accurate estimate of the model's
-ability to generalize to unseen data. Here's the process:
-
-1.  **Repeated Splitting:** The data is split into k folds as before, but
-this process is repeated n times, with a different random split each
-time.
-
-2.  **Model Evaluation:** Just like in K-Fold, models are trained and
-evaluated k times on each repetition with different splits, leading to
-n\*k total evaluations.
-
-3.  **Final Estimation:** The scores across all repeats are aggregated to
-provide a final measure.
-
-Notably, this technique of repeated K-Folds is especially useful when
-the data set is not too large and there is a need to ensure the
-stability of the evaluation metrics across different splits of the data.
-
-The perspective of Berrar is enriched by Cullen Schaffer (1993), who
+The perspective of Berrar is enriched by [@schaffer1993selecting], who
 explores the significance of cross-validation in selecting optimal
 classification methods, highlighting its necessity in dealing with
-imbalanced datasets through stratified approaches
-[@schaffer1993selecting].
+imbalanced datasets through stratified approaches.
 
-Yoonsuh Jung and Jianhua Hu (2015) introduce an advanced k-fold
-averaging cross-validation procedure, advocating for the averaging of
-parameter estimates across folds to yield more stable and efficient
-outcomes. This method demonstrates significant potential in handling
-high-dimensional data and improving parameter estimation.
-
-**For the k-fold cross-validation process, the steps are as follows and see Figure 1:**
-
-1.  Randomly and evenly split the dataset into k-folds.
-
-2.  Use k-1 folds as the training set to fit the model.
-
-3.  Predict the response variable in the hold-out (kth) fold using the
-    fitted model.
-
-4.  Calculate the prediction error for the response variable in the
-    hold-out fold.
-
-5.  Repeat steps 2-4 k times, using each fold as a hold-out once.
-
-6.  Calculate the overall test predictors by averaging all k test
-    predictors.[@jung2015ak]
-
-    ![Figure 1: Basic K-Fold Cross-Validation,
-    k=5](images/K-fold-cross-validation-1.webp){width="413"}
-
-    Source: [@Ranjan_2021]
-
-Zhang and Yang (2015) delve into the strategic use of cross-validation
+[@zhang2015cross] delve into the strategic use of cross-validation
 for model selection, particularly in high-dimensional settings,
 challenging traditional approaches and proposing the integration of AIC
-and BIC for optimal model estimation [@zhang2015cross]. AIC (Akaike
+and BIC for optimal model estimation. AIC (Akaike
 Information Criterion) and BIC (Bayesian Information Criterion) are both
 measures used to evaluate the quality of a statistical model, often in
 the context of model selection. While they are not directly used for
@@ -147,7 +93,7 @@ cross-validation, they serve a similar purpose in helping to choose
 between different models by considering both the goodness of fit and the
 complexity of the model.
 
-Likewise, Wong and Yeh (2019) contribute to the discourse by examining
+Likewise, [@wong2019reliable] contribute to the discourse by examining
 the reliability of accuracy estimates derived from k-fold
 cross-validation, cautioning against the uncritical increase of
 replications without considering the correlation between them, and
@@ -159,21 +105,11 @@ number of folds increases. They instead recommend using a larger number
 of folds with fewer replications for performance evaluation.
 Particularly, their research concludes that ten-fold cross-validation
 yields the most significant scores among k-fold cross-validation
-techniques [@wong2019reliable]. A similar conclusion of the optimal for
-k is shared by Marcot, B. G., & Hanea, A. M. (2020), as their evidence
+techniques. A similar conclusion of the optimal for
+k is shared by [@marcot2021optimal], as their evidence
 from their study that explores the ideal value of k for k-fold
 cross-validation analysis showed that the ideal value of k is 10,
-however, 5 can be sufficient in some cases [@marcot2021optimal].
-
-Ultimately, in statistical analysis, researchers are constantly innovating and refining cross-validation techniques to enhance model performance and address challenges associated with existing methodologies. Filzmoser et al. (2009) sought to explore a method intended to improve the reliability and predictive accuracy of complex linear models, particularly those developed from small datasets, and to provide more accurate prediction error estimates for future observations [@filzmoser2009repeated]. Their investigation was centered around the concept of repeated double cross-validation (rdCV), an advanced technique that entails a dual-phase partitioning of the dataset.
-
-The initial phase involves dividing the data into training and testing sets, which serves as the foundation for prediction accuracy estimation. Subsequently, the second phase employs the training set from the first division in a further round of cross-validation. This dual-loop process is repeated multiple iterations, generating a comprehensive set of predicted outcomes. The aggregate of these outcomes not only facilitates the enhancement of the model's performance but also aids in the more precise estimation of the variability in the model's predictions. 
-
-Another technique, introduced by Xu et al. (2018) is Representative Splitting Cross-Validation (RSCV), aiming to enhance the representativeness and uniformity of calibration and validation sets in experimental studies, with an emphasis on its utility for latent variable selection. This method employs the DUPLEX algorithm for data segmentation, followed by k-fold cross-validation on the divided sets [@xu2018representative].
-
-Building on this, Rabinowicz & Rosset (2022) explore the influence of correlation structures on cross-validation effectiveness, proposing a bias-correction measure, CVc, to address potential biases. This correction is unnecessary when dataset splitting maintains the distributional relationship between training and testing sets, ensuring unbiased cross-validation. Their analysis showed that CVc more accurately estimates generalization error compared to traditional cross-validation, remaining unbiased provided the covariance structure is correctly specified, even without the ideal prediction method [@rabinowicz2022cross]. This research contributes to refining cross-validation techniques, particularly in handling complex data correlations.
-
-Finally, Lei (2020) introduces a method called Cross-Validation with Confidence (CVC) aimed at reducing overfitting, a common problem with traditional cross-validation that uses small splits and ends up with too-simple models [@lei2020cross]. CVC works by checking the predicted risk of different models and using p-values to choose models that best fit without being overly complex. It has proven effective, particularly when dealing with a decent amount of data and models that don't use too many predictors, resulting in simpler, easy-to-understand predictive models. However, CVC hasn't yet been applied to unsupervised learning or models with binary outcomes, pointing out areas for further exploration.
+however, 5 can be sufficient in some cases.
 
 Collectively, these papers illuminate the multifaceted nature of
 cross-validation, showcasing its critical role in model evaluation,
@@ -197,11 +133,77 @@ $$
 where MSEi is the mean squared error for the ith fold, and K is the
 number of folds [@jung2015ak].
 
-de Rooij and Weeda (2020) once again highlight the ways in which cross-validation can be implemented on a dataset [@de2020cross].  
+[@de2020cross] once again highlight the ways in which cross-validation can be implemented on a dataset.
+
+## Cross-validation Techniques
+
+There are many techniques of cross-validation, the one being used depending on what needs to be accomplished. Many of which, mentioned in the introduction. The following will introduce some of those important techniques, as well as others, and research that delve deeper into their purpose. 
+
+[@jung2015ak] introduce an advanced k-fold
+averaging cross-validation procedure, advocating for the averaging of
+parameter estimates across folds to yield more stable and efficient
+outcomes. This method demonstrates significant potential in handling
+high-dimensional data and improving parameter estimation.
+
+**For the k-fold cross-validation process, the steps are as follows and see Figure 1:**
+
+1.  Randomly and evenly split the dataset into k-folds.
+
+2.  Use k-1 folds as the training set to fit the model.
+
+3.  Predict the response variable in the hold-out (kth) fold using the
+    fitted model.
+
+4.  Calculate the prediction error for the response variable in the
+    hold-out fold.
+
+5.  Repeat steps 2-4 k times, using each fold as a hold-out once.
+
+6.  Calculate the overall test predictors by averaging all k test
+    predictors.
+
+    ![Figure 1: Basic K-Fold Cross-Validation,
+    k=5](images/K-fold-cross-validation-1.webp){width="413"}
+
+    Source: [@Ranjan_2021]
+    
+**For clarity, the difference between K-folds and repeated K-folds, another method mentioned earlier, is as
+follows:**
+
+Repeated K-Fold Cross-Validation enhances the robustness of K-Fold by
+repeating the process multiple times and averaging the results. This
+method helps to reduce the variability of the single trial of K-Fold
+cross-validation, providing a more accurate estimate of the model's
+ability to generalize to unseen data. Here's the process:
+
+1.  **Repeated Splitting:** The data is split into k folds as before, but
+this process is repeated n times, with a different random split each
+time.
+
+2.  **Model Evaluation:** Just like in K-Fold, models are trained and
+evaluated k times on each repetition with different splits, leading to
+n\*k total evaluations.
+
+3.  **Final Estimation:** The scores across all repeats are aggregated to
+provide a final measure.
+
+Notably, this technique of repeated K-Folds is especially useful when
+the data set is not too large and there is a need to ensure the
+stability of the evaluation metrics across different splits of the data.
+
+Ultimately, in statistical analysis, researchers are constantly innovating and refining cross-validation techniques to enhance model performance and address challenges associated with existing methodologies. [@filzmoser2009repeated] sought to explore a method intended to improve the reliability and predictive accuracy of complex linear models, particularly those developed from small datasets, and to provide more accurate prediction error estimates for future observations. Their investigation was centered around the concept of repeated double cross-validation (rdCV), an advanced technique that entails a dual-phase partitioning of the dataset.
+
+The initial phase involves dividing the data into training and testing sets, which serves as the foundation for prediction accuracy estimation. Subsequently, the second phase employs the training set from the first division in a further round of cross-validation. This dual-loop process is repeated multiple iterations, generating a comprehensive set of predicted outcomes. The aggregate of these outcomes not only facilitates the enhancement of the model's performance but also aids in the more precise estimation of the variability in the model's predictions. 
+
+Another technique, introduced by [@xu2018representative] is Representative Splitting Cross-Validation (RSCV), aiming to enhance the representativeness and uniformity of calibration and validation sets in experimental studies, with an emphasis on its utility for latent variable selection. This method employs the DUPLEX algorithm for data segmentation, followed by k-fold cross-validation on the divided sets.
+
+Building on this, [@rabinowicz2022cross] explore the influence of correlation structures on cross-validation effectiveness, proposing a bias-correction measure, CVc, to address potential biases. This correction is unnecessary when dataset splitting maintains the distributional relationship between training and testing sets, ensuring unbiased cross-validation. Their analysis showed that CVc more accurately estimates generalization error compared to traditional cross-validation, remaining unbiased provided the covariance structure is correctly specified, even without the ideal prediction method. This research contributes to refining cross-validation techniques, particularly in handling complex data correlations.
+
+Finally, [@lei2020cross] introduces a method called Cross-Validation with Confidence (CVC) aimed at reducing overfitting, a common problem with traditional cross-validation that uses small splits and ends up with too-simple models. CVC works by checking the predicted risk of different models and using p-values to choose models that best fit without being overly complex. It has proven effective, particularly when dealing with a decent amount of data and models that don't use too many predictors, resulting in simpler, easy-to-understand predictive models. However, CVC hasn't yet been applied to unsupervised learning or models with binary outcomes, pointing out areas for further exploration.
 
 ## Analysis and Results
 
-### Data and Vizualisation
+## Data Description and Visualization
 
 
 | **Variable**           | **Type**  | **Characteristic**                    |
@@ -251,9 +253,9 @@ ggplot1 = murders %>% ggplot(mapping = aes(x=population/10^6, y=total))
 
 ```
 
-### Statistical Modeling
+## Statistical Modeling
 
-### Conclusion
+## Conclusion
 
 ### References
-
+**More references to be added once more sections of papers are completed**
