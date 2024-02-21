@@ -203,7 +203,24 @@ de Rooij and Weeda (2020) once again highlight the ways in which cross-validatio
 
 ### Data and Vizualisation
 
-A study was conducted to determine how...
+
+| **Variable**           | **Type**  | **Characteristic**                    |
+|------------------------|-----------|---------------------------------------|
+| Age                    | Predictor | Integer                               |
+| Anaemia                | Predictor | Binary (1 = anemic, 0 = not)          |
+| creatine_phosphokinase | Predictor | Integer                               |
+| Diabetes               | Predictor | Binary (1 = diabetic, 0 = not)        |
+| ejection_fraction      | Predictor | Integer                               |
+| high_blood_pressure    | Predictor | Binary (1 = HBP present, 0 = no HBP)  |
+| Platelets              | Predictor | Continuous                            |
+| serum_creatinine       | Predictor | Continuous                            |
+| serum_sodium           | Predictor | Integer                               |
+| Sex                    | Predictor | Binary (1 = M, 0 = F)                 |
+| Smoking                | Predictor | Binary (1 = smoker, 2 = not a smoker) |
+| Time                   | Predictor | Integer                               |
+| death_event            | Response  | Binary (1 = death, 0 = no death)      |
+
+
 
 ```{r, warning=FALSE, echo=T, message=FALSE}
 # loading packages 
@@ -216,7 +233,7 @@ library(dslabs)
 
 ```{r, warning=FALSE, echo=TRUE}
 # Load Data
-kable(head(murders))
+
 
 ggplot1 = murders %>% ggplot(mapping = aes(x=population/10^6, y=total)) 
 
