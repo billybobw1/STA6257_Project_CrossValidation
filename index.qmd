@@ -205,6 +205,10 @@ Finally, [@lei2020cross] introduces a method called Cross-Validation with Confid
 
 ## Data Description and Visualization
 
+This heart failure clinical records dataset, obtained via the UC Irvine Machine Learning Repository, contains the medical records of 299 patients who had heart failure, collected during their follow-up period, where each patient profile has 13 clinical features. 
+
+More specifically, the dataset comprises medical records of 299 heart failure patients from Faisalabad, Pakistan, collected between April and December 2015. It includes 13 clinical, body, and lifestyle features. The dataset was used to facilitate machine learning predictions on patient survival based solely on serum creatinine and ejection fraction levels. Various machine learning and biostatistical methods were employed for binary classification of survival, feature ranking, and to examine the predictability of survival using the mentioned key features. This study aims to demonstrate the potential of specific biomarkers in predicting heart failure outcomes and to streamline the prediction process for medical practitioners.
+
 | **Variable**           | **Type**  | **Characteristic**                    |
 |------------------------|-----------|---------------------------------------|
 | Age                    | Predictor | Integer                               |
