@@ -234,11 +234,37 @@ library(knitr)
 library(ggthemes)
 library(ggrepel)
 library(dslabs)
+library(ggplot2)
 ```
 
 ```{r, warning=FALSE, echo=TRUE}
 # Load Data
 data <- read.csv('heart_failure_clinical_records_dataset.csv')
+```
+
+### Continuous Variables
+
+```{r}
+par(mfrow=c(2,4))
+hist(data$age, main="Age")
+hist(data$creatinine_phosphokinase, main="Creatinine Phosphokinase")
+hist(data$ejection_fraction, main="Ejection Fraction")
+hist(data$platelets, main="Platelets")
+hist(data$serum_creatinine, main="Serum Creatinine")
+hist(data$serum_sodium, main="Serum Sodium")
+hist(data$time, main="Time")
+```
+
+### Categorical Data
+
+```{r}
+par(mfrow=c(2,3))
+hist(data$anaemia, main="Anaemia", breaks=2)
+hist(data$diabetes, main="Diabetes", breaks=2)
+hist(data$high_blood_pressure, main="High Blood Pressure", breaks=2)
+hist(data$sex, main="Sex", breaks=2)
+hist(data$smoking, main = "Smoking", breaks = 2)
+hist(data$DEATH_EVENT,main = "Death Event",breaks=2)
 ```
 
 ### Missing Values
