@@ -238,22 +238,27 @@ library(dslabs)
 
 ```{r, warning=FALSE, echo=TRUE}
 # Load Data
+data <- read.csv('heart_failure_clinical_records_dataset.csv')
+```
 
+### Missing Values
 
-ggplot1 = murders %>% ggplot(mapping = aes(x=population/10^6, y=total)) 
+```{r}
+colSums(is.na(data)) #total missing values per column
+```
 
-  ggplot1 + geom_point(aes(col=region), size = 4) +
-  geom_text_repel(aes(label=abb)) +
-  scale_x_log10() +
-  scale_y_log10() +
-  geom_smooth(formula = "y~x", method=lm,se = F)+
-  xlab("Populations in millions (log10 scale)") + 
-  ylab("Total number of murders (log10 scale)") +
-  ggtitle("US Gun Murders in 2010") +
-  scale_color_discrete(name = "Region")+
-      theme_bw()
-  
+### Checking for Outliers
 
+```{r}
+#Boxplots to look for outliers
+par(mfrow=c(2,4))
+boxplot(data$age, main="Age")
+boxplot(data$creatinine_phosphokinase, main="Creatinine Phosphokinase")
+boxplot(data$ejection_fraction, main="Ejection Fraction")
+boxplot(data$platelets, main="Platelets")
+boxplot(data$serum_creatinine, main="Serum Creatinine")
+boxplot(data$serum_sodium, main="Serum Sodium")
+boxplot(data$time, main="Time")
 ```
 
 ## Statistical Modeling
