@@ -229,12 +229,14 @@ More specifically, the dataset comprises medical records of 299 heart failure pa
 
 ```{r, warning=FALSE, echo=T, message=FALSE}
 # loading packages 
+#install.packages("corrplot")
 library(tidyverse)
 library(knitr)
 library(ggthemes)
 library(ggrepel)
 library(dslabs)
 library(ggplot2)
+library(corrplot)
 ```
 
 ```{r, warning=FALSE, echo=TRUE}
@@ -286,6 +288,23 @@ boxplot(data$serum_creatinine, main="Serum Creatinine")
 boxplot(data$serum_sodium, main="Serum Sodium")
 boxplot(data$time, main="Time")
 ```
+
+### Correlation
+
+```{r}
+cor(data) %>%
+  corrplot(method = 'ellipse', type = 'upper')
+
+par(mfrow=c(2,4))
+plot(x=data$age,y=data$DEATH_EVENT, main="Age", ylim = c(-.5,1.5))
+plot(x=data$creatinine_phosphokinase,y=data$DEATH_EVENT, main="Creatinine Phosphokinase",ylim = c(-.5,1.5))
+plot(x=data$ejection_fraction,y=data$DEATH_EVENT, main="Ejection Fraction",ylim = c(-.5,1.5))
+plot(x=data$platelets,y=data$DEATH_EVENT, main="Platelets",ylim = c(-.5,1.5))
+plot(x=data$serum_creatinine,y=data$DEATH_EVENT, main="Serum Creatinine",ylim = c(-.5,1.5))
+plot(x=data$serum_sodium,y=data$DEATH_EVENT, main="Serum Sodium",ylim = c(-.5,1.5))
+plot(x=data$time,y=data$DEATH_EVENT, main="Time",ylim = c(-.5,1.5))
+```
+
 
 ## Statistical Modeling
 
