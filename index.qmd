@@ -328,7 +328,29 @@ tenfold_m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
 
 cv.glm(data, tenfold_m2, K=10)$delta
 ```
-In model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included, as the researchers that provided the data set came to the conclusion that death events could be predicted using those 2 variables alone. Interestingly enough, the first model that included all variables produced a lower MSE (mean square error), indicating that from this CV test, model one would be better to use than model 2. 
+In model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included, as the researchers that provided the data set came to the conclusion that death events could be predicted using those 2 variables alone. Interestingly enough, the first model that included all variables produced a lower MSE (mean square error), indicating that from this CV test, model one would be better to use than model 2.
+
+### 5-fold Cross Validation
+```{r}
+library(boot)
+
+set.seed(143269)
+fivefold_m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
+         data = data, 
+         family = "binomial"(link = "logit"))
+
+cv.glm(data, fivefold_m1, K=5)$delta
+
+
+set.seed(185329)
+fivefold_m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
+         data = data, 
+         family = "binomial"(link = "logit"))
+
+cv.glm(data, fivefold_m2, K=5)$delta
+```
+
+Similar to the 10-fold models above, in model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included. With 5-fold cross validation, the data set is divided into 5 parts (as opposed to 10 in 10-fold). Model 1 still has a lower MSE than the full model that includes all predictor variables.
 
 ## Statistical Modeling
 
