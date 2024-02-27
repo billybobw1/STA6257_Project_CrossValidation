@@ -320,7 +320,6 @@ tenfold_m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabe
 
 cv.glm(data, tenfold_m1, K=10)$delta
 
-
 set.seed(85329)
 tenfold_m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
          data = data, 
@@ -353,6 +352,18 @@ cv.glm(data, fivefold_m2, K=5)$delta
 Similar to the 10-fold models above, in model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included. With 5-fold cross validation, the data set is divided into 5 parts (as opposed to 10 in 10-fold). Model 1 still has a lower MSE than the full model that includes all predictor variables.
 
 ## Statistical Modeling
+```{r}
+#install.packages("caret")
+library(caret)
+set.seed(0)
+train_control_loocv=trainControl(method="LOOCV")
+loocv_model = train(DEATH_EVENT ~.,data=data, method="glm",family="binomial", trControl=train_control_loocv)
+
+
+train_control_k10=trainControl(method="cv",number=10)
+k10full= train(DEATH_EVENT ~.,data = data,method="glm",family="binomial",trControl=train_control_k10)
+summary(k10full)
+```
 
 ## Conclusion
 
