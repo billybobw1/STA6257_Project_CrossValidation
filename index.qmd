@@ -201,7 +201,6 @@ Building on this, [@rabinowicz2022cross] explore the influence of correlation st
 
 Finally, [@lei2020cross] introduces a method called Cross-Validation with Confidence (CVC) aimed at reducing overfitting, a common problem with traditional cross-validation that uses small splits and ends up with too-simple models. CVC works by checking the predicted risk of different models and using p-values to choose models that best fit without being overly complex. It has proven effective, particularly when dealing with a decent amount of data and models that don't use too many predictors, resulting in simpler, easy-to-understand predictive models. However, CVC hasn't yet been applied to unsupervised learning or models with binary outcomes, pointing out areas for further exploration.
 
-## Analysis and Results
 
 ## Data Description and Visualization
 
@@ -305,6 +304,31 @@ plot(x=data$serum_sodium,y=data$DEATH_EVENT, main="Serum Sodium",ylim = c(-.5,1.
 plot(x=data$time,y=data$DEATH_EVENT, main="Time",ylim = c(-.5,1.5))
 ```
 
+
+## Analysis and Results
+
+
+### 10-fold Cross Validation
+
+```{r}
+library(boot)
+
+set.seed(43269)
+tenfold_m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
+         data = data, 
+         family = "binomial"(link = "logit"))
+
+cv.glm(data, tenfold_m1, K=10)$delta
+
+
+set.seed(85329)
+tenfold_m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
+         data = data, 
+         family = "binomial"(link = "logit"))
+
+cv.glm(data, tenfold_m2, K=10)$delta
+```
+In model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included, as the researchers that provided the data set came to the conclusion that death events could be predicted using those 2 variables alone. Interestingly enough, the first model that included all variables produced a lower MSE (mean square error), indicating that from this CV test, model one would be better to use than model 2. 
 
 ## Statistical Modeling
 
