@@ -118,13 +118,24 @@ practical implementations, cross-validation emerges as an essential tool
 in a data scientist's arsenal, ensuring models are not only predictive
 but also generalizable across diverse datasets and contexts.
 
+
 ## Methods
 
 In terms of the mathematical methodology, the article by Jung and Hu
 (2015) provides important equations for calculating the mean squared
 prediction error (MSPE) and mean squared error (MSE) as metrics to
-evaluate model performance. For instance, the overall test predictors
-are evaluated using the MSPE, calculated as:
+evaluate model performance. 
+
+The MSE is the expectation of the squared norm of the difference between the estimated and the true parameter vectors,
+and can be calculated as:
+
+$$
+MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2
+$$
+
+where $\hat{\beta}_i$ is the estimated value of the $i$-th parameter, $\beta_i$ is the true value of the $i$-th parameter, and $p$ is the total number of parameters. The lower the MSE, the better the model's predictions match the actual data.
+
+The overall test predictors are evaluated using the MSPE, calculated as:
 
 $$
 MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i
@@ -133,7 +144,18 @@ $$
 where MSEi is the mean squared error for the ith fold, and K is the
 number of folds [@jung2015ak].
 
-[@de2020cross] once again highlight the ways in which cross-validation can be implemented on a dataset.
+Related, in statistical modeling, $R^2$, also known as the coefficient of determination, is a measure that indicates the proportion of the variance in the dependent variable that is predictable from the independent variables. It provides a sense of how well the independent variables predict the dependent variable; the closer $R^2$ is to 1, the better the model explains the data.
+
+This can be written as:
+
+$$
+R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}}
+$$
+
+where $\bar{y}$ is the mean value of $y$ [@ott2015introduction]. 
+
+Ultimately, $R^2$ and MSE are related in that they both measure the model's performance, but they do it in different ways. While $R^2$ measures the proportion of variance explained by the model, MSE measures the average error of the model's predictions. In the context of cross-validation, both metrics can be used to compare models: a higher $R^2$ and a lower MSE would typically indicate a better predictive model.
+
 
 ## Cross-validation Techniques
 
@@ -167,6 +189,12 @@ high-dimensional data and improving parameter estimation.
 
     Source: [@Ranjan_2021]
     
+The MSE calculation using K-folds is as follows [@jung2015ak]:
+
+$$
+CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i
+$$
+
 **For clarity, the difference between K-folds and repeated K-folds, another method mentioned earlier, is as
 follows:**
 
@@ -206,7 +234,9 @@ Finally, [@lei2020cross] introduces a method called Cross-Validation with Confid
 
 This heart failure clinical records dataset, obtained via the UC Irvine Machine Learning Repository, contains the medical records of 299 patients who had heart failure, collected during their follow-up period, where each patient profile has 13 clinical features. 
 
-More specifically, the dataset comprises medical records of 299 heart failure patients from Faisalabad, Pakistan, collected between April and December 2015. It includes 13 clinical, body, and lifestyle features. The dataset was used to facilitate machine learning predictions on patient survival based solely on serum creatinine and ejection fraction levels. Various machine learning and biostatistical methods were employed for binary classification of survival, feature ranking, and to examine the predictability of survival using the mentioned key features. This study aims to demonstrate the potential of specific biomarkers in predicting heart failure outcomes and to streamline the prediction process for medical practitioners.
+More specifically, the dataset comprises medical records of 299 heart failure patients from Faisalabad, Pakistan, collected between April and December 2015. It includes 13 clinical, body, and lifestyle features. The dataset was used to facilitate machine learning predictions on patient survival based solely on serum creatinine and ejection fraction levels. Various machine learning and biostatistical methods were employed for binary classification of survival, feature ranking, and to examine the predictability of survival using the mentioned key features. This study aims to demonstrate the potential of specific biomarkers in predicting heart failure outcomes and to streamline the prediction process for medical practitioners. Notably, [@de2020cross] highlight the ways in which cross-validation can be implemented on a dataset, such as ours, through different cross-validation methods and techniques.
+
+Our data description is as follows:
 
 | **Variable**           | **Type**  | **Characteristic**                    |
 |------------------------|-----------|---------------------------------------|
@@ -223,7 +253,6 @@ More specifically, the dataset comprises medical records of 299 heart failure pa
 | Smoking                | Predictor | Binary (1 = smoker, 2 = not a smoker) |
 | Time                   | Predictor | Integer                               |
 | death_event            | Response  | Binary (1 = death, 0 = no death)      |
-
 
 
 ```{r, warning=FALSE, echo=T, message=FALSE}
@@ -327,6 +356,7 @@ tenfold_m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
 
 cv.glm(data, tenfold_m2, K=10)$delta
 ```
+
 In model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included, as the researchers that provided the data set came to the conclusion that death events could be predicted using those 2 variables alone. Interestingly enough, the first model that included all variables produced a lower MSE (mean square error), indicating that from this CV test, model one would be better to use than model 2.
 
 ### 5-fold Cross Validation
@@ -364,6 +394,7 @@ train_control_k10=trainControl(method="cv",number=10)
 k10full= train(DEATH_EVENT ~.,data = data,method="glm",family="binomial",trControl=train_control_k10)
 summary(k10full)
 ```
+
 
 ## Conclusion
 
