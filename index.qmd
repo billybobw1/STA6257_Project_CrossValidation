@@ -337,49 +337,107 @@ plot(x=data$time,y=data$DEATH_EVENT, main="Time",ylim = c(-.5,1.5))
 ## Analysis and Results
 
 
-### 10-fold Cross Validation
+### 10-fold Cross Validation:
 
 ```{r}
 library(boot)
 
 set.seed(43269)
-tenfold_m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
+m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
          data = data, 
          family = "binomial"(link = "logit"))
 
-cv.glm(data, tenfold_m1, K=10)$delta
+cv.glm(data, m1, K=10)$delta
 
 set.seed(85329)
-tenfold_m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
+m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
          data = data, 
          family = "binomial"(link = "logit"))
 
-cv.glm(data, tenfold_m2, K=10)$delta
+cv.glm(data, m2, K=10)$delta
 ```
 
 In model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included, as the researchers that provided the data set came to the conclusion that death events could be predicted using those 2 variables alone. Interestingly enough, the first model that included all variables produced a lower MSE (mean square error), indicating that from this CV test, model one would be better to use than model 2.
 
-### 5-fold Cross Validation
+### 5-fold Cross Validation:
 ```{r}
 library(boot)
 
 set.seed(143269)
-fivefold_m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
+m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
          data = data, 
          family = "binomial"(link = "logit"))
 
-cv.glm(data, fivefold_m1, K=5)$delta
+cv.glm(data, m1, K=5)$delta
 
 
 set.seed(185329)
-fivefold_m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
+m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
          data = data, 
          family = "binomial"(link = "logit"))
 
-cv.glm(data, fivefold_m2, K=5)$delta
+cv.glm(data, m2, K=5)$delta
 ```
 
 Similar to the 10-fold models above, in model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included. With 5-fold cross validation, the data set is divided into 5 parts (as opposed to 10 in 10-fold). Model 1 still has a lower MSE than the full model that includes all predictor variables.
+
+###Single Hold-Out Method:
+```{r}
+#add obs # for each row
+library(dplyr)
+data_SHO <- data %>%
+  mutate(obs = row_number()) %>%
+  relocate(obs)
+
+#split
+library(rsample)
+set.seed(726159)
+split_SHO <- initial_split(data_SHO, prop = 0.5)
+training_SHO <- training(split_SHO)
+validation_SHO <- testing(split_SHO)
+
+#create SHO models with training set
+m1_SHO <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
+         data = training_SHO, 
+         family = "binomial"(link = "logit"))
+
+m2_SHO <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
+         data = training_SHO, 
+         family = "binomial"(link = "logit"))
+
+#calculate MSE
+validation_SHO <- validation_SHO %>% 
+  mutate(yhat_m1_SHO = predict(m1_SHO, newdata = validation_SHO),
+         yhat_m2_SHO = predict(m2_SHO, newdata = validation_SHO)) %>%
+  mutate(sqerr_m1_SHO = (yhat_m1_SHO - DEATH_EVENT)^2,
+         sqerr_m2_SHO = (yhat_m2_SHO - DEATH_EVENT)^2) %>%
+  relocate(obs, DEATH_EVENT, yhat_m1_SHO, sqerr_m1_SHO, yhat_m2_SHO, sqerr_m2_SHO)
+
+head(validation_SHO)
+
+mean(validation_SHO$sqerr_m1_SHO, na.rm = TRUE)
+mean(validation_SHO$sqerr_m2_SHO, na.rm = TRUE)
+```
+Using the Single Hold-Out Method, model 2 provides us with a lower mean squared error. Model 2 includes only ejection fraction and serum creatinine as predictor variables, meaning this reduced model is a better fit according to this cross-validation technique.
+
+###Leave-One-Out Cross-Validation (LOOCV):
+```{r}
+set.seed(7432)
+m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
+         data = data, 
+         family = "binomial"(link = "logit"))
+
+cv.glm(data, m1)$delta
+
+
+set.seed(20987)
+m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
+         data = data, 
+         family = "binomial"(link = "logit"))
+
+cv.glm(data, m2)$delta
+```
+According to LOOCV, our full model (which includes all predictor variables) is a better fit due to a lower mean squared error.
 
 ## Statistical Modeling
 ```{r}
