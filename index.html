@@ -3541,7 +3541,9 @@ CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i
 </div>
 </div>
 <p>Similar to the 10-fold models above, in model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included. With 5-fold cross validation, the data set is divided into 5 parts (as opposed to 10 in 10-fold). Model 1 still has a lower MSE than the full model that includes all predictor variables.</p>
-<p>###Single Hold-Out Method:</p>
+</section>
+<section id="single-hold-out-method" class="level3">
+<h3 class="anchored" data-anchor-id="single-hold-out-method">Single Hold-Out Method:</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -3616,7 +3618,9 @@ CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i
 </div>
 </div>
 <p>Using the Single Hold-Out Method, model 2 provides us with a lower mean squared error. Model 2 includes only ejection fraction and serum creatinine as predictor variables, meaning this reduced model is a better fit according to this cross-validation technique.</p>
-<p>###Leave-One-Out Cross-Validation (LOOCV):</p>
+</section>
+<section id="leave-one-out-cross-validation-loocv" class="level3">
+<h3 class="anchored" data-anchor-id="leave-one-out-cross-validation-loocv">Leave-One-Out Cross-Validation (LOOCV):</h3>
 <div class="cell">
 <details>
 <summary>Code</summary>
