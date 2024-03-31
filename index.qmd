@@ -255,9 +255,9 @@ Our data description is as follows:
 | death_event            | Response  | Binary (1 = death, 0 = no death)      |
 
 
+
 ```{r, warning=FALSE, echo=T, message=FALSE}
 # loading packages 
-#install.packages("corrplot")
 library(tidyverse)
 library(knitr)
 library(ggthemes)
@@ -265,6 +265,8 @@ library(ggrepel)
 library(dslabs)
 library(ggplot2)
 library(corrplot)
+library(rsample)
+library(tidymodels)
 ```
 
 ```{r, warning=FALSE, echo=TRUE}
@@ -439,18 +441,42 @@ cv.glm(data, m2)$delta
 ```
 Leave-One-Out cross-validation (LOOCV) follows a similar data set splitting technique, but in this case, the data is split k-ways, where k is equal to the number of data points. According to LOOCV, the full model (which includes all predictor variables) is a better fit due to a lower mean squared error compared to the reduced model (which only includes serum creatinine and ejection fraction).
 
-## Statistical Modeling
+### Monte Carlo Cross-Validation
 ```{r}
-#install.packages("caret")
-library(caret)
-set.seed(0)
-train_control_loocv=trainControl(method="LOOCV")
-loocv_model = train(DEATH_EVENT ~.,data=data, method="glm",family="binomial", trControl=train_control_loocv)
+data$DEATH_EVENT=as.factor(data$DEATH_EVENT)
+set.seed(30)
+resample1 <- mc_cv(data, times = 100, prop = .5)
+map_dbl(
+  resample1$splits,
+  function(x) {
+    dat <- as.data.frame(x)$DEATH_EVENT
+    mean(dat == "Yes")
+  }
+)
+
+m1_recipe <- recipe(DEATH_EVENT ~ ., data = data)
+mccv_model <- logistic_reg() %>% #creating classification model
+  set_engine("glm") %>%
+  set_mode("classification")
+m1_wflow <- #adding variables for model 1
+  workflow() %>%
+  add_formula(
+    DEATH_EVENT ~ .) %>%
+  add_model(mccv_model)
+m2_wflow <- # adding variables for model 2
+  workflow() %>%
+  add_formula(
+    DEATH_EVENT ~ ejection_fraction + serum_creatinine) %>%
+  add_model(mccv_model)
 
 
-train_control_k10=trainControl(method="cv",number=10)
-k10full= train(DEATH_EVENT ~.,data = data,method="glm",family="binomial",trControl=train_control_k10)
-summary(k10full)
+
+keep_pred <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
+set.seed(30)
+m1_MCCV <-m1_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
+collect_metrics(m1_MCCV)
+m2_MCCV <- m2_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
+collect_metrics(m2_MCCV)
 ```
 
 
