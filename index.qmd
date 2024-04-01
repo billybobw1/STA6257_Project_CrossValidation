@@ -441,7 +441,7 @@ cv.glm(data, m2)$delta
 ```
 Leave-One-Out cross-validation (LOOCV) follows a similar data set splitting technique, but in this case, the data is split k-ways, where k is equal to the number of data points. According to LOOCV, the full model (which includes all predictor variables) is a better fit due to a lower mean squared error compared to the reduced model (which only includes serum creatinine and ejection fraction).
 
-### Monte Carlo Cross-Validation
+### Monte Carlo Cross-Validation:
 ```{r}
 data$DEATH_EVENT=as.factor(data$DEATH_EVENT)
 set.seed(30)
@@ -478,6 +478,8 @@ collect_metrics(m1_MCCV)
 m2_MCCV <- m2_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
 collect_metrics(m2_MCCV)
 ```
+
+While the researchers that provided the dataset found that survival of heart attack patients can be predicted using only serum creatinine and ejection fraction as predictor variables, analysis conducted using various cross-validation techniques has shown that the full model (which includes all predictor variables within the dataset) has a lower mean squared error (MSE) after testing. This essentially means the full model is more robust with predictive ability compared to the reduced model. While the difference in MSEs between the two models is marginal, the full model by technicality does have slightly more predictive ability. The marginal difference between models supports the argument made by the researchers because a model with two predictor variables and a model with twelve predictor variables can produce the small difference in MSEs seen in the analysis above.
 
 
 ## Conclusion
