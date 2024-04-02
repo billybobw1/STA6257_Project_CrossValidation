@@ -82,6 +82,7 @@ explores the significance of cross-validation in selecting optimal
 classification methods, highlighting its necessity in dealing with
 imbalanced datasets through stratified approaches.
 
+### Related Work
 [@zhang2015cross] delve into the strategic use of cross-validation
 for model selection, particularly in high-dimensional settings,
 challenging traditional approaches and proposing the integration of AIC
@@ -110,6 +111,16 @@ k is shared by [@marcot2021optimal], as their evidence
 from their study that explores the ideal value of k for k-fold
 cross-validation analysis showed that the ideal value of k is 10,
 however, 5 can be sufficient in some cases.
+
+Ultimately, in statistical analysis, researchers are constantly innovating and refining cross-validation techniques to enhance model performance and address challenges associated with existing methodologies. [@filzmoser2009repeated] sought to explore a method intended to improve the reliability and predictive accuracy of complex linear models, particularly those developed from small datasets, and to provide more accurate prediction error estimates for future observations. Their investigation was centered around the concept of repeated double cross-validation (rdCV), an advanced technique that entails a dual-phase partitioning of the dataset.
+
+The initial phase involves dividing the data into training and testing sets, which serves as the foundation for prediction accuracy estimation. Subsequently, the second phase employs the training set from the first division in a further round of cross-validation. This dual-loop process is repeated multiple iterations, generating a comprehensive set of predicted outcomes. The aggregate of these outcomes not only facilitates the enhancement of the model's performance but also aids in the more precise estimation of the variability in the model's predictions. 
+
+Another technique, introduced by [@xu2018representative] is Representative Splitting Cross-Validation (RSCV), aiming to enhance the representativeness and uniformity of calibration and validation sets in experimental studies, with an emphasis on its utility for latent variable selection. This method employs the DUPLEX algorithm for data segmentation, followed by k-fold cross-validation on the divided sets.
+
+Building on this, [@rabinowicz2022cross] explore the influence of correlation structures on cross-validation effectiveness, proposing a bias-correction measure, CVc, to address potential biases. This correction is unnecessary when dataset splitting maintains the distributional relationship between training and testing sets, ensuring unbiased cross-validation. Their analysis showed that CVc more accurately estimates generalization error compared to traditional cross-validation, remaining unbiased provided the covariance structure is correctly specified, even without the ideal prediction method. This research contributes to refining cross-validation techniques, particularly in handling complex data correlations.
+
+Finally, [@lei2020cross] introduces a method called Cross-Validation with Confidence (CVC) aimed at reducing overfitting, a common problem with traditional cross-validation that uses small splits and ends up with too-simple models. CVC works by checking the predicted risk of different models and using p-values to choose models that best fit without being overly complex. It has proven effective, particularly when dealing with a decent amount of data and models that don't use too many predictors, resulting in simpler, easy-to-understand predictive models. However, CVC hasn't yet been applied to unsupervised learning or models with binary outcomes, pointing out areas for further exploration.
 
 Collectively, these papers illuminate the multifaceted nature of
 cross-validation, showcasing its critical role in model evaluation,
@@ -219,18 +230,9 @@ Notably, this technique of repeated K-Folds is especially useful when
 the data set is not too large and there is a need to ensure the
 stability of the evaluation metrics across different splits of the data.
 
-Ultimately, in statistical analysis, researchers are constantly innovating and refining cross-validation techniques to enhance model performance and address challenges associated with existing methodologies. [@filzmoser2009repeated] sought to explore a method intended to improve the reliability and predictive accuracy of complex linear models, particularly those developed from small datasets, and to provide more accurate prediction error estimates for future observations. Their investigation was centered around the concept of repeated double cross-validation (rdCV), an advanced technique that entails a dual-phase partitioning of the dataset.
+## Analysis and Results
 
-The initial phase involves dividing the data into training and testing sets, which serves as the foundation for prediction accuracy estimation. Subsequently, the second phase employs the training set from the first division in a further round of cross-validation. This dual-loop process is repeated multiple iterations, generating a comprehensive set of predicted outcomes. The aggregate of these outcomes not only facilitates the enhancement of the model's performance but also aids in the more precise estimation of the variability in the model's predictions. 
-
-Another technique, introduced by [@xu2018representative] is Representative Splitting Cross-Validation (RSCV), aiming to enhance the representativeness and uniformity of calibration and validation sets in experimental studies, with an emphasis on its utility for latent variable selection. This method employs the DUPLEX algorithm for data segmentation, followed by k-fold cross-validation on the divided sets.
-
-Building on this, [@rabinowicz2022cross] explore the influence of correlation structures on cross-validation effectiveness, proposing a bias-correction measure, CVc, to address potential biases. This correction is unnecessary when dataset splitting maintains the distributional relationship between training and testing sets, ensuring unbiased cross-validation. Their analysis showed that CVc more accurately estimates generalization error compared to traditional cross-validation, remaining unbiased provided the covariance structure is correctly specified, even without the ideal prediction method. This research contributes to refining cross-validation techniques, particularly in handling complex data correlations.
-
-Finally, [@lei2020cross] introduces a method called Cross-Validation with Confidence (CVC) aimed at reducing overfitting, a common problem with traditional cross-validation that uses small splits and ends up with too-simple models. CVC works by checking the predicted risk of different models and using p-values to choose models that best fit without being overly complex. It has proven effective, particularly when dealing with a decent amount of data and models that don't use too many predictors, resulting in simpler, easy-to-understand predictive models. However, CVC hasn't yet been applied to unsupervised learning or models with binary outcomes, pointing out areas for further exploration.
-
-
-## Data Description and Visualization
+### Data Description and Visualization
 
 This heart failure clinical records dataset, obtained via the UC Irvine Machine Learning Repository, contains the medical records of 299 patients who had heart failure, collected during their follow-up period, where each patient profile has 13 clinical features. 
 
@@ -274,7 +276,7 @@ library(tidymodels)
 data <- read.csv('heart_failure_clinical_records_dataset.csv')
 ```
 
-### Continuous Variables
+#### Continuous Variables
 
 ```{r}
 par(mfrow=c(2,4))
@@ -287,7 +289,7 @@ hist(data$serum_sodium, main="Serum Sodium")
 hist(data$time, main="Time")
 ```
 
-### Categorical Data
+#### Categorical Data
 
 ```{r}
 par(mfrow=c(2,3))
@@ -299,13 +301,13 @@ hist(data$smoking, main = "Smoking", breaks = 2)
 hist(data$DEATH_EVENT,main = "Death Event",breaks=2)
 ```
 
-### Missing Values
+#### Missing Values
 
 ```{r}
 colSums(is.na(data)) #total missing values per column
 ```
 
-### Checking for Outliers
+#### Checking for Outliers
 
 ```{r}
 #Boxplots to look for outliers
@@ -319,7 +321,7 @@ boxplot(data$serum_sodium, main="Serum Sodium")
 boxplot(data$time, main="Time")
 ```
 
-### Correlation
+#### Correlation
 
 ```{r}
 cor(data) %>%
@@ -336,10 +338,10 @@ plot(x=data$time,y=data$DEATH_EVENT, main="Time",ylim = c(-.5,1.5))
 ```
 
 
-## Analysis and Results
+### Statistical Modeling
 
 
-### 10-fold Cross Validation:
+#### 10-fold Cross Validation:
 
 ```{r}
 library(boot)
@@ -361,7 +363,7 @@ cv.glm(data, m2, K=10)$delta
 
 With any variation of k-fold cross validation, the dataset is split into k sized folds that will all be equal. Here, the dataset is split in 10 folds. As previously discussed, [@wong2019reliable] mentions 10-fold cross validation analysis to be most effective in most cases. In model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included, as the researchers that provided the data set came to the conclusion that death events could be predicted using those 2 variables alone. Interestingly enough, the first model that included all variables produced a lower MSE (mean square error), indicating that from this CV test, model one would be better to use than model 2.
 
-### 5-fold Cross Validation:
+#### 5-fold Cross Validation:
 ```{r}
 library(boot)
 
@@ -383,7 +385,7 @@ cv.glm(data, m2, K=5)$delta
 
 Similar to the 10-fold models above, our dataset is split into equal pieces. However, in this case, we are only doing 5 folds compared to our 10-fold analysis above. Again, in model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included. With 5-fold cross validation, the data set is divided into 5 parts (as opposed to 10 in 10-fold). Model 1 still has a lower MSE than the full model that includes all predictor variables.
 
-### Single Hold-Out Method:
+#### Single Hold-Out Method:
 ```{r}
 #add obs # for each row
 library(dplyr)
@@ -422,7 +424,7 @@ mean(validation_SHO$sqerr_m2_SHO, na.rm = TRUE)
 ```
 Using the Single Hold-Out Method, the data set is split into a training set and a test/validation set. Here, we are using a 50-50 split. After conducting the analysis, it can be seen that model 2 provides us with a lower mean squared error. Model 2 includes only ejection fraction and serum creatinine as predictor variables, meaning this reduced model is a better fit according to this cross-validation technique.
 
-### Leave-One-Out Cross-Validation (LOOCV):
+#### Leave-One-Out Cross-Validation (LOOCV):
 ```{r}
 set.seed(7432)
 m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
@@ -441,7 +443,7 @@ cv.glm(data, m2)$delta
 ```
 Leave-One-Out cross-validation (LOOCV) follows a similar data set splitting technique, but in this case, the data is split k-ways, where k is equal to the number of data points. According to LOOCV, the full model (which includes all predictor variables) is a better fit due to a lower mean squared error compared to the reduced model (which only includes serum creatinine and ejection fraction).
 
-### Monte Carlo Cross-Validation:
+#### Monte Carlo Cross-Validation:
 ```{r}
 data$DEATH_EVENT=as.factor(data$DEATH_EVENT)
 set.seed(30)
@@ -485,4 +487,3 @@ While the researchers that provided the dataset found that survival of heart att
 ## Conclusion
 
 ### References
-**More references to be added once more sections of papers are completed**
