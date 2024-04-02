@@ -3352,6 +3352,11 @@ CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i
 <li><p><strong>Final Estimation:</strong> The scores across all repeats are aggregated to provide a final measure.</p></li>
 </ol>
 <p>Notably, this technique of repeated K-Folds is especially useful when the data set is not too large and there is a need to ensure the stability of the evaluation metrics across different splits of the data.</p>
+<p>Monte Carlo Cross-Validation (MCCV) is another commonly used method. Similar to the k-folds technique, MCCV randomly removes significant chunks of the dataset without replacement to use as its training and validation (<span class="math inline">\(s_v\)</span>) data sets <span class="citation" data-cites="haddad2013applicability">(<a href="#ref-haddad2013applicability" role="doc-biblioref">Haddad et al. 2013</a>)</span>. This sampling is repeated N times. The criterion for this techniques, according to <span class="citation" data-cites="haddad2013applicability">(<a href="#ref-haddad2013applicability" role="doc-biblioref">Haddad et al. 2013</a>)</span>, is as follows:</p>
+<p><span class="math display">\[
+MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2
+\]</span></p>
+<p>One of the appeals of MCCV over some other techniques its reduced computational complexity compared to other techniques, such as Leave-One-Out Cross-Validation<span class="citation" data-cites="james1980monte">(<a href="#ref-james1980monte" role="doc-biblioref">James 1980</a>)</span>.</p>
 </section>
 <section id="analysis-and-results" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-and-results">Analysis and Results</h2>
@@ -3847,6 +3852,9 @@ Berrar, Daniel et al. 2019. <span>“Cross-Validation.”</span>
 </div>
 <div id="ref-filzmoser2009repeated" class="csl-entry" role="listitem">
 Filzmoser, Peter, Bettina Liebmann, and Kurt Varmuza. 2009. <span>“Repeated Double Cross Validation.”</span> <em>Journal of Chemometrics: A Journal of the Chemometrics Society</em> 23 (4): 160–71.
+</div>
+<div id="ref-haddad2013applicability" class="csl-entry" role="listitem">
+Haddad, Khaled, Ataur Rahman, Mohammad A Zaman, and Surendra Shrestha. 2013. <span>“Applicability of Monte Carlo Cross Validation Technique for Model Development and Validation Using Generalised Least Squares Regression.”</span> <em>Journal of Hydrology</em> 482: 119–28.
 </div>
 <div id="ref-james1980monte" class="csl-entry" role="listitem">
 James, Frederick. 1980. <span>“Monte Carlo Theory and Practice.”</span> <em>Reports on Progress in Physics</em> 43 (9): 1145.
