@@ -1,6 +1,6 @@
 ---
 title: "Cross-Validation - Methods & Importance in Data Science and Statistics"
-author: "Jesse Buntyn, Jolie Wise, Danielle Koche, Waleed Chaudhry"
+author: "Jesse Buntyn, Jolie Wise, Danielle Koche"
 date: '`r Sys.Date()`'
 format:
   html:
@@ -598,20 +598,25 @@ m2_MCCV <- m2_wflow %>% fit_resamples(resamples = resample1, control = keep_pred
 collect_metrics(m2_MCCV)
 ```
 
+## Conclusion
+
+This paper shows various cross-validation techniques that can be used for modeling validation, including single hold-out, 5 & 10 k-folds, leave-one-out, and Monte Carlo cross-validation.
+
 While the researchers that provided the dataset found that survival of
 heart attack patients can be predicted using only serum creatinine and
-ejection fraction as predictor variables, analysis conducted using
+ejection fraction as predictor variables. The linear regression analysis we conducted using
 various cross-validation techniques has shown that the full model (which
 includes all predictor variables within the dataset) has a lower mean
 squared error (MSE) after testing. This essentially means the full model
 is more robust with predictive ability compared to the reduced model.
-While the difference in MSEs between the two models is marginal, the
+That being said, the difference in MSEs between the two models is marginal, however, the
 full model by technicality does have slightly more predictive ability.
-The marginal difference between models supports the argument made by the
-researchers because a model with two predictor variables and a model
-with twelve predictor variables can produce the small difference in MSEs
-seen in the analysis above.
 
-## Conclusion
+The marginal difference between models supports the argument made by the
+researchers because the model with two predictor variables and the model
+with twelve predictor variables produced small differences in MSEs
+as seen in the analysis above; models with less predictor variables are typically preferred in statistical analysis. 
+
+Ultimately, while the k-folds CV technique (particularly 10 folds) seemed to perform the best, most of these techniques seem sufficient to help validate a model based on this example.
 
 ### References
