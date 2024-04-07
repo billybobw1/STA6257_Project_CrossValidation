@@ -3560,9 +3560,11 @@ MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)
 </div>
 </div>
 </div>
+<p>Boxplots for our continuous variables were created in our exploratory analysis to evaluate if any variables have outlier that need to be addressed. The boxplots do indicate that some of our variables have potential outliers, namely creatinine phosphokinase, ejection fraction, platelets, serum creatinine, and serum sodium. However, these data points will remain untouched for our analysis. The indicated outlier do not appear to be recording errors, such as a negative time variable or unrealistic age. The outliers in the boxplots appear to be genuine observations and should be considered in our model. The original article also did not remove any outliers <span class="citation" data-cites="chicco2020machine">(<a href="#ref-chicco2020machine" role="doc-biblioref">Chicco and Jurman 2020</a>.)</span></p>
 </section>
 <section id="correlation" class="level4">
 <h4 class="anchored" data-anchor-id="correlation">Correlation</h4>
+<p>The majority of the variables do not appear to have a significant correlation to the other. The most significant was between the time variable and our target variable, death event. There’s a negative relationship, meaning the patients who had more days in the follow-up period tended to survive through the end of the follow-up period. There was a slight positive correlation between sex of the patient and smoker status, meaning more male patients tended to be smokers than female patients.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
