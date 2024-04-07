@@ -182,7 +182,7 @@ The MSE is the expectation of the squared norm of the difference between
 the estimated and the true parameter vectors, and can be calculated as:
 
 $$
-MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2
+MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{1}
 $$
 
 where $\hat{\beta}_i$ is the estimated value of the $i$-th parameter,
@@ -193,7 +193,7 @@ predictions match the actual data.
 The overall test predictors are evaluated using the MSPE, calculated as:
 
 $$
-MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i
+MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{2}
 $$
 
 where MSEi is the mean squared error for the ith fold, and K is the
@@ -209,7 +209,7 @@ better the model explains the data.
 This can be written as:
 
 $$
-R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}}
+R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{3}
 $$
 
 where $\bar{y}$ is the mean value of $y$ [@ott2015introduction].
@@ -262,7 +262,7 @@ see Figure 1:**
 The MSE calculation using K-folds is as follows [@jung2015ak]:
 
 $$
-CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i
+CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{4}
 $$
 
 **For clarity, the difference between K-folds and repeated K-folds,
@@ -297,7 +297,7 @@ is repeated N times. The criterion for this techniques, according to
 [@haddad2013applicability], is as follows:
 
 $$
-MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2
+MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2 \tag{5}
 $$
 
 One of the appeals of MCCV over some other techniques its reduced

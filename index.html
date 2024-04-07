@@ -3304,18 +3304,18 @@ window.Quarto = {
 <p>In terms of the mathematical methodology, the article by Jung and Hu (2015) provides important equations for calculating the mean squared prediction error (MSPE) and mean squared error (MSE) as metrics to evaluate model performance.</p>
 <p>The MSE is the expectation of the squared norm of the difference between the estimated and the true parameter vectors, and can be calculated as:</p>
 <p><span class="math display">\[
-MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2
+MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{1}
 \]</span></p>
 <p>where <span class="math inline">\(\hat{\beta}_i\)</span> is the estimated value of the <span class="math inline">\(i\)</span>-th parameter, <span class="math inline">\(\beta_i\)</span> is the true value of the <span class="math inline">\(i\)</span>-th parameter, and <span class="math inline">\(p\)</span> is the total number of parameters. The lower the MSE, the better the model’s predictions match the actual data.</p>
 <p>The overall test predictors are evaluated using the MSPE, calculated as:</p>
 <p><span class="math display">\[
-MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i
+MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{2}
 \]</span></p>
 <p>where MSEi is the mean squared error for the ith fold, and K is the number of folds <span class="citation" data-cites="jung2015ak">(<a href="#ref-jung2015ak" role="doc-biblioref">Jung and Hu 2015</a>)</span>.</p>
 <p>Related, in statistical modeling, <span class="math inline">\(R^2\)</span>, also known as the coefficient of determination, is a measure that indicates the proportion of the variance in the dependent variable that is predictable from the independent variables. It provides a sense of how well the independent variables predict the dependent variable; the closer <span class="math inline">\(R^2\)</span> is to 1, the better the model explains the data.</p>
 <p>This can be written as:</p>
 <p><span class="math display">\[
-R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}}
+R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{3}
 \]</span></p>
 <p>where <span class="math inline">\(\bar{y}\)</span> is the mean value of <span class="math inline">\(y\)</span> <span class="citation" data-cites="ott2015introduction">(<a href="#ref-ott2015introduction" role="doc-biblioref">Ott and Longnecker 2015</a>)</span>.</p>
 <p>Ultimately, <span class="math inline">\(R^2\)</span> and MSE are related in that they both measure the model’s performance, but they do it in different ways. While <span class="math inline">\(R^2\)</span> measures the proportion of variance explained by the model, MSE measures the average error of the model’s predictions. In the context of cross-validation, both metrics can be used to compare models: a higher <span class="math inline">\(R^2\)</span> and a lower MSE would typically indicate a better predictive model.</p>
@@ -3342,7 +3342,7 @@ R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}}
 </ol>
 <p>The MSE calculation using K-folds is as follows <span class="citation" data-cites="jung2015ak">(<a href="#ref-jung2015ak" role="doc-biblioref">Jung and Hu 2015</a>)</span>:</p>
 <p><span class="math display">\[
-CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i
+CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{4}
 \]</span></p>
 <p><strong>For clarity, the difference between K-folds and repeated K-folds, another method mentioned earlier, is as follows:</strong></p>
 <p>Repeated K-Fold Cross-Validation enhances the robustness of K-Fold by repeating the process multiple times and averaging the results. This method helps to reduce the variability of the single trial of K-Fold cross-validation, providing a more accurate estimate of the model’s ability to generalize to unseen data. Here’s the process:</p>
@@ -3354,7 +3354,7 @@ CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i
 <p>Notably, this technique of repeated K-Folds is especially useful when the data set is not too large and there is a need to ensure the stability of the evaluation metrics across different splits of the data.</p>
 <p>Monte Carlo Cross-Validation (MCCV) is another commonly used method. Similar to the k-folds technique, MCCV randomly removes significant chunks of the dataset without replacement to use as its training and validation (<span class="math inline">\(s_v\)</span>) data sets <span class="citation" data-cites="haddad2013applicability">(<a href="#ref-haddad2013applicability" role="doc-biblioref">Haddad et al. 2013</a>)</span>. This sampling is repeated N times. The criterion for this techniques, according to <span class="citation" data-cites="haddad2013applicability">(<a href="#ref-haddad2013applicability" role="doc-biblioref">Haddad et al. 2013</a>)</span>, is as follows:</p>
 <p><span class="math display">\[
-MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2
+MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2 \tag{5}
 \]</span></p>
 <p>One of the appeals of MCCV over some other techniques its reduced computational complexity compared to other techniques, such as Leave-One-Out Cross-Validation<span class="citation" data-cites="james1980monte">(<a href="#ref-james1980monte" role="doc-biblioref">James 1980</a>)</span>.</p>
 </section>
