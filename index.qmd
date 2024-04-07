@@ -222,7 +222,7 @@ cross-validation, both metrics can be used to compare models: a higher
 $R^2$ and a lower MSE would typically indicate a better predictive
 model.
 
-## Cross-validation Techniques
+## Cross-Validation Techniques
 
 There are many techniques of cross-validation, the one being used
 depending on what needs to be accomplished. Many of which, mentioned in
@@ -316,17 +316,18 @@ where each patient profile has 13 clinical features
 
 More specifically, the dataset comprises medical records of 299 heart
 failure patients from Faisalabad, Pakistan, collected between April and
-December 2015. It includes 13 clinical, body, and lifestyle features.
-The dataset was used to facilitate machine learning predictions on
-patient survival based solely on serum creatinine and ejection fraction
-levels. Various machine learning and biostatistical methods were
-employed for binary classification of survival, feature ranking, and to
-examine the predictability of survival using the mentioned key features.
-This study aims to demonstrate the potential of specific biomarkers in
-predicting heart failure outcomes and to streamline the prediction
-process for medical practitioners. Notably, [@de2020cross] highlight the
-ways in which cross-validation can be implemented on a dataset, such as
-ours, through different cross-validation methods and techniques.
+December 2015. It includes 13 clinical, body, and lifestyle features,
+both categorical and continuous. The dataset was used to facilitate
+machine learning predictions on patient survival based solely on serum
+creatinine and ejection fraction levels. Various machine learning and
+biostatistical methods were employed for binary classification of
+survival, feature ranking, and to examine the predictability of survival
+using the mentioned key features. This study aims to demonstrate the
+potential of specific biomarkers in predicting heart failure outcomes
+and to streamline the prediction process for medical practitioners.
+Notably, [@de2020cross] highlight the ways in which cross-validation can
+be implemented on a dataset, such as ours, through different
+cross-validation methods and techniques.
 
 Our data description is as follows:
 
@@ -377,7 +378,7 @@ hist(data$serum_sodium, main="Serum Sodium")
 hist(data$time, main="Time")
 ```
 
-#### Categorical Data
+#### Categorical Variables
 
 ```{r}
 par(mfrow=c(2,3))
@@ -394,6 +395,10 @@ hist(data$DEATH_EVENT,main = "Death Event",breaks=2)
 ```{r}
 colSums(is.na(data)) #total missing values per column
 ```
+
+We found the total number of missing values for each variable, and none
+were found. The analysis can continue without deleting rows or
+imputation of values.
 
 #### Checking for Outliers
 
