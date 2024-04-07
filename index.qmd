@@ -378,6 +378,19 @@ hist(data$serum_sodium, main="Serum Sodium")
 hist(data$time, main="Time")
 ```
 
+The age of patients ranged from 40 to 95 years old, which the majority
+aged below 70 years old. The time variable is the number of days in the
+follow-up period for each patient, ranging from 4 to 285 days.
+Creatinine phosphokinase indicates the level of this enzyme in the
+patient's blood, which is present when muscle tissue is damaged
+[@chicco2020machine]. The serum creatinine is created by this creatinine
+when muscle breaks down [@chicco2020machine], so this variable was
+included as another potential indicator of injury. Variables were
+included that observe the levels of sodium (serum sodium) and number of
+platelets in the patient's blood. The ejection fraction variable is the
+percentage of blood leaving the left ventricle during each contraction
+of the heart [@chicco2020machine].
+
 #### Categorical Variables
 
 ```{r}
@@ -389,6 +402,14 @@ hist(data$sex, main="Sex", breaks=2)
 hist(data$smoking, main = "Smoking", breaks = 2)
 hist(data$DEATH_EVENT,main = "Death Event",breaks=2)
 ```
+
+All of our categorical variables are Boolean and are encoded as '0' and
+'1' to indicate negative or positive occurrence of a variable's
+condition, respectively. These variables include whether the patient is
+a smoker, has diabetes, anaemia, or high blood pressure. The sex
+variable indiciates whether the patient is a female ('0') or male ('1').
+Our target variable, death event, indicates whether the patient died
+before the end of the follow-up period.
 
 #### Missing Values
 
