@@ -665,14 +665,6 @@ m1_MCCV <-m1_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
 collect_metrics(m1_MCCV)
 m2_MCCV <- m2_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
 collect_metrics(m2_MCCV)
-#assess_m1_mccv <- collect_predictions(m1_MCCV)
-#assess_m1_mccv
-#assess_m1_mccv %>% 
-  #ggplot(aes(x = DEATH_EVENT, y = .pre)) + 
-  #geom_point(alpha = .15) +
-  #geom_abline(color = "red") + 
-  #coord_obs_pred() + 
-  #ylab("Predicted")
 ```
 
 
