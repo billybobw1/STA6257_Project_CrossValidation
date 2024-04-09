@@ -172,7 +172,7 @@ in a data scientist's arsenal, ensuring models are not only predictive
 but also generalizable across diverse datasets and contexts.
 
 ## Methods
-
+### Performance Metrics
 In terms of the mathematical methodology, the article by Jung and Hu
 (2015) provides important equations for calculating the mean squared
 prediction error (MSPE) and mean squared error (MSE) as metrics to
@@ -222,7 +222,7 @@ cross-validation, both metrics can be used to compare models: a higher
 $R^2$ and a lower MSE would typically indicate a better predictive
 model.
 
-## Cross-Validation Techniques
+### Cross-Validation Techniques
 
 There are many techniques of cross-validation, the one being used
 depending on what needs to be accomplished. Many of which, mentioned in
@@ -407,7 +407,7 @@ All of our categorical variables are Boolean and are encoded as '0' and
 '1' to indicate negative or positive occurrence of a variable's
 condition, respectively. These variables include whether the patient is
 a smoker, has diabetes, anaemia, or high blood pressure. The sex
-variable indiciates whether the patient is a female ('0') or male ('1').
+variable indicates whether the patient is a female ('0') or male ('1').
 Our target variable, death event, indicates whether the patient died
 before the end of the follow-up period.
 

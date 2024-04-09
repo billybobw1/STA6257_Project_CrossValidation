@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jesse Buntyn, Jolie Wise, Danielle Koche">
-<meta name="dcterms.date" content="2024-04-06">
+<meta name="dcterms.date" content="2024-04-08">
 
 <title>Cross-Validation - Methods &amp; Importance in Data Science and Statistics</title>
 <style>
@@ -3253,7 +3253,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 6, 2024</p>
+      <p class="date">April 8, 2024</p>
     </div>
   </div>
   
@@ -3301,6 +3301,8 @@ window.Quarto = {
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<section id="performance-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="performance-metrics">Performance Metrics</h3>
 <p>In terms of the mathematical methodology, the article by Jung and Hu (2015) provides important equations for calculating the mean squared prediction error (MSPE) and mean squared error (MSE) as metrics to evaluate model performance.</p>
 <p>The MSE is the expectation of the squared norm of the difference between the estimated and the true parameter vectors, and can be calculated as:</p>
 <p><span class="math display">\[
@@ -3320,8 +3322,8 @@ R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{3}
 <p>where <span class="math inline">\(\bar{y}\)</span> is the mean value of <span class="math inline">\(y\)</span> <span class="citation" data-cites="ott2015introduction">(<a href="#ref-ott2015introduction" role="doc-biblioref">Ott and Longnecker 2015</a>)</span>.</p>
 <p>Ultimately, <span class="math inline">\(R^2\)</span> and MSE are related in that they both measure the model’s performance, but they do it in different ways. While <span class="math inline">\(R^2\)</span> measures the proportion of variance explained by the model, MSE measures the average error of the model’s predictions. In the context of cross-validation, both metrics can be used to compare models: a higher <span class="math inline">\(R^2\)</span> and a lower MSE would typically indicate a better predictive model.</p>
 </section>
-<section id="cross-validation-techniques" class="level2">
-<h2 class="anchored" data-anchor-id="cross-validation-techniques">Cross-Validation Techniques</h2>
+<section id="cross-validation-techniques" class="level3">
+<h3 class="anchored" data-anchor-id="cross-validation-techniques">Cross-Validation Techniques</h3>
 <p>There are many techniques of cross-validation, the one being used depending on what needs to be accomplished. Many of which, mentioned in the introduction. The following will introduce some of those important techniques, as well as others, and research that delve deeper into their purpose.</p>
 <p><span class="citation" data-cites="jung2015ak">(<a href="#ref-jung2015ak" role="doc-biblioref">Jung and Hu 2015</a>)</span> introduce an advanced k-fold averaging cross-validation procedure, advocating for the averaging of parameter estimates across folds to yield more stable and efficient outcomes. This method demonstrates significant potential in handling high-dimensional data and improving parameter estimation.</p>
 <p><strong>For the k-fold cross-validation process, the steps are as follows and see Figure 1:</strong></p>
@@ -3357,6 +3359,7 @@ CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{4}
 MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2 \tag{5}
 \]</span></p>
 <p>One of the appeals of MCCV over some other techniques its reduced computational complexity compared to other techniques, such as Leave-One-Out Cross-Validation<span class="citation" data-cites="james1980monte">(<a href="#ref-james1980monte" role="doc-biblioref">James 1980</a>)</span>.</p>
+</section>
 </section>
 <section id="analysis-and-results" class="level2">
 <h2 class="anchored" data-anchor-id="analysis-and-results">Analysis and Results</h2>
@@ -3513,7 +3516,7 @@ MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)
 </div>
 </div>
 </div>
-<p>All of our categorical variables are Boolean and are encoded as ‘0’ and ‘1’ to indicate negative or positive occurrence of a variable’s condition, respectively. These variables include whether the patient is a smoker, has diabetes, anaemia, or high blood pressure. The sex variable indiciates whether the patient is a female (‘0’) or male (‘1’). Our target variable, death event, indicates whether the patient died before the end of the follow-up period.</p>
+<p>All of our categorical variables are Boolean and are encoded as ‘0’ and ‘1’ to indicate negative or positive occurrence of a variable’s condition, respectively. These variables include whether the patient is a smoker, has diabetes, anaemia, or high blood pressure. The sex variable indicates whether the patient is a female (‘0’) or male (‘1’). Our target variable, death event, indicates whether the patient died before the end of the follow-up period.</p>
 </section>
 <section id="missing-values" class="level4">
 <h4 class="anchored" data-anchor-id="missing-values">Missing Values</h4>
