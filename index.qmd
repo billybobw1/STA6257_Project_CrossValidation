@@ -289,6 +289,8 @@ Notably, this technique of repeated K-Folds is especially useful when
 the data set is not too large and there is a need to ensure the
 stability of the evaluation metrics across different splits of the data.
 
+Leave-one-out cross-validation (LOOCV) is a variation of k-fold cross-validation in that the dataset gets divided into multiple folds to be used for training and validation sets, then the model gets fitted and evaluated until each fold has been used as the validation set. However, for LOOCV, the validation set is comprised of a single observation, so k is equal to the sample size [@shao2016efficient]. This method can be preferable to other methods when the sample size is small because the lack of randomness when dividing the dataset causes the accuracy estimate of the models to be constant [@wong2015performance].
+
 Monte Carlo Cross-Validation (MCCV) is another commonly used method.
 Similar to the k-folds technique, MCCV randomly removes significant
 chunks of the dataset without replacement to use as its training and
@@ -302,7 +304,7 @@ $$
 
 One of the appeals of MCCV over some other techniques its reduced
 computational complexity compared to other techniques, such as
-Leave-One-Out Cross-Validation[@james1980monte].
+LOOCV[@james1980monte].
 
 ## Analysis and Results
 

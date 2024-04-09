@@ -3354,11 +3354,12 @@ CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{4}
 <li><p><strong>Final Estimation:</strong> The scores across all repeats are aggregated to provide a final measure.</p></li>
 </ol>
 <p>Notably, this technique of repeated K-Folds is especially useful when the data set is not too large and there is a need to ensure the stability of the evaluation metrics across different splits of the data.</p>
+<p>Leave-one-out cross-validation (LOOCV) is a variation of k-fold cross-validation in that the dataset gets divided into multiple folds to be used for training and validation sets, then the model gets fitted and evaluated until each fold has been used as the validation set. However, for LOOCV, the validation set is comprised of a single observation, so k is equal to the sample size <span class="citation" data-cites="shao2016efficient">(<a href="#ref-shao2016efficient" role="doc-biblioref">Shao and Er 2016</a>)</span>. This method can be preferable to other methods when the sample size is small because the lack of randomness when dividing the dataset causes the accuracy estimate of the models to be constant <span class="citation" data-cites="wong2015performance">(<a href="#ref-wong2015performance" role="doc-biblioref">Wong 2015</a>)</span>.</p>
 <p>Monte Carlo Cross-Validation (MCCV) is another commonly used method. Similar to the k-folds technique, MCCV randomly removes significant chunks of the dataset without replacement to use as its training and validation (<span class="math inline">\(s_v\)</span>) data sets <span class="citation" data-cites="haddad2013applicability">(<a href="#ref-haddad2013applicability" role="doc-biblioref">Haddad et al. 2013</a>)</span>. This sampling is repeated N times. The criterion for this techniques, according to <span class="citation" data-cites="haddad2013applicability">(<a href="#ref-haddad2013applicability" role="doc-biblioref">Haddad et al. 2013</a>)</span>, is as follows:</p>
 <p><span class="math display">\[
 MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2 \tag{5}
 \]</span></p>
-<p>One of the appeals of MCCV over some other techniques its reduced computational complexity compared to other techniques, such as Leave-One-Out Cross-Validation<span class="citation" data-cites="james1980monte">(<a href="#ref-james1980monte" role="doc-biblioref">James 1980</a>)</span>.</p>
+<p>One of the appeals of MCCV over some other techniques its reduced computational complexity compared to other techniques, such as LOOCV<span class="citation" data-cites="james1980monte">(<a href="#ref-james1980monte" role="doc-biblioref">James 1980</a>)</span>.</p>
 </section>
 </section>
 <section id="analysis-and-results" class="level2">
@@ -3902,6 +3903,9 @@ Shao, Zhifei, and Meng Joo Er. 2016. <span>“Efficient Leave-One-Out Cross-Vali
 </div>
 <div id="ref-song2021making" class="csl-entry" role="listitem">
 Song, Q Chelsea, Chen Tang, and Serena Wee. 2021. <span>“Making Sense of Model Generalizability: A Tutorial on Cross-Validation in r and Shiny.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 4 (1): 2515245920947067.
+</div>
+<div id="ref-wong2015performance" class="csl-entry" role="listitem">
+Wong, Tzu-Tsung. 2015. <span>“Performance Evaluation of Classification Algorithms by k-Fold and Leave-One-Out Cross Validation.”</span> <em>Pattern Recognition</em> 48 (9): 2839–46.
 </div>
 <div id="ref-wong2019reliable" class="csl-entry" role="listitem">
 Wong, Tzu-Tsung, and Po-Yang Yeh. 2019. <span>“Reliable Accuracy Estimates from k-Fold Cross Validation.”</span> <em>IEEE Transactions on Knowledge and Data Engineering</em> 32 (8): 1586–94.
