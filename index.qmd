@@ -227,8 +227,9 @@ model.
 There are many techniques of cross-validation, the one being used
 depending on what needs to be accomplished. Many of which, mentioned in
 the introduction. The following will introduce some of those important
-techniques, as well as others, and research that delve deeper into their
-purpose.
+techniques.
+
+Single hold-out cross-validation is one more simple versions of cross-validation being used [@yadav2016analysis]. The dataset gets divided into a training set and validation, or hold-out, set. The training set is used to fit a model, which is then used for prediction on the validation set. The performance of the model is then determined by the variance between the predictions and the actual data. One of the main drawbacks of this method is that the training set and validation set can have different distributions, causing potentially unreliable models [@santos2023statistical].
 
 [@jung2015ak] introduce an advanced k-fold averaging cross-validation
 procedure, advocating for the averaging of parameter estimates across

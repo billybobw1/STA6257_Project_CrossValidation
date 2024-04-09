@@ -3324,7 +3324,8 @@ R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{3}
 </section>
 <section id="cross-validation-techniques" class="level3">
 <h3 class="anchored" data-anchor-id="cross-validation-techniques">Cross-Validation Techniques</h3>
-<p>There are many techniques of cross-validation, the one being used depending on what needs to be accomplished. Many of which, mentioned in the introduction. The following will introduce some of those important techniques, as well as others, and research that delve deeper into their purpose.</p>
+<p>There are many techniques of cross-validation, the one being used depending on what needs to be accomplished. Many of which, mentioned in the introduction. The following will introduce some of those important techniques.</p>
+<p>Single hold-out cross-validation is one more simple versions of cross-validation being used <span class="citation" data-cites="yadav2016analysis">(<a href="#ref-yadav2016analysis" role="doc-biblioref">Yadav and Shukla 2016</a>)</span>. The dataset gets divided into a training set and validation, or hold-out, set. The training set is used to fit a model, which is then used for prediction on the validation set. The performance of the model is then determined by the variance between the predictions and the actual data. One of the main drawbacks of this method is that the training set and validation set can have different distributions, causing potentially unreliable models <span class="citation" data-cites="santos2023statistical">(<a href="#ref-santos2023statistical" role="doc-biblioref">Santos et al. 2023</a>)</span>.</p>
 <p><span class="citation" data-cites="jung2015ak">(<a href="#ref-jung2015ak" role="doc-biblioref">Jung and Hu 2015</a>)</span> introduce an advanced k-fold averaging cross-validation procedure, advocating for the averaging of parameter estimates across folds to yield more stable and efficient outcomes. This method demonstrates significant potential in handling high-dimensional data and improving parameter estimation.</p>
 <p><strong>For the k-fold cross-validation process, the steps are as follows and see Figure 1:</strong></p>
 <ol type="1">
@@ -3894,6 +3895,9 @@ Ranjan, Gopal Krishna. 2021. <span>“Introduction to k-Fold Cross-Validation in
 </div>
 <div id="ref-de2020cross" class="csl-entry" role="listitem">
 Rooij, Mark de, and Wouter Weeda. 2020. <span>“Cross-Validation: A Method Every Psychologist Should Know.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 3 (2): 248–63.
+</div>
+<div id="ref-santos2023statistical" class="csl-entry" role="listitem">
+Santos, Isadora Guimarães dos, Rogério Pinto Espı́ndola, Francisco Thiago Sacramento Aragão, and Luis Alberto Herrmann Nascimento. 2023. <span>“A Statistical Methodology for Reliable Evaluation of Calibrated Dynamic Modulus Regression Models.”</span> <em>Mat<span>é</span>ria (Rio de Janeiro)</em> 28: e20230188.
 </div>
 <div id="ref-schaffer1993selecting" class="csl-entry" role="listitem">
 Schaffer, Cullen. 1993. <span>“Selecting a Classification Method by Cross-Validation.”</span> <em>Machine Learning</em> 13: 135–43.
