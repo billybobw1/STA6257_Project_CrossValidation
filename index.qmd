@@ -471,20 +471,31 @@ plot(x=data$time,y=data$DEATH_EVENT, main="Time",ylim = c(-.5,1.5))
 
 ```{r}
 library(boot)
-
+auc <- function(labels,pred){
+  mean(labels==ifelse(pred > 0.5, 1, 0))
+}
 set.seed(43269)
 m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
          data = data, 
          family = "binomial"(link = "logit"))
 
-cv.glm(data, m1, K=10)$delta
+k10_m1_mse <- cv.glm(data, m1, K=10)$delta
+k10_m1_mse
+
+k10_m1_auc <- cv.glm(data, m1, K=10, cost=auc)$delta
+k10_m1_auc
+
 
 set.seed(85329)
 m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
          data = data, 
          family = "binomial"(link = "logit"))
 
-cv.glm(data, m2, K=10)$delta
+k10_m2_mse <- cv.glm(data, m2, K=10)$delta
+k10_m2_mse
+
+k10_m2_auc <- cv.glm(data, m2, K=10, cost=auc)$delta
+k10_m2_auc
 ```
 
 With any variation of k-fold cross validation, the dataset is split into
@@ -509,16 +520,26 @@ m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ej
          data = data, 
          family = "binomial"(link = "logit"))
 
-cv.glm(data, m1, K=5)$delta
+k5_m1_mse <- cv.glm(data, m1, K=5)$delta
+k5_m1_mse
 
+k5_m1_auc <- cv.glm(data, m1, K=5, cost=auc)$delta
+k5_m1_auc
 
 set.seed(185329)
 m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
          data = data, 
          family = "binomial"(link = "logit"))
 
-cv.glm(data, m2, K=5)$delta
+k5_m2_mse <- cv.glm(data, m2, K=5)$delta
+k5_m2_mse
+
+k5_m2_auc <- cv.glm(data, m2, K=5, cost=auc)$delta
+k5_m2_auc
+
 ```
+
+
 
 Similar to the 10-fold models above, our dataset is split into equal
 pieces. However, in this case, we are only doing 5 folds compared to our
@@ -582,15 +603,22 @@ m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ej
          data = data, 
          family = "binomial"(link = "logit"))
 
-cv.glm(data, m1)$delta
+loocv_m1_mse <- cv.glm(data, m1)$delta
+loocv_m1_mse
 
+loocv_m1_auc <- cv.glm(data, m1, cost = auc)$delta
+loocv_m1_auc
 
 set.seed(20987)
 m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
          data = data, 
          family = "binomial"(link = "logit"))
 
-cv.glm(data, m2)$delta
+loocv_m2_mse <- cv.glm(data, m2)$delta
+loocv_m2_mse
+
+loocv_m2_auc <- cv.glm(data, m2, cost = auc)$delta
+loocv_m2_auc
 ```
 
 Leave-One-Out cross-validation (LOOCV) follows a similar data set
@@ -605,7 +633,7 @@ includes serum creatinine and ejection fraction).
 ```{r}
 data$DEATH_EVENT=as.factor(data$DEATH_EVENT)
 set.seed(30)
-resample1 <- mc_cv(data, times = 100, prop = .5)
+resample1 <- mc_cv(data, times = 100, prop = .7)
 map_dbl(
   resample1$splits,
   function(x) {
@@ -637,7 +665,16 @@ m1_MCCV <-m1_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
 collect_metrics(m1_MCCV)
 m2_MCCV <- m2_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
 collect_metrics(m2_MCCV)
+#assess_m1_mccv <- collect_predictions(m1_MCCV)
+#assess_m1_mccv
+#assess_m1_mccv %>% 
+  #ggplot(aes(x = DEATH_EVENT, y = .pre)) + 
+  #geom_point(alpha = .15) +
+  #geom_abline(color = "red") + 
+  #coord_obs_pred() + 
+  #ylab("Predicted")
 ```
+
 
 ## Conclusion
 
