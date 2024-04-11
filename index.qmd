@@ -173,57 +173,6 @@ but also generalizable across diverse datasets and contexts.
 
 ## Methods
 
-### Performance Metrics
-
-In terms of the mathematical methodology, the article by Jung and Hu
-(2015) provides important equations for calculating the mean squared
-prediction error (MSPE) and mean squared error (MSE) as metrics to
-evaluate model performance.
-
-The MSE is the expectation of the squared norm of the difference between
-the estimated and the true parameter vectors, and can be calculated as:
-
-$$
-MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{1}
-$$
-
-where $\hat{\beta}_i$ is the estimated value of the $i$-th parameter,
-$\beta_i$ is the true value of the $i$-th parameter, and $p$ is the
-total number of parameters. The lower the MSE, the better the model's
-predictions match the actual data.
-
-The overall test predictors are evaluated using the MSPE, calculated as:
-
-$$
-MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{2}
-$$
-
-where MSEi is the mean squared error for the ith fold, and K is the
-number of folds [@jung2015ak].
-
-Related, in statistical modeling, $R^2$, also known as the coefficient
-of determination, is a measure that indicates the proportion of the
-variance in the dependent variable that is predictable from the
-independent variables. It provides a sense of how well the independent
-variables predict the dependent variable; the closer $R^2$ is to 1, the
-better the model explains the data.
-
-This can be written as:
-
-$$
-R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{3}
-$$
-
-where $\bar{y}$ is the mean value of $y$ [@ott2015introduction].
-
-Ultimately, $R^2$ and MSE are related in that they both measure the
-model's performance, but they do it in different ways. While $R^2$
-measures the proportion of variance explained by the model, MSE measures
-the average error of the model's predictions. In the context of
-cross-validation, both metrics can be used to compare models: a higher
-$R^2$ and a lower MSE would typically indicate a better predictive
-model.
-
 ### Cross-Validation Techniques
 
 There are many techniques of cross-validation, the one being used
@@ -324,6 +273,57 @@ $$
 One of the appeals of MCCV over some other techniques its reduced
 computational complexity compared to other techniques, such as
 LOOCV[@james1980monte].
+
+### Performance Metrics
+
+In terms of the mathematical methodology, the article by Jung and Hu
+(2015) provides important equations for calculating the mean squared
+prediction error (MSPE) and mean squared error (MSE) as metrics to
+evaluate model performance.
+
+The MSE is the expectation of the squared norm of the difference between
+the estimated and the true parameter vectors, and can be calculated as:
+
+$$
+MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{1}
+$$
+
+where $\hat{\beta}_i$ is the estimated value of the $i$-th parameter,
+$\beta_i$ is the true value of the $i$-th parameter, and $p$ is the
+total number of parameters. The lower the MSE, the better the model's
+predictions match the actual data.
+
+The overall test predictors are evaluated using the MSPE, calculated as:
+
+$$
+MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{2}
+$$
+
+where MSEi is the mean squared error for the ith fold, and K is the
+number of folds [@jung2015ak].
+
+Related, in statistical modeling, $R^2$, also known as the coefficient
+of determination, is a measure that indicates the proportion of the
+variance in the dependent variable that is predictable from the
+independent variables. It provides a sense of how well the independent
+variables predict the dependent variable; the closer $R^2$ is to 1, the
+better the model explains the data.
+
+This can be written as:
+
+$$
+R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{3}
+$$
+
+where $\bar{y}$ is the mean value of $y$ [@ott2015introduction].
+
+Ultimately, $R^2$ and MSE are related in that they both measure the
+model's performance, but they do it in different ways. While $R^2$
+measures the proportion of variance explained by the model, MSE measures
+the average error of the model's predictions. In the context of
+cross-validation, both metrics can be used to compare models: a higher
+$R^2$ and a lower MSE would typically indicate a better predictive
+model.
 
 ## Analysis and Results
 
@@ -702,14 +702,13 @@ m1_MCCV <-m1_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
 m1_MCCV_metrics <- collect_metrics(m1_MCCV)
 m2_MCCV <- m2_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
 m2_MCCV_metrics <-collect_metrics(m2_MCCV)
-m2_MCCV_metrics
 ```
 ```{r}
 MCCVtibble = tibble(M1_MCCV_MSE = m1_MCCV_metrics[2,3], M2_MCCV_MSE = m2_MCCV_metrics[2,3], M1_MCCV_AUC= m1_MCCV_metrics[3,3], M2_MCCV_AUC= m2_MCCV_metrics[3,3])
 #MCCV_table = data.frame(Metric=c('Model 1 MSE','Model 2 MSE','Model 1 AUC', 'Model 2 AUC'),Value = #MCCVtibble)
 MCCVtibble
 ```
-
+For the Monte Carlo technique, logistic regression will be used to create the models. Unlike previous techniques, a resampling function was created to repeat the splitting of the data many times. Our proportion of training to validation sets is the standard 70/30 split, and the data will be resampled 100 times. For the MSE of the models, we'll be using the Brier score as our resampling fitting function generates the Brier score automatically, and it performs similarly to MSE in classification problems [@ferro2012bias]. Similar to the previously discussed techniques, our full model had the lower MSE/ Brier score and higher AUC. The smaller model's AUC of 0.763 is still acceptable as far as the metric's ideal scores go, but the increase of about 0.1 indicates there might be another predictor or two that could contribute significantly to the model.
 
 ## Conclusion
 

@@ -3301,27 +3301,6 @@ window.Quarto = {
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
-<section id="performance-metrics" class="level3">
-<h3 class="anchored" data-anchor-id="performance-metrics">Performance Metrics</h3>
-<p>In terms of the mathematical methodology, the article by Jung and Hu (2015) provides important equations for calculating the mean squared prediction error (MSPE) and mean squared error (MSE) as metrics to evaluate model performance.</p>
-<p>The MSE is the expectation of the squared norm of the difference between the estimated and the true parameter vectors, and can be calculated as:</p>
-<p><span class="math display">\[
-MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{1}
-\]</span></p>
-<p>where <span class="math inline">\(\hat{\beta}_i\)</span> is the estimated value of the <span class="math inline">\(i\)</span>-th parameter, <span class="math inline">\(\beta_i\)</span> is the true value of the <span class="math inline">\(i\)</span>-th parameter, and <span class="math inline">\(p\)</span> is the total number of parameters. The lower the MSE, the better the model’s predictions match the actual data.</p>
-<p>The overall test predictors are evaluated using the MSPE, calculated as:</p>
-<p><span class="math display">\[
-MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{2}
-\]</span></p>
-<p>where MSEi is the mean squared error for the ith fold, and K is the number of folds <span class="citation" data-cites="jung2015ak">(<a href="#ref-jung2015ak" role="doc-biblioref">Jung and Hu 2015</a>)</span>.</p>
-<p>Related, in statistical modeling, <span class="math inline">\(R^2\)</span>, also known as the coefficient of determination, is a measure that indicates the proportion of the variance in the dependent variable that is predictable from the independent variables. It provides a sense of how well the independent variables predict the dependent variable; the closer <span class="math inline">\(R^2\)</span> is to 1, the better the model explains the data.</p>
-<p>This can be written as:</p>
-<p><span class="math display">\[
-R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{3}
-\]</span></p>
-<p>where <span class="math inline">\(\bar{y}\)</span> is the mean value of <span class="math inline">\(y\)</span> <span class="citation" data-cites="ott2015introduction">(<a href="#ref-ott2015introduction" role="doc-biblioref">Ott and Longnecker 2015</a>)</span>.</p>
-<p>Ultimately, <span class="math inline">\(R^2\)</span> and MSE are related in that they both measure the model’s performance, but they do it in different ways. While <span class="math inline">\(R^2\)</span> measures the proportion of variance explained by the model, MSE measures the average error of the model’s predictions. In the context of cross-validation, both metrics can be used to compare models: a higher <span class="math inline">\(R^2\)</span> and a lower MSE would typically indicate a better predictive model.</p>
-</section>
 <section id="cross-validation-techniques" class="level3">
 <h3 class="anchored" data-anchor-id="cross-validation-techniques">Cross-Validation Techniques</h3>
 <p>There are many techniques of cross-validation, the one being used depending on what needs to be accomplished. Many of which, mentioned in the introduction. The following will introduce some of those important techniques.</p>
@@ -3361,6 +3340,27 @@ CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{4}
 MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2 \tag{5}
 \]</span></p>
 <p>One of the appeals of MCCV over some other techniques its reduced computational complexity compared to other techniques, such as LOOCV<span class="citation" data-cites="james1980monte">(<a href="#ref-james1980monte" role="doc-biblioref">James 1980</a>)</span>.</p>
+</section>
+<section id="performance-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="performance-metrics">Performance Metrics</h3>
+<p>In terms of the mathematical methodology, the article by Jung and Hu (2015) provides important equations for calculating the mean squared prediction error (MSPE) and mean squared error (MSE) as metrics to evaluate model performance.</p>
+<p>The MSE is the expectation of the squared norm of the difference between the estimated and the true parameter vectors, and can be calculated as:</p>
+<p><span class="math display">\[
+MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{1}
+\]</span></p>
+<p>where <span class="math inline">\(\hat{\beta}_i\)</span> is the estimated value of the <span class="math inline">\(i\)</span>-th parameter, <span class="math inline">\(\beta_i\)</span> is the true value of the <span class="math inline">\(i\)</span>-th parameter, and <span class="math inline">\(p\)</span> is the total number of parameters. The lower the MSE, the better the model’s predictions match the actual data.</p>
+<p>The overall test predictors are evaluated using the MSPE, calculated as:</p>
+<p><span class="math display">\[
+MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{2}
+\]</span></p>
+<p>where MSEi is the mean squared error for the ith fold, and K is the number of folds <span class="citation" data-cites="jung2015ak">(<a href="#ref-jung2015ak" role="doc-biblioref">Jung and Hu 2015</a>)</span>.</p>
+<p>Related, in statistical modeling, <span class="math inline">\(R^2\)</span>, also known as the coefficient of determination, is a measure that indicates the proportion of the variance in the dependent variable that is predictable from the independent variables. It provides a sense of how well the independent variables predict the dependent variable; the closer <span class="math inline">\(R^2\)</span> is to 1, the better the model explains the data.</p>
+<p>This can be written as:</p>
+<p><span class="math display">\[
+R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{3}
+\]</span></p>
+<p>where <span class="math inline">\(\bar{y}\)</span> is the mean value of <span class="math inline">\(y\)</span> <span class="citation" data-cites="ott2015introduction">(<a href="#ref-ott2015introduction" role="doc-biblioref">Ott and Longnecker 2015</a>)</span>.</p>
+<p>Ultimately, <span class="math inline">\(R^2\)</span> and MSE are related in that they both measure the model’s performance, but they do it in different ways. While <span class="math inline">\(R^2\)</span> measures the proportion of variance explained by the model, MSE measures the average error of the model’s predictions. In the context of cross-validation, both metrics can be used to compare models: a higher <span class="math inline">\(R^2\)</span> and a lower MSE would typically indicate a better predictive model.</p>
 </section>
 </section>
 <section id="analysis-and-results" class="level2">
@@ -3891,24 +3891,15 @@ MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)
 <span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>m1_MCCV <span class="ot">&lt;-</span>m1_wflow <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> resample1, <span class="at">control =</span> keep_pred)</span>
 <span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>m1_MCCV_metrics <span class="ot">&lt;-</span> <span class="fu">collect_metrics</span>(m1_MCCV)</span>
 <span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>m2_MCCV <span class="ot">&lt;-</span> m2_wflow <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> resample1, <span class="at">control =</span> keep_pred)</span>
-<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>m2_MCCV_metrics <span class="ot">&lt;-</span><span class="fu">collect_metrics</span>(m2_MCCV)</span>
-<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a>m2_MCCV_metrics</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>m2_MCCV_metrics <span class="ot">&lt;-</span><span class="fu">collect_metrics</span>(m2_MCCV)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 6
-  .metric     .estimator  mean     n std_err .config             
-  &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
-1 accuracy    binary     0.739   100 0.00481 Preprocessor1_Model1
-2 brier_class binary     0.183   100 0.00210 Preprocessor1_Model1
-3 roc_auc     binary     0.763   100 0.00557 Preprocessor1_Model1</code></pre>
-</div>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>MCCVtibble <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">M1_MCCV_MSE =</span> m1_MCCV_metrics[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">M2_MCCV_MSE =</span> m2_MCCV_metrics[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">M1_MCCV_AUC=</span> m1_MCCV_metrics[<span class="dv">3</span>,<span class="dv">3</span>], <span class="at">M2_MCCV_AUC=</span> m2_MCCV_metrics[<span class="dv">3</span>,<span class="dv">3</span>])</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co">#MCCV_table = data.frame(Metric=c(&#39;Model 1 MSE&#39;,&#39;Model 2 MSE&#39;,&#39;Model 1 AUC&#39;, &#39;Model 2 AUC&#39;),Value = #MCCVtibble)</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>MCCVtibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>MCCVtibble <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">M1_MCCV_MSE =</span> m1_MCCV_metrics[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">M2_MCCV_MSE =</span> m2_MCCV_metrics[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">M1_MCCV_AUC=</span> m1_MCCV_metrics[<span class="dv">3</span>,<span class="dv">3</span>], <span class="at">M2_MCCV_AUC=</span> m2_MCCV_metrics[<span class="dv">3</span>,<span class="dv">3</span>])</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co">#MCCV_table = data.frame(Metric=c(&#39;Model 1 MSE&#39;,&#39;Model 2 MSE&#39;,&#39;Model 1 AUC&#39;, &#39;Model 2 AUC&#39;),Value = #MCCVtibble)</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>MCCVtibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
@@ -3917,6 +3908,7 @@ MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)
 1            0.139            0.183            0.864            0.763</code></pre>
 </div>
 </div>
+<p>For the Monte Carlo technique, logistic regression will be used to create the models. Unlike previous techniques, a resampling function was created to repeat the splitting of the data many times. Our proportion of training to validation sets is the standard 70/30 split, and the data will be resampled 100 times. For the MSE of the models, we’ll be using the Brier score as our resampling fitting function generates the Brier score automatically, and it performs similarly to MSE in classification problems <span class="citation" data-cites="ferro2012bias">(<a href="#ref-ferro2012bias" role="doc-biblioref">Ferro and Fricker 2012</a>)</span>. Similar to the previously discussed techniques, our full model had the lower MSE/ Brier score and higher AUC. The smaller model’s AUC of 0.763 is still acceptable as far as the metric’s ideal scores go, but the increase of about 0.1 indicates there might be another predictor or two that could contribute significantly to the model.</p>
 </section>
 </section>
 </section>
@@ -3938,6 +3930,9 @@ Berrar, Daniel et al. 2019. <span>“Cross-Validation.”</span>
 </div>
 <div id="ref-chicco2020machine" class="csl-entry" role="listitem">
 Chicco, Davide, and Giuseppe Jurman. 2020. <span>“Machine Learning Can Predict Survival of Patients with Heart Failure from Serum Creatinine and Ejection Fraction Alone.”</span> <em>BMC Medical Informatics and Decision Making</em> 20: 1–16.
+</div>
+<div id="ref-ferro2012bias" class="csl-entry" role="listitem">
+Ferro, Christopher AT, and Thomas E Fricker. 2012. <span>“A Bias-Corrected Decomposition of the Brier Score.”</span> <em>Quarterly Journal of the Royal Meteorological Society</em> 138 (668): 1954–60.
 </div>
 <div id="ref-filzmoser2009repeated" class="csl-entry" role="listitem">
 Filzmoser, Peter, Bettina Liebmann, and Kurt Varmuza. 2009. <span>“Repeated Double Cross Validation.”</span> <em>Journal of Chemometrics: A Journal of the Chemometrics Society</em> 23 (4): 160–71.
