@@ -1,0 +1,745 @@
+---
+title: "Cross-Validation - Methods & Importance in Data Science and Statistics"
+author: "Jesse Buntyn, Jolie Wise, Danielle Koche"
+date: '`r Sys.Date()`'
+format:
+  html:
+    code-fold: true
+course: STA 6257 - Advanced Statistical Modeling
+bibliography: references.bib # file contains bibtex for references
+#always_allow_html: true # this allows to get PDF with HTML features
+self-contained: true
+execute: 
+  warning: false
+  message: false
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+## Introduction
+
+This is an introduction to understanding cross-validation, its methods,
+and its importance in data science and statistics.
+
+Cross-validation is a cornerstone methodology in the field of data
+science, essential for assessing the predictive performance of
+statistical models and ensuring their generalizability to unseen data.
+This resampling technique allows researchers to evaluate how models will
+perform in practice, addressing critical challenges like overfitting and
+underfitting, thereby ensuring robustness and reliability of model
+predictions across various data subsets.
+
+The tutorial by [@song2021making] further elaborates on the practical
+application of cross-validation, presenting a structured, step-by-step
+approach to assessing model generalizability and emphasizing the
+significance of the repeated k-folds technique for reducing bias in
+model evaluation.
+
+**The overall 5-step process to cross-validation introduced by them is
+as follows:**
+
+1.  Split the data into a training set and test set, typically 80/20 or
+    70/30.
+2.  Fit a model to the training set and obtain the model parameters.
+3.  Apply the fitted model to the test set and obtain prediction
+    accuracy.
+4.  Repeat steps one through three.
+5.  Calculate the average cross-validation prediction accuracy across
+    all repetitions.
+
+[@berrar2019cross] exposition on cross-validation underscores its
+importance in parameter tuning and model selection, providing a detailed
+overview of its common types, including k-fold and leave-one-out
+cross-validation, and emphasizing its role in balancing the
+bias-variance tradeoff for improved model performance.
+
+**Specifically, common types of cross-validation include:**
+
+**Single Hold-Out Method:** This is one of the more simple methods of
+cross-validation and tends to be less time-consuming to conduct
+[@yadav2016analysis]. It divides data into a training set and a test
+set, usually in a 70-30 or 90-10 split.
+
+**Monte Carlo cross-validation:** Using random sampling without
+replacement from certain probability distributions when splitting your
+data sets [@james1980monte]. It aims to decrease overfitting by allowing
+the algorithm to better explore the experimental space.
+
+**K-Fold Cross-Validation:** The dataset is split into k equally sized
+folds. Each fold is used once as a test set while the rest serve as the
+training set.
+
+**Leave-One-Out Cross-Validation (LOOCV):** This is a special case of
+k-fold cross-validation where k equals the number of data points
+[@shao2016efficient]. Each data point is used once as a test set.
+
+**Stratified Cross-Validation:** Ensures each fold reflects the class
+proportions in the dataset, particularly useful for imbalanced datasets.
+
+**Repeated K-Fold Cross-Validation:** Repeats the K-Fold process
+multiple times and averages the results.
+
+The perspective of Berrar is enriched by [@schaffer1993selecting], who
+explores the significance of cross-validation in selecting optimal
+classification methods, highlighting its necessity in dealing with
+imbalanced datasets through stratified approaches.
+
+### Related Work
+
+[@zhang2015cross] delve into the strategic use of cross-validation for
+model selection, particularly in high-dimensional settings, challenging
+traditional approaches and proposing the integration of AIC and BIC for
+optimal model estimation. AIC (Akaike Information Criterion) and BIC
+(Bayesian Information Criterion) are both measures used to evaluate the
+quality of a statistical model, often in the context of model selection.
+While they are not directly used for cross-validation, they serve a
+similar purpose in helping to choose between different models by
+considering both the goodness of fit and the complexity of the model.
+
+Likewise, [@wong2019reliable] contribute to the discourse by examining
+the reliability of accuracy estimates derived from k-fold
+cross-validation, cautioning against the uncritical increase of
+replications without considering the correlation between them, and
+recommending specific strategies for achieving more dependable accuracy
+estimates. More specifically, their experiments across 20 datasets
+indicate that accuracy estimates from different replications of k-fold
+cross-validation are generally highly correlated, especially as the
+number of folds increases. They instead recommend using a larger number
+of folds with fewer replications for performance evaluation.
+Particularly, their research concludes that ten-fold cross-validation
+yields the most significant scores among k-fold cross-validation
+techniques. A similar conclusion of the optimal for k is shared by
+[@marcot2021optimal], as their evidence from their study that explores
+the ideal value of k for k-fold cross-validation analysis showed that
+the ideal value of k is 10, however, 5 can be sufficient in some cases.
+
+Ultimately, in statistical analysis, researchers are constantly
+innovating and refining cross-validation techniques to enhance model
+performance and address challenges associated with existing
+methodologies. [@filzmoser2009repeated] sought to explore a method
+intended to improve the reliability and predictive accuracy of complex
+linear models, particularly those developed from small datasets, and to
+provide more accurate prediction error estimates for future
+observations. Their investigation was centered around the concept of
+repeated double cross-validation (rdCV), an advanced technique that
+entails a dual-phase partitioning of the dataset.
+
+The initial phase involves dividing the data into training and testing
+sets, which serves as the foundation for prediction accuracy estimation.
+Subsequently, the second phase employs the training set from the first
+division in a further round of cross-validation. This dual-loop process
+is repeated multiple iterations, generating a comprehensive set of
+predicted outcomes. The aggregate of these outcomes not only facilitates
+the enhancement of the model's performance but also aids in the more
+precise estimation of the variability in the model's predictions.
+
+Another technique, introduced by [@xu2018representative] is
+Representative Splitting Cross-Validation (RSCV), aiming to enhance the
+representativeness and uniformity of calibration and validation sets in
+experimental studies, with an emphasis on its utility for latent
+variable selection. This method employs the DUPLEX algorithm for data
+segmentation, followed by k-fold cross-validation on the divided sets.
+
+Building on this, [@rabinowicz2022cross] explore the influence of
+correlation structures on cross-validation effectiveness, proposing a
+bias-correction measure, CVc, to address potential biases. This
+correction is unnecessary when dataset splitting maintains the
+distributional relationship between training and testing sets, ensuring
+unbiased cross-validation. Their analysis showed that CVc more
+accurately estimates generalization error compared to traditional
+cross-validation, remaining unbiased provided the covariance structure
+is correctly specified, even without the ideal prediction method. This
+research contributes to refining cross-validation techniques,
+particularly in handling complex data correlations.
+
+Finally, [@lei2020cross] introduces a method called Cross-Validation
+with Confidence (CVC) aimed at reducing overfitting, a common problem
+with traditional cross-validation that uses small splits and ends up
+with too-simple models. CVC works by checking the predicted risk of
+different models and using p-values to choose models that best fit
+without being overly complex. It has proven effective, particularly when
+dealing with a decent amount of data and models that don't use too many
+predictors, resulting in simpler, easy-to-understand predictive models.
+However, CVC hasn't yet been applied to unsupervised learning or models
+with binary outcomes, pointing out areas for further exploration.
+
+Collectively, these papers illuminate the multifaceted nature of
+cross-validation, showcasing its critical role in model evaluation,
+selection, and generalization. From theoretical underpinnings to
+practical implementations, cross-validation emerges as an essential tool
+in a data scientist's arsenal, ensuring models are not only predictive
+but also generalizable across diverse datasets and contexts.
+
+## Methods
+
+### Cross-Validation Techniques
+
+There are many techniques of cross-validation, the one being used
+depending on what needs to be accomplished. Many of which, mentioned in
+the introduction. The following will introduce some of those important
+techniques.
+
+Single hold-out cross-validation is one more simple versions of
+cross-validation being used [@yadav2016analysis]. The dataset gets
+divided into a training set and validation, or hold-out, set. The
+training set is used to fit a model, which is then used for prediction
+on the validation set. The performance of the model is then determined
+by the variance between the predictions and the actual data. One of the
+main drawbacks of this method is that the training set and validation
+set can have different distributions, causing potentially unreliable
+models [@santos2023statistical].
+
+[@jung2015ak] introduce an advanced k-fold averaging cross-validation
+procedure, advocating for the averaging of parameter estimates across
+folds to yield more stable and efficient outcomes. This method
+demonstrates significant potential in handling high-dimensional data and
+improving parameter estimation.
+
+**For the k-fold cross-validation process, the steps are as follows and
+see Figure 1:**
+
+1.  Randomly and evenly split the dataset into k-folds.
+
+2.  Use k-1 folds as the training set to fit the model.
+
+3.  Predict the response variable in the hold-out (kth) fold using the
+    fitted model.
+
+4.  Calculate the prediction error for the response variable in the
+    hold-out fold.
+
+5.  Repeat steps 2-4 k times, using each fold as a hold-out once.
+
+6.  Calculate the overall test predictors by averaging all k test
+    predictors.
+
+    ![Figure 1: Basic K-Fold Cross-Validation,
+    k=5](images/K-fold-cross-validation-1.webp){width="413"}
+
+    Source: [@Ranjan_2021]
+
+The MSE calculation using K-folds is as follows [@jung2015ak]:
+
+$$
+CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{1}
+$$
+
+**For clarity, the difference between K-folds and repeated K-folds,
+another method mentioned earlier, is as follows:**
+
+Repeated K-Fold Cross-Validation enhances the robustness of K-Fold by
+repeating the process multiple times and averaging the results. This
+method helps to reduce the variability of the single trial of K-Fold
+cross-validation, providing a more accurate estimate of the model's
+ability to generalize to unseen data. Here's the process:
+
+1.  **Repeated Splitting:** The data is split into k folds as before,
+    but this process is repeated n times, with a different random split
+    each time.
+
+2.  **Model Evaluation:** Just like in K-Fold, models are trained and
+    evaluated k times on each repetition with different splits, leading
+    to n\*k total evaluations.
+
+3.  **Final Estimation:** The scores across all repeats are aggregated
+    to provide a final measure.
+
+Notably, this technique of repeated K-Folds is especially useful when
+the data set is not too large and there is a need to ensure the
+stability of the evaluation metrics across different splits of the data.
+
+Leave-one-out cross-validation (LOOCV) is a variation of k-fold
+cross-validation in that the dataset gets divided into multiple folds to
+be used for training and validation sets, then the model gets fitted and
+evaluated until each fold has been used as the validation set. However,
+for LOOCV, the validation set is comprised of a single observation, so k
+is equal to the sample size [@shao2016efficient]. This method can be
+preferable to other methods when the sample size is small because the
+lack of randomness when dividing the dataset causes the accuracy
+estimate of the models to be constant [@wong2015performance].
+
+Monte Carlo Cross-Validation (MCCV) is another commonly used method.
+Similar to the k-folds technique, MCCV randomly removes significant
+chunks of the dataset without replacement to use as its training and
+validation ($s_v$) data sets [@haddad2013applicability]. This sampling
+is repeated N times. The criterion for this techniques, according to
+[@haddad2013applicability], is as follows:
+
+$$
+MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2 \tag{2}
+$$
+
+One of the appeals of MCCV over some other techniques its reduced
+computational complexity compared to other techniques, such as
+LOOCV[@james1980monte].
+
+### Performance Metrics
+
+In terms of the mathematical methodology, the article by Jung and Hu
+(2015) provides important equations for calculating the mean squared
+prediction error (MSPE) and mean squared error (MSE) as metrics to
+evaluate model performance.
+
+The MSE is the expectation of the squared norm of the difference between
+the estimated and the true parameter vectors, and can be calculated as:
+
+$$
+MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{3}
+$$
+
+where $\hat{\beta}_i$ is the estimated value of the $i$-th parameter,
+$\beta_i$ is the true value of the $i$-th parameter, and $p$ is the
+total number of parameters. The lower the MSE, the better the model's
+predictions match the actual data.
+
+The overall test predictors are evaluated using the MSPE, calculated as:
+
+$$
+MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{4}
+$$
+
+where MSEi is the mean squared error for the ith fold, and K is the
+number of folds [@jung2015ak].
+
+Related, in statistical modeling, $R^2$, also known as the coefficient
+of determination, is a measure that indicates the proportion of the
+variance in the dependent variable that is predictable from the
+independent variables. It provides a sense of how well the independent
+variables predict the dependent variable; the closer $R^2$ is to 1, the
+better the model explains the data.
+
+This can be written as:
+
+$$
+R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{5}
+$$
+
+where $\bar{y}$ is the mean value of $y$ [@ott2015introduction].
+
+Ultimately, $R^2$ and MSE are related in that they both measure the
+model's performance, but they do it in different ways. While $R^2$
+measures the proportion of variance explained by the model, MSE measures
+the average error of the model's predictions. In the context of
+cross-validation, both metrics can be used to compare models: a higher
+$R^2$ and a lower MSE would typically indicate a better predictive
+model.
+
+Another performance metric that will be used to determine model performance is the area under the ROC curve (AUC). AUC conveys how well a model can differentiate between different classes, and it is preferable to other metrics, such as accuracy, because it accounts for both specificity and sensitivity [@cantor2000determining]. AUC scores can range from 0 to 1, with 0 indicating the model has no ability to discern between classes, and 1 indicating the model perfectly predicts classfication. Figure 6 demonstrates how AUC uses the positive and negative outcomes to calculate a value that indicates the probability of a positive result ranking higher than negative results, where $S_p$ is the total number of positive outcomes ranked, and $n_p$ and $n_n$ are the number of positive and negative outcomes, respectively [@hossin2015review].
+
+$$
+AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
+$$
+## Analysis and Results
+
+### Data Description and Visualization
+
+This heart failure clinical records dataset, obtained via the UC Irvine
+Machine Learning Repository, contains the medical records of 299
+patients who had heart failure, collected during their follow-up period,
+where each patient profile has 13 clinical features
+[@chicco2020machine].
+
+More specifically, the dataset comprises medical records of 299 heart
+failure patients from Faisalabad, Pakistan, collected between April and
+December 2015. It includes 13 clinical, body, and lifestyle features,
+both categorical and continuous. The dataset was used to facilitate
+machine learning predictions on patient survival based solely on serum
+creatinine and ejection fraction levels. Various machine learning and
+biostatistical methods were employed for binary classification of
+survival, feature ranking, and to examine the predictability of survival
+using the mentioned key features. This study aims to demonstrate the
+potential of specific biomarkers in predicting heart failure outcomes
+and to streamline the prediction process for medical practitioners.
+Notably, [@de2020cross] highlight the ways in which cross-validation can
+be implemented on a dataset, such as ours, through different
+cross-validation methods and techniques.
+
+Our data description is as follows:
+
+| **Variable**           | **Type**  | **Characteristic**                    |
+|------------------------|-----------|---------------------------------------|
+| Age                    | Predictor | Integer                               |
+| Anaemia                | Predictor | Binary (1 = anemic, 0 = not)          |
+| creatine_phosphokinase | Predictor | Integer                               |
+| Diabetes               | Predictor | Binary (1 = diabetic, 0 = not)        |
+| ejection_fraction      | Predictor | Integer                               |
+| high_blood_pressure    | Predictor | Binary (1 = HBP present, 0 = no HBP)  |
+| Platelets              | Predictor | Continuous                            |
+| serum_creatinine       | Predictor | Continuous                            |
+| serum_sodium           | Predictor | Integer                               |
+| Sex                    | Predictor | Binary (1 = M, 0 = F)                 |
+| Smoking                | Predictor | Binary (1 = smoker, 2 = not a smoker) |
+| Time                   | Predictor | Integer                               |
+| death_event            | Response  | Binary (1 = death, 0 = no death)      |
+
+```{r, warning=FALSE, echo=T, message=FALSE}
+# loading packages 
+library(tidyverse)
+library(knitr)
+library(ggthemes)
+library(ggrepel)
+library(dslabs)
+library(ggplot2)
+library(corrplot)
+library(rsample)
+library(tidymodels)
+library(Metrics)
+library(ROCR)
+```
+
+```{r, warning=FALSE, echo=TRUE}
+# Load Data
+data <- read.csv('heart_failure_clinical_records_dataset.csv')
+```
+
+#### Continuous Variables
+
+```{r}
+par(mfrow=c(2,4))
+hist(data$age, main="Age")
+hist(data$creatinine_phosphokinase, main="Creatinine Phosphokinase")
+hist(data$ejection_fraction, main="Ejection Fraction")
+hist(data$platelets, main="Platelets")
+hist(data$serum_creatinine, main="Serum Creatinine")
+hist(data$serum_sodium, main="Serum Sodium")
+hist(data$time, main="Time")
+```
+
+The age of patients ranged from 40 to 95 years old, which the majority
+aged below 70 years old. The time variable is the number of days in the
+follow-up period for each patient, ranging from 4 to 285 days.
+Creatinine phosphokinase indicates the level of this enzyme in the
+patient's blood, which is present when muscle tissue is damaged
+[@chicco2020machine]. The serum creatinine is created by this creatinine
+when muscle breaks down [@chicco2020machine], so this variable was
+included as another potential indicator of injury. Variables were
+included that observe the levels of sodium (serum sodium) and number of
+platelets in the patient's blood. The ejection fraction variable is the
+percentage of blood leaving the left ventricle during each contraction
+of the heart [@chicco2020machine].
+
+#### Categorical Variables
+
+```{r}
+par(mfrow=c(2,3))
+hist(data$anaemia, main="Anaemia", breaks=2)
+hist(data$diabetes, main="Diabetes", breaks=2)
+hist(data$high_blood_pressure, main="High Blood Pressure", breaks=2)
+hist(data$sex, main="Sex", breaks=2)
+hist(data$smoking, main = "Smoking", breaks = 2)
+hist(data$DEATH_EVENT,main = "Death Event",breaks=2)
+```
+
+All of our categorical variables are Boolean and are encoded as '0' and
+'1' to indicate negative or positive occurrence of a variable's
+condition, respectively. These variables include whether the patient is
+a smoker, has diabetes, anaemia, or high blood pressure. The sex
+variable indicates whether the patient is a female ('0') or male ('1').
+Our target variable, death event, indicates whether the patient died
+before the end of the follow-up period.
+
+#### Missing Values
+
+```{r}
+colSums(is.na(data)) #total missing values per column
+```
+
+We found the total number of missing values for each variable, and none
+were found. The analysis can continue without deleting rows or
+imputation of values.
+
+#### Checking for Outliers
+
+```{r}
+#Boxplots to look for outliers
+par(mfrow=c(2,4))
+boxplot(data$age, main="Age")
+boxplot(data$creatinine_phosphokinase, main="Creatinine Phosphokinase")
+boxplot(data$ejection_fraction, main="Ejection Fraction")
+boxplot(data$platelets, main="Platelets")
+boxplot(data$serum_creatinine, main="Serum Creatinine")
+boxplot(data$serum_sodium, main="Serum Sodium")
+boxplot(data$time, main="Time")
+```
+
+Boxplots for our continuous variables were created in our exploratory
+analysis to evaluate if any variables have outlier that need to be
+addressed. The boxplots do indicate that some of our variables have
+potential outliers, namely creatinine phosphokinase, ejection fraction,
+platelets, serum creatinine, and serum sodium. However, these data
+points will remain untouched for our analysis. The indicated outlier do
+not appear to be recording errors, such as a negative time variable or
+unrealistic age. The outliers in the boxplots appear to be genuine
+observations and should be considered in our model. The original article
+also did not remove any outliers [@chicco2020machine.]
+
+#### Correlation
+
+The majority of the variables do not appear to have a significant
+correlation to the other. The most significant was between the time
+variable and our target variable, death event. There's a negative
+relationship, meaning the patients who had more days in the follow-up
+period tended to survive through the end of the follow-up period. There
+was a slight positive correlation between sex of the patient and smoker
+status, meaning more male patients tended to be smokers than female
+patients.
+
+```{r}
+cor(data) %>%
+  corrplot(method = 'ellipse', type = 'upper')
+
+par(mfrow=c(2,4))
+plot(x=data$age,y=data$DEATH_EVENT, main="Age", ylim = c(-.5,1.5))
+plot(x=data$creatinine_phosphokinase,y=data$DEATH_EVENT, main="Creatinine Phosphokinase",ylim = c(-.5,1.5))
+plot(x=data$ejection_fraction,y=data$DEATH_EVENT, main="Ejection Fraction",ylim = c(-.5,1.5))
+plot(x=data$platelets,y=data$DEATH_EVENT, main="Platelets",ylim = c(-.5,1.5))
+plot(x=data$serum_creatinine,y=data$DEATH_EVENT, main="Serum Creatinine",ylim = c(-.5,1.5))
+plot(x=data$serum_sodium,y=data$DEATH_EVENT, main="Serum Sodium",ylim = c(-.5,1.5))
+plot(x=data$time,y=data$DEATH_EVENT, main="Time",ylim = c(-.5,1.5))
+```
+
+### Statistical Modeling
+
+#### 10-fold Cross Validation:
+
+```{r}
+library(boot)
+auc <- function(obs, pred.p){
+  pred <- prediction(pred.p, obs)
+  perf <- performance(pred, "tpr", "fpr")
+  cost = unlist(slot(performance(pred, "auc"), "y.values"))
+  return(cost)
+} 
+set.seed(43269)
+m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
+         data = data, 
+         family = "binomial"(link = "logit"))
+
+k10_m1_mse <- cv.glm(data, m1, K=10)$delta
+k10_m1_mse
+
+k10_m1_auc <- cv.glm(data, m1, K=10, cost=auc)$delta
+k10_m1_auc
+
+
+set.seed(85329)
+m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
+         family = "binomial"(link = "logit"), data=data)
+
+k10_m2_mse <- cv.glm(data, m2, K=10)$delta
+k10_m2_mse
+
+k10_m2_auc <- cv.glm(data=data, glmfit=m2, cost=auc, K=10)$delta
+k10_m2_auc
+
+```
+
+With any variation of k-fold cross validation, the dataset is split into
+k sized folds that will all be equal. Here, the dataset is split in 10
+folds. As previously discussed, [@wong2019reliable] mentions 10-fold
+cross validation analysis to be most effective in most cases. In model
+1, all predictor variables are included. In model 2, only ejection
+fraction and serum creatinine are included, as the researchers that
+provided the data set came to the conclusion that death events could be
+predicted using those 2 variables alone. Interestingly enough, the first
+model that included all variables produced a lower MSE (mean square
+error), indicating that from this CV test, model one would be better to
+use than model 2.
+
+#### 5-fold Cross Validation:
+
+```{r}
+library(boot)
+
+set.seed(143269)
+m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
+         data = data, 
+         family = "binomial"(link = "logit"))
+
+k5_m1_mse <- cv.glm(data, m1, K=5)$delta
+k5_m1_mse
+
+k5_m1_auc <- cv.glm(data, m1, K=5, cost=auc)$delta
+k5_m1_auc
+
+set.seed(185329)
+m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
+         data = data, 
+         family = "binomial"(link = "logit"))
+
+k5_m2_mse <- cv.glm(data, m2, K=5)$delta
+k5_m2_mse
+
+k5_m2_auc <- cv.glm(data, m2, K=5, cost=auc)$delta
+k5_m2_auc
+
+```
+
+Similar to the 10-fold models above, our dataset is split into equal
+pieces. However, in this case, we are only doing 5 folds compared to our
+10-fold analysis above. Again, in model 1, all predictor variables are
+included. In model 2, only ejection fraction and serum creatinine are
+included. With 5-fold cross validation, the data set is divided into 5
+parts (as opposed to 10 in 10-fold). Model 1 still has a lower MSE than
+the full model that includes all predictor variables.
+
+
+#### Single Hold-Out Method:
+
+```{r}
+#add obs # for each row
+library(dplyr)
+data_SHO <- data %>%
+  mutate(obs = row_number()) %>%
+  relocate(obs)
+
+#split
+library(rsample)
+set.seed(726159)
+split_SHO <- initial_split(data_SHO, prop = 0.5)
+training_SHO <- training(split_SHO)
+validation_SHO <- testing(split_SHO)
+
+#create SHO models with training set
+m1_SHO <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
+         data = training_SHO, 
+         family = "binomial"(link = "logit"))
+
+m2_SHO <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
+         data = training_SHO, 
+         family = "binomial"(link = "logit"))
+
+#calculate MSE
+validation_SHO <- validation_SHO %>% 
+  mutate(yhat_m1_SHO = predict(m1_SHO, newdata = validation_SHO),
+         yhat_m2_SHO = predict(m2_SHO, newdata = validation_SHO)) %>%
+  mutate(sqerr_m1_SHO = (yhat_m1_SHO - DEATH_EVENT)^2,
+         sqerr_m2_SHO = (yhat_m2_SHO - DEATH_EVENT)^2) %>%
+  relocate(obs, DEATH_EVENT, yhat_m1_SHO, sqerr_m1_SHO, yhat_m2_SHO, sqerr_m2_SHO)
+
+head(validation_SHO)
+
+mean(validation_SHO$sqerr_m1_SHO, na.rm = TRUE)
+mean(validation_SHO$sqerr_m2_SHO, na.rm = TRUE)
+
+#Calculate AUC
+SHO_m1_auc = auc(validation_SHO$DEATH_EVENT,validation_SHO$yhat_m1_SHO)
+SHO_m2_auc = auc(validation_SHO$DEATH_EVENT,validation_SHO$yhat_m2_SHO)
+SHO_m1_auc
+SHO_m2_auc
+```
+
+Using the Single Hold-Out Method, the data set is split into a training
+set and a test/validation set. Here, we are using a 50-50 split. After
+conducting the analysis, it can be seen that model 2 provides us with a
+lower mean squared error. Model 2 includes only ejection fraction and
+serum creatinine as predictor variables, meaning this reduced model is a
+better fit according to this cross-validation technique.
+
+#### Leave-One-Out Cross-Validation (LOOCV):
+
+```{r}
+set.seed(7432)
+m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
+         data = data, 
+         family = "binomial"(link = "logit"))
+
+loocv_m1_mse <- cv.glm(data, m1)$delta
+loocv_m1_mse
+
+#loocv_m1_auc <- cv.glm(data, m1, cost = auc)$delta
+#loocv_m1_auc
+
+set.seed(20987)
+m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
+         data = data, 
+         family = "binomial"(link = "logit"))
+
+loocv_m2_mse <- cv.glm(data, m2)$delta
+loocv_m2_mse
+
+#loocv_m2_auc <- cv.glm(data, m2, cost = auc)$delta
+#loocv_m2_auc
+```
+
+Leave-One-Out cross-validation (LOOCV) follows a similar data set
+splitting technique, but in this case, the data is split k-ways, where k
+is equal to the number of data points. According to LOOCV, the full
+model (which includes all predictor variables) is a better fit due to a
+lower mean squared error compared to the reduced model (which only
+includes serum creatinine and ejection fraction).
+
+#### Monte Carlo Cross-Validation:
+
+```{r}
+data$DEATH_EVENT=as.factor(data$DEATH_EVENT)
+set.seed(30)
+resample1 <- mc_cv(data, times = 100, prop = .7)
+map_dbl(
+  resample1$splits,
+  function(x) {
+    dat <- as.data.frame(x)$DEATH_EVENT
+    mean(dat == "Yes")
+  }
+)
+
+m1_recipe <- recipe(DEATH_EVENT ~ ., data = data)
+mccv_model <- logistic_reg() %>% #creating classification model
+  set_engine("glm") %>%
+  set_mode("classification")
+m1_wflow <- #adding variables for model 1
+  workflow() %>%
+  add_formula(
+    DEATH_EVENT ~ .) %>%
+  add_model(mccv_model)
+m2_wflow <- # adding variables for model 2
+  workflow() %>%
+  add_formula(
+    DEATH_EVENT ~ ejection_fraction + serum_creatinine) %>%
+  add_model(mccv_model)
+
+
+
+keep_pred <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
+set.seed(30)
+m1_MCCV <-m1_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
+m1_MCCV_metrics <- collect_metrics(m1_MCCV)
+m2_MCCV <- m2_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
+m2_MCCV_metrics <-collect_metrics(m2_MCCV)
+```
+```{r}
+MCCVtibble = tibble(M1_MCCV_MSE = m1_MCCV_metrics[2,3], M2_MCCV_MSE = m2_MCCV_metrics[2,3], M1_MCCV_AUC= m1_MCCV_metrics[3,3], M2_MCCV_AUC= m2_MCCV_metrics[3,3])
+#MCCV_table = data.frame(Metric=c('Model 1 MSE','Model 2 MSE','Model 1 AUC', 'Model 2 AUC'),Value = #MCCVtibble)
+MCCVtibble
+```
+For the Monte Carlo technique, logistic regression will be used to create the models. Unlike previous techniques, a resampling function was created to repeat the splitting of the data many times. Our proportion of training to validation sets is the standard 70/30 split, and the data will be resampled 100 times. For the MSE of the models, we'll be using the Brier score as our resampling fitting function generates the Brier score automatically, and it performs similarly to MSE in classification problems [@ferro2012bias]. Similar to the previously discussed techniques, our full model had the lower MSE/ Brier score and higher AUC. The smaller model's AUC of 0.763 is still acceptable as far as the metric's ideal scores go, but the increase of about 0.1 indicates there might be another predictor or two that could contribute significantly to the model.
+
+## Conclusion
+
+This paper shows various cross-validation techniques that can be used
+for modeling validation, including single hold-out, 5 & 10 k-folds,
+leave-one-out, and Monte Carlo cross-validation.
+
+While the researchers that provided the dataset found that survival of
+heart attack patients can be predicted using only serum creatinine and
+ejection fraction as predictor variables. The linear regression analysis
+we conducted using various cross-validation techniques has shown that
+the full model (which includes all predictor variables within the
+dataset) has a lower mean squared error (MSE) after testing. This
+essentially means the full model is more robust with predictive ability
+compared to the reduced model. That being said, the difference in MSEs
+between the two models is marginal, however, the full model by
+technicality does have slightly more predictive ability.
+
+The marginal difference between models supports the argument made by the
+researchers because the model with two predictor variables and the model
+with twelve predictor variables produced small differences in MSEs as
+seen in the analysis above; models with less predictor variables are
+typically preferred in statistical analysis.
+
+Ultimately, while the k-folds CV technique (particularly 10 folds)
+seemed to perform the best, most of these techniques seem sufficient to
+help validate a model based on this example.
+
+### References
