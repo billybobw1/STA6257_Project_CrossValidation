@@ -2,19 +2,7 @@
 title: "Cross-Validation - Methods & Importance in Data Science and Statistics"
 author: "Jesse Buntyn, Jolie Wise, Danielle Koche"
 date: '`r Sys.Date()`'
-format:
-  html:
-    code-fold: true
-course: STA 6257 - Advanced Statistical Modeling
-bibliography: references.bib # file contains bibtex for references
-#always_allow_html: true # this allows to get PDF with HTML features
-self-contained: true
-execute: 
-  warning: false
-  message: false
-editor: 
-  markdown: 
-    wrap: 72
+format: revealjs
 ---
 
 ## Introduction
