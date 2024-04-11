@@ -643,8 +643,8 @@ m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ej
 loocv_m1_mse <- cv.glm(data, m1)$delta
 loocv_m1_mse
 
-loocv_m1_auc <- cv.glm(data, m1, cost = auc)$delta
-loocv_m1_auc
+#loocv_m1_auc <- cv.glm(data, m1, cost = auc)$delta
+#loocv_m1_auc
 
 set.seed(20987)
 m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
@@ -654,8 +654,8 @@ m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
 loocv_m2_mse <- cv.glm(data, m2)$delta
 loocv_m2_mse
 
-loocv_m2_auc <- cv.glm(data, m2, cost = auc)$delta
-loocv_m2_auc
+#loocv_m2_auc <- cv.glm(data, m2, cost = auc)$delta
+#loocv_m2_auc
 ```
 
 Leave-One-Out cross-validation (LOOCV) follows a similar data set
@@ -699,10 +699,17 @@ m2_wflow <- # adding variables for model 2
 keep_pred <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
 set.seed(30)
 m1_MCCV <-m1_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
-collect_metrics(m1_MCCV)
+m1_MCCV_metrics <- collect_metrics(m1_MCCV)
 m2_MCCV <- m2_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
-collect_metrics(m2_MCCV)
+m2_MCCV_metrics <-collect_metrics(m2_MCCV)
+m2_MCCV_metrics
 ```
+```{r}
+MCCVtibble = tibble(M1_MCCV_MSE = m1_MCCV_metrics[2,3], M2_MCCV_MSE = m2_MCCV_metrics[2,3], M1_MCCV_AUC= m1_MCCV_metrics[3,3], M2_MCCV_AUC= m2_MCCV_metrics[3,3])
+#MCCV_table = data.frame(Metric=c('Model 1 MSE','Model 2 MSE','Model 1 AUC', 'Model 2 AUC'),Value = #MCCVtibble)
+MCCVtibble
+```
+
 
 ## Conclusion
 
