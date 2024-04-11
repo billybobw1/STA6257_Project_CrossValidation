@@ -172,7 +172,9 @@ in a data scientist's arsenal, ensuring models are not only predictive
 but also generalizable across diverse datasets and contexts.
 
 ## Methods
+
 ### Performance Metrics
+
 In terms of the mathematical methodology, the article by Jung and Hu
 (2015) provides important equations for calculating the mean squared
 prediction error (MSPE) and mean squared error (MSE) as metrics to
@@ -229,7 +231,15 @@ depending on what needs to be accomplished. Many of which, mentioned in
 the introduction. The following will introduce some of those important
 techniques.
 
-Single hold-out cross-validation is one more simple versions of cross-validation being used [@yadav2016analysis]. The dataset gets divided into a training set and validation, or hold-out, set. The training set is used to fit a model, which is then used for prediction on the validation set. The performance of the model is then determined by the variance between the predictions and the actual data. One of the main drawbacks of this method is that the training set and validation set can have different distributions, causing potentially unreliable models [@santos2023statistical].
+Single hold-out cross-validation is one more simple versions of
+cross-validation being used [@yadav2016analysis]. The dataset gets
+divided into a training set and validation, or hold-out, set. The
+training set is used to fit a model, which is then used for prediction
+on the validation set. The performance of the model is then determined
+by the variance between the predictions and the actual data. One of the
+main drawbacks of this method is that the training set and validation
+set can have different distributions, causing potentially unreliable
+models [@santos2023statistical].
 
 [@jung2015ak] introduce an advanced k-fold averaging cross-validation
 procedure, advocating for the averaging of parameter estimates across
@@ -290,7 +300,15 @@ Notably, this technique of repeated K-Folds is especially useful when
 the data set is not too large and there is a need to ensure the
 stability of the evaluation metrics across different splits of the data.
 
-Leave-one-out cross-validation (LOOCV) is a variation of k-fold cross-validation in that the dataset gets divided into multiple folds to be used for training and validation sets, then the model gets fitted and evaluated until each fold has been used as the validation set. However, for LOOCV, the validation set is comprised of a single observation, so k is equal to the sample size [@shao2016efficient]. This method can be preferable to other methods when the sample size is small because the lack of randomness when dividing the dataset causes the accuracy estimate of the models to be constant [@wong2015performance].
+Leave-one-out cross-validation (LOOCV) is a variation of k-fold
+cross-validation in that the dataset gets divided into multiple folds to
+be used for training and validation sets, then the model gets fitted and
+evaluated until each fold has been used as the validation set. However,
+for LOOCV, the validation set is comprised of a single observation, so k
+is equal to the sample size [@shao2016efficient]. This method can be
+preferable to other methods when the sample size is small because the
+lack of randomness when dividing the dataset causes the accuracy
+estimate of the models to be constant [@wong2015performance].
 
 Monte Carlo Cross-Validation (MCCV) is another commonly used method.
 Similar to the k-folds technique, MCCV randomly removes significant
@@ -362,6 +380,7 @@ library(corrplot)
 library(rsample)
 library(tidymodels)
 library(Metrics)
+library(ROCR)
 ```
 
 ```{r, warning=FALSE, echo=TRUE}
@@ -448,10 +467,19 @@ points will remain untouched for our analysis. The indicated outlier do
 not appear to be recording errors, such as a negative time variable or
 unrealistic age. The outliers in the boxplots appear to be genuine
 observations and should be considered in our model. The original article
-also did not remove any outliers [@chicco2020machine.] 
+also did not remove any outliers [@chicco2020machine.]
 
 #### Correlation
-The majority of the variables do not appear to have a significant correlation to the other. The most significant was between the time variable and our target variable, death event. There's a negative relationship, meaning the patients who had more days in the follow-up period tended to survive through the end of the follow-up period. There was a slight positive correlation between sex of the patient and smoker status, meaning more male patients tended to be smokers than female patients.
+
+The majority of the variables do not appear to have a significant
+correlation to the other. The most significant was between the time
+variable and our target variable, death event. There's a negative
+relationship, meaning the patients who had more days in the follow-up
+period tended to survive through the end of the follow-up period. There
+was a slight positive correlation between sex of the patient and smoker
+status, meaning more male patients tended to be smokers than female
+patients.
+
 ```{r}
 cor(data) %>%
   corrplot(method = 'ellipse', type = 'upper')
@@ -472,9 +500,12 @@ plot(x=data$time,y=data$DEATH_EVENT, main="Time",ylim = c(-.5,1.5))
 
 ```{r}
 library(boot)
-auc <- function(labels,pred){
-  mean(labels==ifelse(pred > 0.5, 1, 0))
-}
+auc <- function(obs, pred.p){
+  pred <- prediction(pred.p, obs)
+  perf <- performance(pred, "tpr", "fpr")
+  cost = unlist(slot(performance(pred, "auc"), "y.values"))
+  return(cost)
+} 
 set.seed(43269)
 m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
          data = data, 
@@ -489,14 +520,14 @@ k10_m1_auc
 
 set.seed(85329)
 m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
-         data = data, 
-         family = "binomial"(link = "logit"))
+         family = "binomial"(link = "logit"), data=data)
 
 k10_m2_mse <- cv.glm(data, m2, K=10)$delta
 k10_m2_mse
 
-k10_m2_auc <- cv.glm(data, m2, K=10, cost=auc)$delta
+k10_m2_auc <- cv.glm(data=data, glmfit=m2, cost=auc, K=10)$delta
 k10_m2_auc
+
 ```
 
 With any variation of k-fold cross validation, the dataset is split into
@@ -540,8 +571,6 @@ k5_m2_auc
 
 ```
 
-
-
 Similar to the 10-fold models above, our dataset is split into equal
 pieces. However, in this case, we are only doing 5 folds compared to our
 10-fold analysis above. Again, in model 1, all predictor variables are
@@ -549,6 +578,7 @@ included. In model 2, only ejection fraction and serum creatinine are
 included. With 5-fold cross validation, the data set is divided into 5
 parts (as opposed to 10 in 10-fold). Model 1 still has a lower MSE than
 the full model that includes all predictor variables.
+
 
 #### Single Hold-Out Method:
 
@@ -591,6 +621,8 @@ mean(validation_SHO$sqerr_m2_SHO, na.rm = TRUE)
 #Calculate AUC
 SHO_m1_auc = auc(validation_SHO$DEATH_EVENT,validation_SHO$yhat_m1_SHO)
 SHO_m2_auc = auc(validation_SHO$DEATH_EVENT,validation_SHO$yhat_m2_SHO)
+SHO_m1_auc
+SHO_m2_auc
 ```
 
 Using the Single Hold-Out Method, the data set is split into a training
@@ -671,7 +703,6 @@ collect_metrics(m1_MCCV)
 m2_MCCV <- m2_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
 collect_metrics(m2_MCCV)
 ```
-
 
 ## Conclusion
 
