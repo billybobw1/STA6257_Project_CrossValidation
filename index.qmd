@@ -361,6 +361,7 @@ library(ggplot2)
 library(corrplot)
 library(rsample)
 library(tidymodels)
+library(Metrics)
 ```
 
 ```{r, warning=FALSE, echo=TRUE}
@@ -586,6 +587,10 @@ head(validation_SHO)
 
 mean(validation_SHO$sqerr_m1_SHO, na.rm = TRUE)
 mean(validation_SHO$sqerr_m2_SHO, na.rm = TRUE)
+
+#Calculate AUC
+SHO_m1_auc = auc(validation_SHO$DEATH_EVENT,validation_SHO$yhat_m1_SHO)
+SHO_m2_auc = auc(validation_SHO$DEATH_EVENT,validation_SHO$yhat_m2_SHO)
 ```
 
 Using the Single Hold-Out Method, the data set is split into a training
