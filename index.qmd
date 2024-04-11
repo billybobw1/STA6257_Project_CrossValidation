@@ -222,7 +222,7 @@ see Figure 1:**
 The MSE calculation using K-folds is as follows [@jung2015ak]:
 
 $$
-CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{4}
+CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{1}
 $$
 
 **For clarity, the difference between K-folds and repeated K-folds,
@@ -267,7 +267,7 @@ is repeated N times. The criterion for this techniques, according to
 [@haddad2013applicability], is as follows:
 
 $$
-MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2 \tag{5}
+MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2 \tag{2}
 $$
 
 One of the appeals of MCCV over some other techniques its reduced
@@ -285,7 +285,7 @@ The MSE is the expectation of the squared norm of the difference between
 the estimated and the true parameter vectors, and can be calculated as:
 
 $$
-MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{1}
+MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{3}
 $$
 
 where $\hat{\beta}_i$ is the estimated value of the $i$-th parameter,
@@ -296,7 +296,7 @@ predictions match the actual data.
 The overall test predictors are evaluated using the MSPE, calculated as:
 
 $$
-MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{2}
+MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{4}
 $$
 
 where MSEi is the mean squared error for the ith fold, and K is the
@@ -312,7 +312,7 @@ better the model explains the data.
 This can be written as:
 
 $$
-R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{3}
+R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{5}
 $$
 
 where $\bar{y}$ is the mean value of $y$ [@ott2015introduction].
@@ -325,6 +325,11 @@ cross-validation, both metrics can be used to compare models: a higher
 $R^2$ and a lower MSE would typically indicate a better predictive
 model.
 
+Another performance metric that will be used to determine model performance is the area under the ROC curve (AUC). AUC conveys how well a model can differentiate between different classes, and it is preferable to other metrics, such as accuracy, because it accounts for both specificity and sensitivity [@cantor2000determining]. AUC scores can range from 0 to 1, with 0 indicating the model has no ability to discern between classes, and 1 indicating the model perfectly predicts classfication. Figure 6 demonstrates how AUC uses the positive and negative outcomes to calculate a value that indicates the probability of a positive result ranking higher than negative results, where $S_p$ is the total number of positive outcomes ranked, and $n_p$ and $n_n$ are the number of positive and negative outcomes, respectively [@hossin2015review].
+
+$$
+AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
+$$
 ## Analysis and Results
 
 ### Data Description and Visualization

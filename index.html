@@ -3324,7 +3324,7 @@ window.Quarto = {
 </ol>
 <p>The MSE calculation using K-folds is as follows <span class="citation" data-cites="jung2015ak">(<a href="#ref-jung2015ak" role="doc-biblioref">Jung and Hu 2015</a>)</span>:</p>
 <p><span class="math display">\[
-CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{4}
+CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{1}
 \]</span></p>
 <p><strong>For clarity, the difference between K-folds and repeated K-folds, another method mentioned earlier, is as follows:</strong></p>
 <p>Repeated K-Fold Cross-Validation enhances the robustness of K-Fold by repeating the process multiple times and averaging the results. This method helps to reduce the variability of the single trial of K-Fold cross-validation, providing a more accurate estimate of the model’s ability to generalize to unseen data. Here’s the process:</p>
@@ -3337,7 +3337,7 @@ CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{4}
 <p>Leave-one-out cross-validation (LOOCV) is a variation of k-fold cross-validation in that the dataset gets divided into multiple folds to be used for training and validation sets, then the model gets fitted and evaluated until each fold has been used as the validation set. However, for LOOCV, the validation set is comprised of a single observation, so k is equal to the sample size <span class="citation" data-cites="shao2016efficient">(<a href="#ref-shao2016efficient" role="doc-biblioref">Shao and Er 2016</a>)</span>. This method can be preferable to other methods when the sample size is small because the lack of randomness when dividing the dataset causes the accuracy estimate of the models to be constant <span class="citation" data-cites="wong2015performance">(<a href="#ref-wong2015performance" role="doc-biblioref">Wong 2015</a>)</span>.</p>
 <p>Monte Carlo Cross-Validation (MCCV) is another commonly used method. Similar to the k-folds technique, MCCV randomly removes significant chunks of the dataset without replacement to use as its training and validation (<span class="math inline">\(s_v\)</span>) data sets <span class="citation" data-cites="haddad2013applicability">(<a href="#ref-haddad2013applicability" role="doc-biblioref">Haddad et al. 2013</a>)</span>. This sampling is repeated N times. The criterion for this techniques, according to <span class="citation" data-cites="haddad2013applicability">(<a href="#ref-haddad2013applicability" role="doc-biblioref">Haddad et al. 2013</a>)</span>, is as follows:</p>
 <p><span class="math display">\[
-MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2 \tag{5}
+MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2 \tag{2}
 \]</span></p>
 <p>One of the appeals of MCCV over some other techniques its reduced computational complexity compared to other techniques, such as LOOCV<span class="citation" data-cites="james1980monte">(<a href="#ref-james1980monte" role="doc-biblioref">James 1980</a>)</span>.</p>
 </section>
@@ -3346,25 +3346,26 @@ MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)
 <p>In terms of the mathematical methodology, the article by Jung and Hu (2015) provides important equations for calculating the mean squared prediction error (MSPE) and mean squared error (MSE) as metrics to evaluate model performance.</p>
 <p>The MSE is the expectation of the squared norm of the difference between the estimated and the true parameter vectors, and can be calculated as:</p>
 <p><span class="math display">\[
-MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{1}
+MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{3}
 \]</span></p>
 <p>where <span class="math inline">\(\hat{\beta}_i\)</span> is the estimated value of the <span class="math inline">\(i\)</span>-th parameter, <span class="math inline">\(\beta_i\)</span> is the true value of the <span class="math inline">\(i\)</span>-th parameter, and <span class="math inline">\(p\)</span> is the total number of parameters. The lower the MSE, the better the model’s predictions match the actual data.</p>
 <p>The overall test predictors are evaluated using the MSPE, calculated as:</p>
 <p><span class="math display">\[
-MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{2}
+MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{4}
 \]</span></p>
 <p>where MSEi is the mean squared error for the ith fold, and K is the number of folds <span class="citation" data-cites="jung2015ak">(<a href="#ref-jung2015ak" role="doc-biblioref">Jung and Hu 2015</a>)</span>.</p>
 <p>Related, in statistical modeling, <span class="math inline">\(R^2\)</span>, also known as the coefficient of determination, is a measure that indicates the proportion of the variance in the dependent variable that is predictable from the independent variables. It provides a sense of how well the independent variables predict the dependent variable; the closer <span class="math inline">\(R^2\)</span> is to 1, the better the model explains the data.</p>
 <p>This can be written as:</p>
 <p><span class="math display">\[
-R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{3}
+R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{5}
 \]</span></p>
 <p>where <span class="math inline">\(\bar{y}\)</span> is the mean value of <span class="math inline">\(y\)</span> <span class="citation" data-cites="ott2015introduction">(<a href="#ref-ott2015introduction" role="doc-biblioref">Ott and Longnecker 2015</a>)</span>.</p>
 <p>Ultimately, <span class="math inline">\(R^2\)</span> and MSE are related in that they both measure the model’s performance, but they do it in different ways. While <span class="math inline">\(R^2\)</span> measures the proportion of variance explained by the model, MSE measures the average error of the model’s predictions. In the context of cross-validation, both metrics can be used to compare models: a higher <span class="math inline">\(R^2\)</span> and a lower MSE would typically indicate a better predictive model.</p>
+<p>Another performance metric that will be used to determine model performance is the area under the ROC curve (AUC). AUC conveys how well a model can differentiate between different classes, and it is preferable to other metrics, such as accuracy, because it accounts for both specificity and sensitivity <span class="citation" data-cites="cantor2000determining">(<a href="#ref-cantor2000determining" role="doc-biblioref">Cantor and Kattan 2000</a>)</span>. AUC scores can range from 0 to 1, with 0 indicating the model has no ability to discern between classes, and 1 indicating the model perfectly predicts classfication. Figure 6 demonstrates how AUC uses the positive and negative outcomes to calculate a value that indicates the probability of a positive result ranking higher than negative results, where <span class="math inline">\(S_p\)</span> is the total number of positive outcomes ranked, and <span class="math inline">\(n_p\)</span> and <span class="math inline">\(n_n\)</span> are the number of positive and negative outcomes, respectively <span class="citation" data-cites="hossin2015review">(<a href="#ref-hossin2015review" role="doc-biblioref">Hossin and Sulaiman 2015</a>)</span>.</p>
+<p><span class="math display">\[
+AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
+\]</span> ## Analysis and Results</p>
 </section>
-</section>
-<section id="analysis-and-results" class="level2">
-<h2 class="anchored" data-anchor-id="analysis-and-results">Analysis and Results</h2>
 <section id="data-description-and-visualization" class="level3">
 <h3 class="anchored" data-anchor-id="data-description-and-visualization">Data Description and Visualization</h3>
 <p>This heart failure clinical records dataset, obtained via the UC Irvine Machine Learning Repository, contains the medical records of 299 patients who had heart failure, collected during their follow-up period, where each patient profile has 13 clinical features <span class="citation" data-cites="chicco2020machine">(<a href="#ref-chicco2020machine" role="doc-biblioref">Chicco and Jurman 2020</a>)</span>.</p>
@@ -3928,6 +3929,9 @@ R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{3}
 <div id="ref-berrar2019cross" class="csl-entry" role="listitem">
 Berrar, Daniel et al. 2019. <span>“Cross-Validation.”</span>
 </div>
+<div id="ref-cantor2000determining" class="csl-entry" role="listitem">
+Cantor, Scott B, and Michael W Kattan. 2000. <span>“Determining the Area Under the ROC Curve for a Binary Diagnostic Test.”</span> <em>Medical Decision Making</em> 20 (4): 468–70.
+</div>
 <div id="ref-chicco2020machine" class="csl-entry" role="listitem">
 Chicco, Davide, and Giuseppe Jurman. 2020. <span>“Machine Learning Can Predict Survival of Patients with Heart Failure from Serum Creatinine and Ejection Fraction Alone.”</span> <em>BMC Medical Informatics and Decision Making</em> 20: 1–16.
 </div>
@@ -3939,6 +3943,9 @@ Filzmoser, Peter, Bettina Liebmann, and Kurt Varmuza. 2009. <span>“Repeated Do
 </div>
 <div id="ref-haddad2013applicability" class="csl-entry" role="listitem">
 Haddad, Khaled, Ataur Rahman, Mohammad A Zaman, and Surendra Shrestha. 2013. <span>“Applicability of Monte Carlo Cross Validation Technique for Model Development and Validation Using Generalised Least Squares Regression.”</span> <em>Journal of Hydrology</em> 482: 119–28.
+</div>
+<div id="ref-hossin2015review" class="csl-entry" role="listitem">
+Hossin, Mohammad, and Md Nasir Sulaiman. 2015. <span>“A Review on Evaluation Metrics for Data Classification Evaluations.”</span> <em>International Journal of Data Mining &amp; Knowledge Management Process</em> 5 (2): 1.
 </div>
 <div id="ref-james1980monte" class="csl-entry" role="listitem">
 James, Frederick. 1980. <span>“Monte Carlo Theory and Practice.”</span> <em>Reports on Progress in Physics</em> 43 (9): 1145.
