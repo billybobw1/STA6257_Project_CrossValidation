@@ -39,7 +39,7 @@ predictions across various data subsets.
 - Repeated K-Fold Cross-Validation
 
 ## Single Hold-Out Method:
-his is one of the more simple methods of
+This is one of the more simple methods of
 cross-validation and tends to be less time-consuming to conduct
 [@yadav2016analysis]. It divides data into a training set and a test
 set, usually in a 70-30 or 90-10 split.
