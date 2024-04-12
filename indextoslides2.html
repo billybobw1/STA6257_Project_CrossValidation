@@ -99,7 +99,27 @@
     code span.va { color: #111111; } /* Variable */
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="indextoslides2_files/libs/revealjs/dist/theme/quarto.css">
   <link rel="stylesheet" href="fontsize.css">
   <link href="indextoslides2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -413,7 +433,7 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 <h2>Introduction</h2>
 <p>This is an introduction to understanding cross-validation, its methods, and its importance in data science &amp; statistics.</p>
 <p>Cross-validation is a cornerstone methodology in the field of data science, essential for assessing the predictive performance of statistical models and ensuring their generalizability to unseen data. This resampling technique allows researchers to evaluate how models will perform in practice, addressing critical challenges like overfitting and underfitting, thereby ensuring robustness and reliability of model predictions across various data subsets.</p>
-<p>The tutorial by <span class="citation" data-cites="song2021making">[@song2021making]</span> further elaborates on the practical application of cross-validation, presenting a structured, step-by-step approach to assessing model generalizability and emphasizing the significance of the repeated k-folds technique for reducing bias in model evaluation.</p>
+<p>The tutorial by <span class="citation" data-cites="song2021making">(<a href="#/references" role="doc-biblioref" onclick="">Song, Tang, and Wee 2021</a>)</span> further elaborates on the practical application of cross-validation, presenting a structured, step-by-step approach to assessing model generalizability and emphasizing the significance of the repeated k-folds technique for reducing bias in model evaluation.</p>
 <p><strong>The overall 5-step process to cross-validation introduced by them is as follows:</strong></p>
 <ol type="1">
 <li>Split the data into a training set and test set, typically 80/20 or 70/30.</li>
@@ -422,31 +442,31 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 <li>Repeat steps one through three.</li>
 <li>Calculate the average cross-validation prediction accuracy across all repetitions.</li>
 </ol>
-<p><span class="citation" data-cites="berrar2019cross">[@berrar2019cross]</span> exposition on cross-validation underscores its importance in parameter tuning and model selection, providing a detailed overview of its common types, including k-fold and leave-one-out cross-validation, and emphasizing its role in balancing the bias-variance tradeoff for improved model performance.</p>
+<p><span class="citation" data-cites="berrar2019cross">(<a href="#/references" role="doc-biblioref" onclick="">Berrar et al. 2019</a>)</span> exposition on cross-validation underscores its importance in parameter tuning and model selection, providing a detailed overview of its common types, including k-fold and leave-one-out cross-validation, and emphasizing its role in balancing the bias-variance tradeoff for improved model performance.</p>
 <p><strong>Specifically, common types of cross-validation include:</strong></p>
-<p><strong>Single Hold-Out Method:</strong> This is one of the more simple methods of cross-validation and tends to be less time-consuming to conduct <span class="citation" data-cites="yadav2016analysis">[@yadav2016analysis]</span>. It divides data into a training set and a test set, usually in a 70-30 or 90-10 split.</p>
-<p><strong>Monte Carlo cross-validation:</strong> Using random sampling without replacement from certain probability distributions when splitting your data sets <span class="citation" data-cites="james1980monte">[@james1980monte]</span>. It aims to decrease overfitting by allowing the algorithm to better explore the experimental space.</p>
+<p><strong>Single Hold-Out Method:</strong> This is one of the more simple methods of cross-validation and tends to be less time-consuming to conduct <span class="citation" data-cites="yadav2016analysis">(<a href="#/references" role="doc-biblioref" onclick="">Yadav and Shukla 2016</a>)</span>. It divides data into a training set and a test set, usually in a 70-30 or 90-10 split.</p>
+<p><strong>Monte Carlo cross-validation:</strong> Using random sampling without replacement from certain probability distributions when splitting your data sets <span class="citation" data-cites="james1980monte">(<a href="#/references" role="doc-biblioref" onclick="">James 1980</a>)</span>. It aims to decrease overfitting by allowing the algorithm to better explore the experimental space.</p>
 <p><strong>K-Fold Cross-Validation:</strong> The dataset is split into k equally sized folds. Each fold is used once as a test set while the rest serve as the training set.</p>
-<p><strong>Leave-One-Out Cross-Validation (LOOCV):</strong> This is a special case of k-fold cross-validation where k equals the number of data points <span class="citation" data-cites="shao2016efficient">[@shao2016efficient]</span>. Each data point is used once as a test set.</p>
+<p><strong>Leave-One-Out Cross-Validation (LOOCV):</strong> This is a special case of k-fold cross-validation where k equals the number of data points <span class="citation" data-cites="shao2016efficient">(<a href="#/references" role="doc-biblioref" onclick="">Shao and Er 2016</a>)</span>. Each data point is used once as a test set.</p>
 <p><strong>Stratified Cross-Validation:</strong> Ensures each fold reflects the class proportions in the dataset, particularly useful for imbalanced datasets.</p>
 <p><strong>Repeated K-Fold Cross-Validation:</strong> Repeats the K-Fold process multiple times and averages the results.</p>
-<p>The perspective of Berrar is enriched by <span class="citation" data-cites="schaffer1993selecting">[@schaffer1993selecting]</span>, who explores the significance of cross-validation in selecting optimal classification methods, highlighting its necessity in dealing with imbalanced datasets through stratified approaches.</p>
+<p>The perspective of Berrar is enriched by <span class="citation" data-cites="schaffer1993selecting">(<a href="#/references" role="doc-biblioref" onclick="">Schaffer 1993</a>)</span>, who explores the significance of cross-validation in selecting optimal classification methods, highlighting its necessity in dealing with imbalanced datasets through stratified approaches.</p>
 <h3 id="related-work">Related Work</h3>
-<p><span class="citation" data-cites="zhang2015cross">[@zhang2015cross]</span> delve into the strategic use of cross-validation for model selection, particularly in high-dimensional settings, challenging traditional approaches and proposing the integration of AIC and BIC for optimal model estimation. AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion) are both measures used to evaluate the quality of a statistical model, often in the context of model selection. While they are not directly used for cross-validation, they serve a similar purpose in helping to choose between different models by considering both the goodness of fit and the complexity of the model.</p>
-<p>Likewise, <span class="citation" data-cites="wong2019reliable">[@wong2019reliable]</span> contribute to the discourse by examining the reliability of accuracy estimates derived from k-fold cross-validation, cautioning against the uncritical increase of replications without considering the correlation between them, and recommending specific strategies for achieving more dependable accuracy estimates. More specifically, their experiments across 20 datasets indicate that accuracy estimates from different replications of k-fold cross-validation are generally highly correlated, especially as the number of folds increases. They instead recommend using a larger number of folds with fewer replications for performance evaluation. Particularly, their research concludes that ten-fold cross-validation yields the most significant scores among k-fold cross-validation techniques. A similar conclusion of the optimal for k is shared by <span class="citation" data-cites="marcot2021optimal">[@marcot2021optimal]</span>, as their evidence from their study that explores the ideal value of k for k-fold cross-validation analysis showed that the ideal value of k is 10, however, 5 can be sufficient in some cases.</p>
-<p>Ultimately, in statistical analysis, researchers are constantly innovating and refining cross-validation techniques to enhance model performance and address challenges associated with existing methodologies. <span class="citation" data-cites="filzmoser2009repeated">[@filzmoser2009repeated]</span> sought to explore a method intended to improve the reliability and predictive accuracy of complex linear models, particularly those developed from small datasets, and to provide more accurate prediction error estimates for future observations. Their investigation was centered around the concept of repeated double cross-validation (rdCV), an advanced technique that entails a dual-phase partitioning of the dataset.</p>
+<p><span class="citation" data-cites="zhang2015cross">(<a href="#/references" role="doc-biblioref" onclick="">Zhang and Yang 2015</a>)</span> delve into the strategic use of cross-validation for model selection, particularly in high-dimensional settings, challenging traditional approaches and proposing the integration of AIC and BIC for optimal model estimation. AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion) are both measures used to evaluate the quality of a statistical model, often in the context of model selection. While they are not directly used for cross-validation, they serve a similar purpose in helping to choose between different models by considering both the goodness of fit and the complexity of the model.</p>
+<p>Likewise, <span class="citation" data-cites="wong2019reliable">(<a href="#/references" role="doc-biblioref" onclick="">Wong and Yeh 2019</a>)</span> contribute to the discourse by examining the reliability of accuracy estimates derived from k-fold cross-validation, cautioning against the uncritical increase of replications without considering the correlation between them, and recommending specific strategies for achieving more dependable accuracy estimates. More specifically, their experiments across 20 datasets indicate that accuracy estimates from different replications of k-fold cross-validation are generally highly correlated, especially as the number of folds increases. They instead recommend using a larger number of folds with fewer replications for performance evaluation. Particularly, their research concludes that ten-fold cross-validation yields the most significant scores among k-fold cross-validation techniques. A similar conclusion of the optimal for k is shared by <span class="citation" data-cites="marcot2021optimal">(<a href="#/references" role="doc-biblioref" onclick="">Marcot and Hanea 2021</a>)</span>, as their evidence from their study that explores the ideal value of k for k-fold cross-validation analysis showed that the ideal value of k is 10, however, 5 can be sufficient in some cases.</p>
+<p>Ultimately, in statistical analysis, researchers are constantly innovating and refining cross-validation techniques to enhance model performance and address challenges associated with existing methodologies. <span class="citation" data-cites="filzmoser2009repeated">(<a href="#/references" role="doc-biblioref" onclick="">Filzmoser, Liebmann, and Varmuza 2009</a>)</span> sought to explore a method intended to improve the reliability and predictive accuracy of complex linear models, particularly those developed from small datasets, and to provide more accurate prediction error estimates for future observations. Their investigation was centered around the concept of repeated double cross-validation (rdCV), an advanced technique that entails a dual-phase partitioning of the dataset.</p>
 <p>The initial phase involves dividing the data into training and testing sets, which serves as the foundation for prediction accuracy estimation. Subsequently, the second phase employs the training set from the first division in a further round of cross-validation. This dual-loop process is repeated multiple iterations, generating a comprehensive set of predicted outcomes. The aggregate of these outcomes not only facilitates the enhancement of the model’s performance but also aids in the more precise estimation of the variability in the model’s predictions.</p>
-<p>Another technique, introduced by <span class="citation" data-cites="xu2018representative">[@xu2018representative]</span> is Representative Splitting Cross-Validation (RSCV), aiming to enhance the representativeness and uniformity of calibration and validation sets in experimental studies, with an emphasis on its utility for latent variable selection. This method employs the DUPLEX algorithm for data segmentation, followed by k-fold cross-validation on the divided sets.</p>
-<p>Building on this, <span class="citation" data-cites="rabinowicz2022cross">[@rabinowicz2022cross]</span> explore the influence of correlation structures on cross-validation effectiveness, proposing a bias-correction measure, CVc, to address potential biases. This correction is unnecessary when dataset splitting maintains the distributional relationship between training and testing sets, ensuring unbiased cross-validation. Their analysis showed that CVc more accurately estimates generalization error compared to traditional cross-validation, remaining unbiased provided the covariance structure is correctly specified, even without the ideal prediction method. This research contributes to refining cross-validation techniques, particularly in handling complex data correlations.</p>
-<p>Finally, <span class="citation" data-cites="lei2020cross">[@lei2020cross]</span> introduces a method called Cross-Validation with Confidence (CVC) aimed at reducing overfitting, a common problem with traditional cross-validation that uses small splits and ends up with too-simple models. CVC works by checking the predicted risk of different models and using p-values to choose models that best fit without being overly complex. It has proven effective, particularly when dealing with a decent amount of data and models that don’t use too many predictors, resulting in simpler, easy-to-understand predictive models. However, CVC hasn’t yet been applied to unsupervised learning or models with binary outcomes, pointing out areas for further exploration.</p>
+<p>Another technique, introduced by <span class="citation" data-cites="xu2018representative">(<a href="#/references" role="doc-biblioref" onclick="">Xu et al. 2018</a>)</span> is Representative Splitting Cross-Validation (RSCV), aiming to enhance the representativeness and uniformity of calibration and validation sets in experimental studies, with an emphasis on its utility for latent variable selection. This method employs the DUPLEX algorithm for data segmentation, followed by k-fold cross-validation on the divided sets.</p>
+<p>Building on this, <span class="citation" data-cites="rabinowicz2022cross">(<a href="#/references" role="doc-biblioref" onclick="">Rabinowicz and Rosset 2022</a>)</span> explore the influence of correlation structures on cross-validation effectiveness, proposing a bias-correction measure, CVc, to address potential biases. This correction is unnecessary when dataset splitting maintains the distributional relationship between training and testing sets, ensuring unbiased cross-validation. Their analysis showed that CVc more accurately estimates generalization error compared to traditional cross-validation, remaining unbiased provided the covariance structure is correctly specified, even without the ideal prediction method. This research contributes to refining cross-validation techniques, particularly in handling complex data correlations.</p>
+<p>Finally, <span class="citation" data-cites="lei2020cross">(<a href="#/references" role="doc-biblioref" onclick="">Lei 2020</a>)</span> introduces a method called Cross-Validation with Confidence (CVC) aimed at reducing overfitting, a common problem with traditional cross-validation that uses small splits and ends up with too-simple models. CVC works by checking the predicted risk of different models and using p-values to choose models that best fit without being overly complex. It has proven effective, particularly when dealing with a decent amount of data and models that don’t use too many predictors, resulting in simpler, easy-to-understand predictive models. However, CVC hasn’t yet been applied to unsupervised learning or models with binary outcomes, pointing out areas for further exploration.</p>
 <p>Collectively, these papers illuminate the multifaceted nature of cross-validation, showcasing its critical role in model evaluation, selection, and generalization. From theoretical underpinnings to practical implementations, cross-validation emerges as an essential tool in a data scientist’s arsenal, ensuring models are not only predictive but also generalizable across diverse datasets and contexts.</p>
 </section>
 <section id="methods" class="slide level2">
 <h2>Methods</h2>
 <h3 id="cross-validation-techniques">Cross-Validation Techniques</h3>
 <p>There are many techniques of cross-validation, the one being used depending on what needs to be accomplished. Many of which, mentioned in the introduction. The following will introduce some of those important techniques.</p>
-<p>Single hold-out cross-validation is one more simple versions of cross-validation being used <span class="citation" data-cites="yadav2016analysis">[@yadav2016analysis]</span>. The dataset gets divided into a training set and validation, or hold-out, set. The training set is used to fit a model, which is then used for prediction on the validation set. The performance of the model is then determined by the variance between the predictions and the actual data. One of the main drawbacks of this method is that the training set and validation set can have different distributions, causing potentially unreliable models <span class="citation" data-cites="santos2023statistical">[@santos2023statistical]</span>.</p>
-<p><span class="citation" data-cites="jung2015ak">[@jung2015ak]</span> introduce an advanced k-fold averaging cross-validation procedure, advocating for the averaging of parameter estimates across folds to yield more stable and efficient outcomes. This method demonstrates significant potential in handling high-dimensional data and improving parameter estimation.</p>
+<p>Single hold-out cross-validation is one more simple versions of cross-validation being used <span class="citation" data-cites="yadav2016analysis">(<a href="#/references" role="doc-biblioref" onclick="">Yadav and Shukla 2016</a>)</span>. The dataset gets divided into a training set and validation, or hold-out, set. The training set is used to fit a model, which is then used for prediction on the validation set. The performance of the model is then determined by the variance between the predictions and the actual data. One of the main drawbacks of this method is that the training set and validation set can have different distributions, causing potentially unreliable models <span class="citation" data-cites="santos2023statistical">(<a href="#/references" role="doc-biblioref" onclick="">Santos et al. 2023</a>)</span>.</p>
+<p><span class="citation" data-cites="jung2015ak">(<a href="#/references" role="doc-biblioref" onclick="">Jung and Hu 2015</a>)</span> introduce an advanced k-fold averaging cross-validation procedure, advocating for the averaging of parameter estimates across folds to yield more stable and efficient outcomes. This method demonstrates significant potential in handling high-dimensional data and improving parameter estimation.</p>
 <p><strong>For the k-fold cross-validation process, the steps are as follows and see Figure 1:</strong></p>
 <ol type="1">
 <li><p>Randomly and evenly split the dataset into k-folds.</p></li>
@@ -461,9 +481,9 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 <figcaption>Figure 1: Basic K-Fold Cross-Validation, k=5</figcaption>
 </figure>
 </div>
-<p>Source: <span class="citation" data-cites="Ranjan_2021">[@Ranjan_2021]</span></p></li>
+<p>Source: <span class="citation" data-cites="Ranjan_2021">(<a href="#/references" role="doc-biblioref" onclick="">Ranjan 2021</a>)</span></p></li>
 </ol>
-<p>The MSE calculation using K-folds is as follows <span class="citation" data-cites="jung2015ak">[@jung2015ak]</span>:</p>
+<p>The MSE calculation using K-folds is as follows <span class="citation" data-cites="jung2015ak">(<a href="#/references" role="doc-biblioref" onclick="">Jung and Hu 2015</a>)</span>:</p>
 <p><span class="math display">\[
 CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{1}
 \]</span></p>
@@ -475,12 +495,12 @@ CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{1}
 <li><p><strong>Final Estimation:</strong> The scores across all repeats are aggregated to provide a final measure.</p></li>
 </ol>
 <p>Notably, this technique of repeated K-Folds is especially useful when the data set is not too large and there is a need to ensure the stability of the evaluation metrics across different splits of the data.</p>
-<p>Leave-one-out cross-validation (LOOCV) is a variation of k-fold cross-validation in that the dataset gets divided into multiple folds to be used for training and validation sets, then the model gets fitted and evaluated until each fold has been used as the validation set. However, for LOOCV, the validation set is comprised of a single observation, so k is equal to the sample size <span class="citation" data-cites="shao2016efficient">[@shao2016efficient]</span>. This method can be preferable to other methods when the sample size is small because the lack of randomness when dividing the dataset causes the accuracy estimate of the models to be constant <span class="citation" data-cites="wong2015performance">[@wong2015performance]</span>.</p>
-<p>Monte Carlo Cross-Validation (MCCV) is another commonly used method. Similar to the k-folds technique, MCCV randomly removes significant chunks of the dataset without replacement to use as its training and validation (<span class="math inline">\(s_v\)</span>) data sets <span class="citation" data-cites="haddad2013applicability">[@haddad2013applicability]</span>. This sampling is repeated N times. The criterion for this techniques, according to <span class="citation" data-cites="haddad2013applicability">[@haddad2013applicability]</span>, is as follows:</p>
+<p>Leave-one-out cross-validation (LOOCV) is a variation of k-fold cross-validation in that the dataset gets divided into multiple folds to be used for training and validation sets, then the model gets fitted and evaluated until each fold has been used as the validation set. However, for LOOCV, the validation set is comprised of a single observation, so k is equal to the sample size <span class="citation" data-cites="shao2016efficient">(<a href="#/references" role="doc-biblioref" onclick="">Shao and Er 2016</a>)</span>. This method can be preferable to other methods when the sample size is small because the lack of randomness when dividing the dataset causes the accuracy estimate of the models to be constant <span class="citation" data-cites="wong2015performance">(<a href="#/references" role="doc-biblioref" onclick="">Wong 2015</a>)</span>.</p>
+<p>Monte Carlo Cross-Validation (MCCV) is another commonly used method. Similar to the k-folds technique, MCCV randomly removes significant chunks of the dataset without replacement to use as its training and validation (<span class="math inline">\(s_v\)</span>) data sets <span class="citation" data-cites="haddad2013applicability">(<a href="#/references" role="doc-biblioref" onclick="">Haddad et al. 2013</a>)</span>. This sampling is repeated N times. The criterion for this techniques, according to <span class="citation" data-cites="haddad2013applicability">(<a href="#/references" role="doc-biblioref" onclick="">Haddad et al. 2013</a>)</span>, is as follows:</p>
 <p><span class="math display">\[
 MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2 \tag{2}
 \]</span></p>
-<p>One of the appeals of MCCV over some other techniques its reduced computational complexity compared to other techniques, such as LOOCV<span class="citation" data-cites="james1980monte">[@james1980monte]</span>.</p>
+<p>One of the appeals of MCCV over some other techniques its reduced computational complexity compared to other techniques, such as LOOCV<span class="citation" data-cites="james1980monte">(<a href="#/references" role="doc-biblioref" onclick="">James 1980</a>)</span>.</p>
 <h3 id="performance-metrics">Performance Metrics</h3>
 <p>In terms of the mathematical methodology, the article by Jung and Hu (2015) provides important equations for calculating the mean squared prediction error (MSPE) and mean squared error (MSE) as metrics to evaluate model performance.</p>
 <p>The MSE is the expectation of the squared norm of the difference between the estimated and the true parameter vectors, and can be calculated as:</p>
@@ -492,15 +512,15 @@ MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{3}
 <p><span class="math display">\[
 MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{4}
 \]</span></p>
-<p>where MSEi is the mean squared error for the ith fold, and K is the number of folds <span class="citation" data-cites="jung2015ak">[@jung2015ak]</span>.</p>
+<p>where MSEi is the mean squared error for the ith fold, and K is the number of folds <span class="citation" data-cites="jung2015ak">(<a href="#/references" role="doc-biblioref" onclick="">Jung and Hu 2015</a>)</span>.</p>
 <p>Related, in statistical modeling, <span class="math inline">\(R^2\)</span>, also known as the coefficient of determination, is a measure that indicates the proportion of the variance in the dependent variable that is predictable from the independent variables. It provides a sense of how well the independent variables predict the dependent variable; the closer <span class="math inline">\(R^2\)</span> is to 1, the better the model explains the data.</p>
 <p>This can be written as:</p>
 <p><span class="math display">\[
 R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{5}
 \]</span></p>
-<p>where <span class="math inline">\(\bar{y}\)</span> is the mean value of <span class="math inline">\(y\)</span> <span class="citation" data-cites="ott2015introduction">[@ott2015introduction]</span>.</p>
+<p>where <span class="math inline">\(\bar{y}\)</span> is the mean value of <span class="math inline">\(y\)</span> <span class="citation" data-cites="ott2015introduction">(<a href="#/references" role="doc-biblioref" onclick="">Ott and Longnecker 2015</a>)</span>.</p>
 <p>Ultimately, <span class="math inline">\(R^2\)</span> and MSE are related in that they both measure the model’s performance, but they do it in different ways. While <span class="math inline">\(R^2\)</span> measures the proportion of variance explained by the model, MSE measures the average error of the model’s predictions. In the context of cross-validation, both metrics can be used to compare models: a higher <span class="math inline">\(R^2\)</span> and a lower MSE would typically indicate a better predictive model.</p>
-<p>Another performance metric that will be used to determine model performance is the area under the ROC curve (AUC). AUC conveys how well a model can differentiate between different classes, and it is preferable to other metrics, such as accuracy, because it accounts for both specificity and sensitivity <span class="citation" data-cites="cantor2000determining">[@cantor2000determining]</span>. AUC scores can range from 0 to 1, with 0 indicating the model has no ability to discern between classes, and 1 indicating the model perfectly predicts classfication. Figure 6 demonstrates how AUC uses the positive and negative outcomes to calculate a value that indicates the probability of a positive result ranking higher than negative results, where <span class="math inline">\(S_p\)</span> is the total number of positive outcomes ranked, and <span class="math inline">\(n_p\)</span> and <span class="math inline">\(n_n\)</span> are the number of positive and negative outcomes, respectively <span class="citation" data-cites="hossin2015review">[@hossin2015review]</span>.</p>
+<p>Another performance metric that will be used to determine model performance is the area under the ROC curve (AUC). AUC conveys how well a model can differentiate between different classes, and it is preferable to other metrics, such as accuracy, because it accounts for both specificity and sensitivity <span class="citation" data-cites="cantor2000determining">(<a href="#/references" role="doc-biblioref" onclick="">Cantor and Kattan 2000</a>)</span>. AUC scores can range from 0 to 1, with 0 indicating the model has no ability to discern between classes, and 1 indicating the model perfectly predicts classfication. Figure 6 demonstrates how AUC uses the positive and negative outcomes to calculate a value that indicates the probability of a positive result ranking higher than negative results, where <span class="math inline">\(S_p\)</span> is the total number of positive outcomes ranked, and <span class="math inline">\(n_p\)</span> and <span class="math inline">\(n_n\)</span> are the number of positive and negative outcomes, respectively <span class="citation" data-cites="hossin2015review">(<a href="#/references" role="doc-biblioref" onclick="">Hossin and Sulaiman 2015</a>)</span>.</p>
 <p><span class="math display">\[
 AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 \]</span></p>
@@ -508,8 +528,8 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <section id="analysis-and-results" class="slide level2">
 <h2>Analysis and Results</h2>
 <h3 id="data-description-and-visualization">Data Description and Visualization</h3>
-<p>This heart failure clinical records dataset, obtained via the UC Irvine Machine Learning Repository, contains the medical records of 299 patients who had heart failure, collected during their follow-up period, where each patient profile has 13 clinical features <span class="citation" data-cites="chicco2020machine">[@chicco2020machine]</span>.</p>
-<p>More specifically, the dataset comprises medical records of 299 heart failure patients from Faisalabad, Pakistan, collected between April and December 2015. It includes 13 clinical, body, and lifestyle features, both categorical and continuous. The dataset was used to facilitate machine learning predictions on patient survival based solely on serum creatinine and ejection fraction levels. Various machine learning and biostatistical methods were employed for binary classification of survival, feature ranking, and to examine the predictability of survival using the mentioned key features. This study aims to demonstrate the potential of specific biomarkers in predicting heart failure outcomes and to streamline the prediction process for medical practitioners. Notably, <span class="citation" data-cites="de2020cross">[@de2020cross]</span> highlight the ways in which cross-validation can be implemented on a dataset, such as ours, through different cross-validation methods and techniques.</p>
+<p>This heart failure clinical records dataset, obtained via the UC Irvine Machine Learning Repository, contains the medical records of 299 patients who had heart failure, collected during their follow-up period, where each patient profile has 13 clinical features <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>.</p>
+<p>More specifically, the dataset comprises medical records of 299 heart failure patients from Faisalabad, Pakistan, collected between April and December 2015. It includes 13 clinical, body, and lifestyle features, both categorical and continuous. The dataset was used to facilitate machine learning predictions on patient survival based solely on serum creatinine and ejection fraction levels. Various machine learning and biostatistical methods were employed for binary classification of survival, feature ranking, and to examine the predictability of survival using the mentioned key features. This study aims to demonstrate the potential of specific biomarkers in predicting heart failure outcomes and to streamline the prediction process for medical practitioners. Notably, <span class="citation" data-cites="de2020cross">(<a href="#/references" role="doc-biblioref" onclick="">Rooij and Weeda 2020</a>)</span> highlight the ways in which cross-validation can be implemented on a dataset, such as ours, through different cross-validation methods and techniques.</p>
 <p>Our data description is as follows:</p>
 <table>
 <colgroup>
@@ -620,7 +640,7 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </div>
 </div>
 </div>
-<p>The age of patients ranged from 40 to 95 years old, which the majority aged below 70 years old. The time variable is the number of days in the follow-up period for each patient, ranging from 4 to 285 days. Creatinine phosphokinase indicates the level of this enzyme in the patient’s blood, which is present when muscle tissue is damaged <span class="citation" data-cites="chicco2020machine">[@chicco2020machine]</span>. The serum creatinine is created by this creatinine when muscle breaks down <span class="citation" data-cites="chicco2020machine">[@chicco2020machine]</span>, so this variable was included as another potential indicator of injury. Variables were included that observe the levels of sodium (serum sodium) and number of platelets in the patient’s blood. The ejection fraction variable is the percentage of blood leaving the left ventricle during each contraction of the heart <span class="citation" data-cites="chicco2020machine">[@chicco2020machine]</span>.</p>
+<p>The age of patients ranged from 40 to 95 years old, which the majority aged below 70 years old. The time variable is the number of days in the follow-up period for each patient, ranging from 4 to 285 days. Creatinine phosphokinase indicates the level of this enzyme in the patient’s blood, which is present when muscle tissue is damaged <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>. The serum creatinine is created by this creatinine when muscle breaks down <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>, so this variable was included as another potential indicator of injury. Variables were included that observe the levels of sodium (serum sodium) and number of platelets in the patient’s blood. The ejection fraction variable is the percentage of blood leaving the left ventricle during each contraction of the heart <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>.</p>
 <h4 id="categorical-variables">Categorical Variables</h4>
 <div class="cell">
 <div class="cell-output-display">
@@ -658,7 +678,7 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </div>
 </div>
 </div>
-<p>Boxplots for our continuous variables were created in our exploratory analysis to evaluate if any variables have outlier that need to be addressed. The boxplots do indicate that some of our variables have potential outliers, namely creatinine phosphokinase, ejection fraction, platelets, serum creatinine, and serum sodium. However, these data points will remain untouched for our analysis. The indicated outlier do not appear to be recording errors, such as a negative time variable or unrealistic age. The outliers in the boxplots appear to be genuine observations and should be considered in our model. The original article also did not remove any outliers <span class="citation" data-cites="chicco2020machine">[@chicco2020machine.]</span></p>
+<p>Boxplots for our continuous variables were created in our exploratory analysis to evaluate if any variables have outlier that need to be addressed. The boxplots do indicate that some of our variables have potential outliers, namely creatinine phosphokinase, ejection fraction, platelets, serum creatinine, and serum sodium. However, these data points will remain untouched for our analysis. The indicated outlier do not appear to be recording errors, such as a negative time variable or unrealistic age. The outliers in the boxplots appear to be genuine observations and should be considered in our model. The original article also did not remove any outliers <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>.)</span></p>
 <h4 id="correlation">Correlation</h4>
 <p>The majority of the variables do not appear to have a significant correlation to the other. The most significant was between the time variable and our target variable, death event. There’s a negative relationship, meaning the patients who had more days in the follow-up period tended to survive through the end of the follow-up period. There was a slight positive correlation between sex of the patient and smoker status, meaning more male patients tended to be smokers than female patients.</p>
 <div class="cell">
@@ -697,7 +717,7 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <pre><code>[1] 0.7556413 0.7559824</code></pre>
 </div>
 </div>
-<p>With any variation of k-fold cross validation, the dataset is split into k sized folds that will all be equal. Here, the dataset is split in 10 folds. As previously discussed, <span class="citation" data-cites="wong2019reliable">[@wong2019reliable]</span> mentions 10-fold cross validation analysis to be most effective in most cases. In model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included, as the researchers that provided the data set came to the conclusion that death events could be predicted using those 2 variables alone. Interestingly enough, the first model that included all variables produced a lower MSE (mean square error), indicating that from this CV test, model one would be better to use than model 2.</p>
+<p>With any variation of k-fold cross validation, the dataset is split into k sized folds that will all be equal. Here, the dataset is split in 10 folds. As previously discussed, <span class="citation" data-cites="wong2019reliable">(<a href="#/references" role="doc-biblioref" onclick="">Wong and Yeh 2019</a>)</span> mentions 10-fold cross validation analysis to be most effective in most cases. In model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included, as the researchers that provided the data set came to the conclusion that death events could be predicted using those 2 variables alone. Interestingly enough, the first model that included all variables produced a lower MSE (mean square error), indicating that from this CV test, model one would be better to use than model 2.</p>
 </section>
 <section id="fold-cross-validation-1" class="slide level2">
 <h2>5-fold Cross Validation:</h2>
@@ -787,7 +807,7 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 1            0.139            0.183            0.864            0.763</code></pre>
 </div>
 </div>
-<p>For the Monte Carlo technique, logistic regression will be used to create the models. Unlike previous techniques, a resampling function was created to repeat the splitting of the data many times. Our proportion of training to validation sets is the standard 70/30 split, and the data will be resampled 100 times. For the MSE of the models, we’ll be using the Brier score as our resampling fitting function generates the Brier score automatically, and it performs similarly to MSE in classification problems <span class="citation" data-cites="ferro2012bias">[@ferro2012bias]</span>. Similar to the previously discussed techniques, our full model had the lower MSE/ Brier score and higher AUC. The smaller model’s AUC of 0.763 is still acceptable as far as the metric’s ideal scores go, but the increase of about 0.1 indicates there might be another predictor or two that could contribute significantly to the model.</p>
+<p>For the Monte Carlo technique, logistic regression will be used to create the models. Unlike previous techniques, a resampling function was created to repeat the splitting of the data many times. Our proportion of training to validation sets is the standard 70/30 split, and the data will be resampled 100 times. For the MSE of the models, we’ll be using the Brier score as our resampling fitting function generates the Brier score automatically, and it performs similarly to MSE in classification problems <span class="citation" data-cites="ferro2012bias">(<a href="#/references" role="doc-biblioref" onclick="">Ferro and Fricker 2012</a>)</span>. Similar to the previously discussed techniques, our full model had the lower MSE/ Brier score and higher AUC. The smaller model’s AUC of 0.763 is still acceptable as far as the metric’s ideal scores go, but the increase of about 0.1 indicates there might be another predictor or two that could contribute significantly to the model.</p>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
@@ -795,10 +815,86 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <p>While the researchers that provided the dataset found that survival of heart attack patients can be predicted using only serum creatinine and ejection fraction as predictor variables. The linear regression analysis we conducted using various cross-validation techniques has shown that the full model (which includes all predictor variables within the dataset) has a lower mean squared error (MSE) after testing. This essentially means the full model is more robust with predictive ability compared to the reduced model. That being said, the difference in MSEs between the two models is marginal, however, the full model by technicality does have slightly more predictive ability.</p>
 <p>The marginal difference between models supports the argument made by the researchers because the model with two predictor variables and the model with twelve predictor variables produced small differences in MSEs as seen in the analysis above; models with less predictor variables are typically preferred in statistical analysis.</p>
 <p>Ultimately, while the k-folds CV technique (particularly 10 folds) seemed to perform the best, most of these techniques seem sufficient to help validate a model based on this example.</p>
-<h3 id="references">References</h3>
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-berrar2019cross" class="csl-entry" role="listitem">
+Berrar, Daniel et al. 2019. <span>“Cross-Validation.”</span>
+</div>
+<div id="ref-cantor2000determining" class="csl-entry" role="listitem">
+Cantor, Scott B, and Michael W Kattan. 2000. <span>“Determining the Area Under the ROC Curve for a Binary Diagnostic Test.”</span> <em>Medical Decision Making</em> 20 (4): 468–70.
+</div>
+<div id="ref-chicco2020machine" class="csl-entry" role="listitem">
+Chicco, Davide, and Giuseppe Jurman. 2020. <span>“Machine Learning Can Predict Survival of Patients with Heart Failure from Serum Creatinine and Ejection Fraction Alone.”</span> <em>BMC Medical Informatics and Decision Making</em> 20: 1–16.
+</div>
+<div id="ref-ferro2012bias" class="csl-entry" role="listitem">
+Ferro, Christopher AT, and Thomas E Fricker. 2012. <span>“A Bias-Corrected Decomposition of the Brier Score.”</span> <em>Quarterly Journal of the Royal Meteorological Society</em> 138 (668): 1954–60.
+</div>
+<div id="ref-filzmoser2009repeated" class="csl-entry" role="listitem">
+Filzmoser, Peter, Bettina Liebmann, and Kurt Varmuza. 2009. <span>“Repeated Double Cross Validation.”</span> <em>Journal of Chemometrics: A Journal of the Chemometrics Society</em> 23 (4): 160–71.
+</div>
+<div id="ref-haddad2013applicability" class="csl-entry" role="listitem">
+Haddad, Khaled, Ataur Rahman, Mohammad A Zaman, and Surendra Shrestha. 2013. <span>“Applicability of Monte Carlo Cross Validation Technique for Model Development and Validation Using Generalised Least Squares Regression.”</span> <em>Journal of Hydrology</em> 482: 119–28.
+</div>
+<div id="ref-hossin2015review" class="csl-entry" role="listitem">
+Hossin, Mohammad, and Md Nasir Sulaiman. 2015. <span>“A Review on Evaluation Metrics for Data Classification Evaluations.”</span> <em>International Journal of Data Mining &amp; Knowledge Management Process</em> 5 (2): 1.
+</div>
+<div id="ref-james1980monte" class="csl-entry" role="listitem">
+James, Frederick. 1980. <span>“Monte Carlo Theory and Practice.”</span> <em>Reports on Progress in Physics</em> 43 (9): 1145.
+</div>
+<div id="ref-jung2015ak" class="csl-entry" role="listitem">
+Jung, Yoonsuh, and Jianhua Hu. 2015. <span>“AK-Fold Averaging Cross-Validation Procedure.”</span> <em>Journal of Nonparametric Statistics</em> 27 (2): 167–79.
+</div>
+<div id="ref-lei2020cross" class="csl-entry" role="listitem">
+Lei, Jing. 2020. <span>“Cross-Validation with Confidence.”</span> <em>Journal of the American Statistical Association</em> 115 (532): 1978–97.
+</div>
+<div id="ref-marcot2021optimal" class="csl-entry" role="listitem">
+Marcot, Bruce G, and Anca M Hanea. 2021. <span>“What Is an Optimal Value of k in k-Fold Cross-Validation in Discrete Bayesian Network Analysis?”</span> <em>Computational Statistics</em> 36 (3): 2009–31.
+</div>
+<div id="ref-ott2015introduction" class="csl-entry" role="listitem">
+Ott, R Lyman, and Micheal T Longnecker. 2015. <em>An Introduction to Statistical Methods and Data Analysis</em>. Cengage Learning.
+</div>
+<div id="ref-rabinowicz2022cross" class="csl-entry" role="listitem">
+Rabinowicz, Assaf, and Saharon Rosset. 2022. <span>“Cross-Validation for Correlated Data.”</span> <em>Journal of the American Statistical Association</em> 117 (538): 718–31.
+</div>
+<div id="ref-Ranjan_2021" class="csl-entry" role="listitem">
+Ranjan, Gopal Krishna. 2021. <span>“Introduction to k-Fold Cross-Validation in Python.”</span> <em>SQLRelease</em>. <a href="https://sqlrelease.com/introduction-to-k-fold-cross-validation-in-python">https://sqlrelease.com/introduction-to-k-fold-cross-validation-in-python</a>.
+</div>
+<div id="ref-de2020cross" class="csl-entry" role="listitem">
+Rooij, Mark de, and Wouter Weeda. 2020. <span>“Cross-Validation: A Method Every Psychologist Should Know.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 3 (2): 248–63.
+</div>
+<div id="ref-santos2023statistical" class="csl-entry" role="listitem">
+Santos, Isadora Guimarães dos, Rogério Pinto Espı́ndola, Francisco Thiago Sacramento Aragão, and Luis Alberto Herrmann Nascimento. 2023. <span>“A Statistical Methodology for Reliable Evaluation of Calibrated Dynamic Modulus Regression Models.”</span> <em>Mat<span>é</span>ria (Rio de Janeiro)</em> 28: e20230188.
+</div>
+<div id="ref-schaffer1993selecting" class="csl-entry" role="listitem">
+Schaffer, Cullen. 1993. <span>“Selecting a Classification Method by Cross-Validation.”</span> <em>Machine Learning</em> 13: 135–43.
+</div>
+<div id="ref-shao2016efficient" class="csl-entry" role="listitem">
+Shao, Zhifei, and Meng Joo Er. 2016. <span>“Efficient Leave-One-Out Cross-Validation-Based Regularized Extreme Learning Machine.”</span> <em>Neurocomputing</em> 194: 260–70.
+</div>
+<div id="ref-song2021making" class="csl-entry" role="listitem">
+Song, Q Chelsea, Chen Tang, and Serena Wee. 2021. <span>“Making Sense of Model Generalizability: A Tutorial on Cross-Validation in r and Shiny.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 4 (1): 2515245920947067.
+</div>
+<div id="ref-wong2015performance" class="csl-entry" role="listitem">
+Wong, Tzu-Tsung. 2015. <span>“Performance Evaluation of Classification Algorithms by k-Fold and Leave-One-Out Cross Validation.”</span> <em>Pattern Recognition</em> 48 (9): 2839–46.
+</div>
+<div id="ref-wong2019reliable" class="csl-entry" role="listitem">
+Wong, Tzu-Tsung, and Po-Yang Yeh. 2019. <span>“Reliable Accuracy Estimates from k-Fold Cross Validation.”</span> <em>IEEE Transactions on Knowledge and Data Engineering</em> 32 (8): 1586–94.
+</div>
+<div id="ref-xu2018representative" class="csl-entry" role="listitem">
+Xu, Lu, Ou Hu, Yuwan Guo, Mengqin Zhang, Daowang Lu, Chen-Bo Cai, Shunping Xie, Mohammad Goodarzi, Hai-Yan Fu, and Yuan-Bin She. 2018. <span>“Representative Splitting Cross Validation.”</span> <em>Chemometrics and Intelligent Laboratory Systems</em> 183: 29–35.
+</div>
+<div id="ref-yadav2016analysis" class="csl-entry" role="listitem">
+Yadav, Sanjay, and Sanyam Shukla. 2016. <span>“Analysis of k-Fold Cross-Validation over Hold-Out Validation on Colossal Datasets for Quality Classification.”</span> In <em>2016 IEEE 6th International Conference on Advanced Computing (IACC)</em>, 78–83. IEEE.
+</div>
+<div id="ref-zhang2015cross" class="csl-entry" role="listitem">
+Zhang, Yongli, and Yuhong Yang. 2015. <span>“Cross-Validation for Selecting a Model Selection Procedure.”</span> <em>Journal of Econometrics</em> 187 (1): 95–112.
 </div>
 </div>
 </section>

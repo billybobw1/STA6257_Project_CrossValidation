@@ -4,6 +4,7 @@ author: "Jesse Buntyn, Jolie Wise, Danielle Koche"
 date: '`r Sys.Date()`'
 format: revealjs
 css: fontsize.css
+bibliography: references.bib # file contains bibtex for references
 ---
 
 ## Introduction
@@ -731,4 +732,4 @@ Ultimately, while the k-folds CV technique (particularly 10 folds)
 seemed to perform the best, most of these techniques seem sufficient to
 help validate a model based on this example.
 
-### References
+## References
