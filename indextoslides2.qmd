@@ -491,7 +491,7 @@ plot(x=data$time,y=data$DEATH_EVENT, main="Time",ylim = c(-.5,1.5))
 
 ## Statistical Modeling
 
-#### 10-fold Cross Validation:
+## 10-fold Cross Validation:
 
 ```{r}
 library(boot)
@@ -537,7 +537,7 @@ model that included all variables produced a lower MSE (mean square
 error), indicating that from this CV test, model one would be better to
 use than model 2.
 
-#### 5-fold Cross Validation:
+## 5-fold Cross Validation:
 
 ```{r}
 library(boot)
@@ -574,7 +574,7 @@ included. With 5-fold cross validation, the data set is divided into 5
 parts (as opposed to 10 in 10-fold). Model 1 still has a lower MSE than
 the full model that includes all predictor variables.
 
-#### Single Hold-Out Method:
+## Single Hold-Out Method:
 
 ```{r}
 #add obs # for each row
@@ -626,7 +626,7 @@ lower mean squared error. Model 2 includes only ejection fraction and
 serum creatinine as predictor variables, meaning this reduced model is a
 better fit according to this cross-validation technique.
 
-#### Leave-One-Out Cross-Validation (LOOCV):
+## Leave-One-Out Cross-Validation (LOOCV):
 
 ```{r}
 set.seed(7432)
@@ -659,7 +659,7 @@ model (which includes all predictor variables) is a better fit due to a
 lower mean squared error compared to the reduced model (which only
 includes serum creatinine and ejection fraction).
 
-#### Monte Carlo Cross-Validation:
+## Monte Carlo Cross-Validation:
 
 ```{r}
 data$DEATH_EVENT=as.factor(data$DEATH_EVENT)
