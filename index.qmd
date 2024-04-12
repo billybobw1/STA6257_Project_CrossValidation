@@ -558,10 +558,8 @@ m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ej
          family = "binomial"(link = "logit"))
 
 k5_m1_mse <- cv.glm(data, m1, K=5)$delta
-k5_m1_mse
 
 k5_m1_auc <- cv.glm(data, m1, K=5, cost=auc)$delta
-k5_m1_auc
 
 set.seed(185329)
 m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
@@ -569,11 +567,11 @@ m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
          family = "binomial"(link = "logit"))
 
 k5_m2_mse <- cv.glm(data, m2, K=5)$delta
-k5_m2_mse
 
 k5_m2_auc <- cv.glm(data, m2, K=5, cost=auc)$delta
-k5_m2_auc
 
+k5tibble = tibble(M1_K5_MSE = k5_m1_mse[2], M2_K5_MSE = k5_m2_mse[2], M1_K5_AUC = k5_m1_auc[2], M2_K5_AUC = k5_m2_auc[2])
+k5tibble
 ```
 
 Similar to the 10-fold models above, our dataset is split into equal
