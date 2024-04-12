@@ -3,6 +3,7 @@ title: "Cross-Validation - Methods & Importance in Data Science and Statistics"
 author: "Jesse Buntyn, Jolie Wise, Danielle Koche"
 date: '`r Sys.Date()`'
 format: revealjs
+css: fontsize.css
 ---
 
 ## Introduction
