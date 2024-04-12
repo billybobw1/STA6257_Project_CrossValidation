@@ -9,7 +9,7 @@ css: fontsize.css
 ## Introduction
 
 This is an introduction to understanding cross-validation, its methods,
-and its importance in data science and statistics.
+and its importance in data science & statistics.
 
 Cross-validation is a cornerstone methodology in the field of data
 science, essential for assessing the predictive performance of
