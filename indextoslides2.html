@@ -8,7 +8,7 @@
 <link href="indextoslides2_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="indextoslides2_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="indextoslides2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.450">
+  <meta name="generator" content="quarto-1.4.542">
 
   <meta name="author" content="Jesse Buntyn, Jolie Wise, Danielle Koche">
   <meta name="dcterms.date" content="2024-04-11">
@@ -32,7 +32,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -223,7 +223,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -450,7 +451,12 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 <li><p>Calculate the prediction error for the response variable in the hold-out fold.</p></li>
 <li><p>Repeat steps 2-4 k times, using each fold as a hold-out once.</p></li>
 <li><p>Calculate the overall test predictors by averaging all k test predictors.</p>
-<img data-src="images/K-fold-cross-validation-1.webp" width="413" alt="Figure 1: Basic K-Fold Cross-Validation, k=5">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/K-fold-cross-validation-1.webp" width="413"></p>
+<figcaption>Figure 1: Basic K-Fold Cross-Validation, k=5</figcaption>
+</figure>
+</div>
 <p>Source: <span class="citation" data-cites="Ranjan_2021">[@Ranjan_2021]</span></p></li>
 </ol>
 <p>The MSE calculation using K-folds is as follows <span class="citation" data-cites="jung2015ak">[@jung2015ak]</span>:</p>
@@ -583,34 +589,42 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># loading packages </span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(ggrepel)</span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(dslabs)</span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(rsample)</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">library</span>(tidymodels)</span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">library</span>(Metrics)</span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="fu">library</span>(ROCR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># loading packages </span></span>
+<span id="cb1-2"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href=""></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-4"><a href=""></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb1-5"><a href=""></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb1-6"><a href=""></a><span class="fu">library</span>(dslabs)</span>
+<span id="cb1-7"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-8"><a href=""></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb1-9"><a href=""></a><span class="fu">library</span>(rsample)</span>
+<span id="cb1-10"><a href=""></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb1-11"><a href=""></a><span class="fu">library</span>(Metrics)</span>
+<span id="cb1-12"><a href=""></a><span class="fu">library</span>(ROCR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Load Data</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'heart_failure_clinical_records_dataset.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Load Data</span></span>
+<span id="cb2-2"><a href=""></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'heart_failure_clinical_records_dataset.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h4 id="continuous-variables">Continuous Variables</h4>
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>The age of patients ranged from 40 to 95 years old, which the majority aged below 70 years old. The time variable is the number of days in the follow-up period for each patient, ranging from 4 to 285 days. Creatinine phosphokinase indicates the level of this enzyme in the patient’s blood, which is present when muscle tissue is damaged <span class="citation" data-cites="chicco2020machine">[@chicco2020machine]</span>. The serum creatinine is created by this creatinine when muscle breaks down <span class="citation" data-cites="chicco2020machine">[@chicco2020machine]</span>, so this variable was included as another potential indicator of injury. Variables were included that observe the levels of sodium (serum sodium) and number of platelets in the patient’s blood. The ejection fraction variable is the percentage of blood leaving the left ventricle during each contraction of the heart <span class="citation" data-cites="chicco2020machine">[@chicco2020machine]</span>.</p>
 <h4 id="categorical-variables">Categorical Variables</h4>
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>All of our categorical variables are Boolean and are encoded as ‘0’ and ‘1’ to indicate negative or positive occurrence of a variable’s condition, respectively. These variables include whether the patient is a smoker, has diabetes, anaemia, or high blood pressure. The sex variable indicates whether the patient is a female (‘0’) or male (‘1’). Our target variable, death event, indicates whether the patient died before the end of the follow-up period.</p>
@@ -633,7 +647,11 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <h4 id="checking-for-outliers">Checking for Outliers</h4>
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Boxplots for our continuous variables were created in our exploratory analysis to evaluate if any variables have outlier that need to be addressed. The boxplots do indicate that some of our variables have potential outliers, namely creatinine phosphokinase, ejection fraction, platelets, serum creatinine, and serum sodium. However, these data points will remain untouched for our analysis. The indicated outlier do not appear to be recording errors, such as a negative time variable or unrealistic age. The outliers in the boxplots appear to be genuine observations and should be considered in our model. The original article also did not remove any outliers <span class="citation" data-cites="chicco2020machine">[@chicco2020machine.]</span></p>
@@ -641,10 +659,18 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <p>The majority of the variables do not appear to have a significant correlation to the other. The most significant was between the time variable and our target variable, death event. There’s a negative relationship, meaning the patients who had more days in the follow-up period tended to survive through the end of the follow-up period. There was a slight positive correlation between sex of the patient and smoker status, meaning more male patients tended to be smokers than female patients.</p>
 <div class="cell">
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
+<div>
+<figure>
 <p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-7-2.png" width="960"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -744,7 +770,7 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <pre><code># A tibble: 1 × 4
   M1_MCCV_MSE$mean M2_MCCV_MSE$mean M1_MCCV_AUC$mean M2_MCCV_AUC$mean
              &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1            0.864            0.763               NA               NA</code></pre>
+1            0.139            0.183            0.864            0.763</code></pre>
 </div>
 </div>
 <p>For the Monte Carlo technique, logistic regression will be used to create the models. Unlike previous techniques, a resampling function was created to repeat the splitting of the data many times. Our proportion of training to validation sets is the standard 70/30 split, and the data will be resampled 100 times. For the MSE of the models, we’ll be using the Brier score as our resampling fitting function generates the Brier score automatically, and it performs similarly to MSE in classification problems <span class="citation" data-cites="ferro2012bias">[@ferro2012bias]</span>. Similar to the previously discussed techniques, our full model had the lower MSE/ Brier score and higher AUC. The smaller model’s AUC of 0.763 is still acceptable as far as the metric’s ideal scores go, but the increase of about 0.1 indicates there might be another predictor or two that could contribute significantly to the model.</p>
@@ -756,8 +782,10 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <p>The marginal difference between models supports the argument made by the researchers because the model with two predictor variables and the model with twelve predictor variables produced small differences in MSEs as seen in the analysis above; models with less predictor variables are typically preferred in statistical analysis.</p>
 <p>Ultimately, while the k-folds CV technique (particularly 10 folds) seemed to perform the best, most of these techniques seem sufficient to help validate a model based on this example.</p>
 <h3 id="references">References</h3>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
     </div>
@@ -786,7 +814,6 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1085,10 +1112,9 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1098,8 +1124,17 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 

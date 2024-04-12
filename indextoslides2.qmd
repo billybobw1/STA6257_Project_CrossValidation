@@ -574,7 +574,6 @@ included. With 5-fold cross validation, the data set is divided into 5
 parts (as opposed to 10 in 10-fold). Model 1 still has a lower MSE than
 the full model that includes all predictor variables.
 
-
 #### Single Hold-Out Method:
 
 ```{r}
