@@ -318,6 +318,7 @@ Another performance metric that will be used to determine model performance is t
 $$
 AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 $$
+
 ## Analysis and Results
 
 ### Data Description and Visualization
@@ -487,7 +488,7 @@ plot(x=data$serum_sodium,y=data$DEATH_EVENT, main="Serum Sodium",ylim = c(-.5,1.
 plot(x=data$time,y=data$DEATH_EVENT, main="Time",ylim = c(-.5,1.5))
 ```
 
-### Statistical Modeling
+## Statistical Modeling
 
 #### 10-fold Cross Validation:
 

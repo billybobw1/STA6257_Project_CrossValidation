@@ -492,7 +492,10 @@ R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{5}
 <p>Another performance metric that will be used to determine model performance is the area under the ROC curve (AUC). AUC conveys how well a model can differentiate between different classes, and it is preferable to other metrics, such as accuracy, because it accounts for both specificity and sensitivity <span class="citation" data-cites="cantor2000determining">[@cantor2000determining]</span>. AUC scores can range from 0 to 1, with 0 indicating the model has no ability to discern between classes, and 1 indicating the model perfectly predicts classfication. Figure 6 demonstrates how AUC uses the positive and negative outcomes to calculate a value that indicates the probability of a positive result ranking higher than negative results, where <span class="math inline">\(S_p\)</span> is the total number of positive outcomes ranked, and <span class="math inline">\(n_p\)</span> and <span class="math inline">\(n_n\)</span> are the number of positive and negative outcomes, respectively <span class="citation" data-cites="hossin2015review">[@hossin2015review]</span>.</p>
 <p><span class="math display">\[
 AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
-\]</span> ## Analysis and Results</p>
+\]</span></p>
+</section>
+<section id="analysis-and-results" class="slide level2">
+<h2>Analysis and Results</h2>
 <h3 id="data-description-and-visualization">Data Description and Visualization</h3>
 <p>This heart failure clinical records dataset, obtained via the UC Irvine Machine Learning Repository, contains the medical records of 299 patients who had heart failure, collected during their follow-up period, where each patient profile has 13 clinical features <span class="citation" data-cites="chicco2020machine">[@chicco2020machine]</span>.</p>
 <p>More specifically, the dataset comprises medical records of 299 heart failure patients from Faisalabad, Pakistan, collected between April and December 2015. It includes 13 clinical, body, and lifestyle features, both categorical and continuous. The dataset was used to facilitate machine learning predictions on patient survival based solely on serum creatinine and ejection fraction levels. Various machine learning and biostatistical methods were employed for binary classification of survival, feature ranking, and to examine the predictability of survival using the mentioned key features. This study aims to demonstrate the potential of specific biomarkers in predicting heart failure outcomes and to streamline the prediction process for medical practitioners. Notably, <span class="citation" data-cites="de2020cross">[@de2020cross]</span> highlight the ways in which cross-validation can be implemented on a dataset, such as ours, through different cross-validation methods and techniques.</p>
@@ -643,7 +646,9 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-7-2.png" width="960"></p>
 </div>
 </div>
-<h3 id="statistical-modeling">Statistical Modeling</h3>
+</section>
+<section id="statistical-modeling" class="slide level2">
+<h2>Statistical Modeling</h2>
 <h4 id="fold-cross-validation">10-fold Cross Validation:</h4>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
