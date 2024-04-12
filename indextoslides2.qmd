@@ -9,9 +9,6 @@ bibliography: references.bib # file contains bibtex for references
 
 ## Introduction
 
-This is an introduction to understanding cross-validation, its methods,
-and its importance in data science & statistics.
-
 Cross-validation is a cornerstone methodology in the field of data
 science, essential for assessing the predictive performance of
 statistical models and ensuring their generalizability to unseen data.
@@ -20,11 +17,7 @@ perform in practice, addressing critical challenges like overfitting and
 underfitting, thereby ensuring robustness and reliability of model
 predictions across various data subsets.
 
-The tutorial by [@song2021making] further elaborates on the practical
-application of cross-validation, presenting a structured, step-by-step
-approach to assessing model generalizability and emphasizing the
-significance of the repeated k-folds technique for reducing bias in
-model evaluation.
+## Cross-Validation Steps
 
 **The overall 5-step process to cross-validation introduced by them is
 as follows:**
@@ -38,37 +31,44 @@ as follows:**
 5.  Calculate the average cross-validation prediction accuracy across
     all repetitions.
 
-[@berrar2019cross] exposition on cross-validation underscores its
-importance in parameter tuning and model selection, providing a detailed
-overview of its common types, including k-fold and leave-one-out
-cross-validation, and emphasizing its role in balancing the
-bias-variance tradeoff for improved model performance.
 
-**Specifically, common types of cross-validation include:**
+## Cross-Validation Techniques
 
-**Single Hold-Out Method:** This is one of the more simple methods of
+- Single Hold-Out Method
+- Monte Carlo Cross-Validation
+- K-Fold Cross-Validation
+- Leave-One-Out Cross-Validation (LOOCV)
+- Stratified Cross-Validation
+- Repeated K-Fold Cross-Validation
+
+## Single Hold-Out Method:
+his is one of the more simple methods of
 cross-validation and tends to be less time-consuming to conduct
 [@yadav2016analysis]. It divides data into a training set and a test
 set, usually in a 70-30 or 90-10 split.
 
-**Monte Carlo cross-validation:** Using random sampling without
+## Monte Carlo Cross-Validation: 
+Using random sampling without 
 replacement from certain probability distributions when splitting your
 data sets [@james1980monte]. It aims to decrease overfitting by allowing
 the algorithm to better explore the experimental space.
 
-**K-Fold Cross-Validation:** The dataset is split into k equally sized
+## K-Fold Cross-Validation:
+The dataset is split into k equally sized
 folds. Each fold is used once as a test set while the rest serve as the
 training set.
 
-**Leave-One-Out Cross-Validation (LOOCV):** This is a special case of
-k-fold cross-validation where k equals the number of data points
-[@shao2016efficient]. Each data point is used once as a test set.
+## Leave-One-Out Cross-Validation (LOOCV):
+This is a special case of k-fold cross-validation where k equals the
+number of data points [@shao2016efficient]. Each data point is used once
+as a test set.
 
-**Stratified Cross-Validation:** Ensures each fold reflects the class
-proportions in the dataset, particularly useful for imbalanced datasets.
+## Stratified Cross-Validation:
+Ensures each fold reflects the class proportions in the dataset, particularly
+useful for imbalanced datasets.
 
-**Repeated K-Fold Cross-Validation:** Repeats the K-Fold process
-multiple times and averages the results.
+## Repeated K-Fold Cross-Validation:
+Repeats the K-Fold process multiple times and averages the results.
 
 The perspective of Berrar is enriched by [@schaffer1993selecting], who
 explores the significance of cross-validation in selecting optimal

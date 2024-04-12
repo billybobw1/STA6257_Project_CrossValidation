@@ -8,7 +8,7 @@
 <link href="indextoslides2_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="indextoslides2_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="indextoslides2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.542">
+  <meta name="generator" content="quarto-1.3.353">
 
   <meta name="author" content="Jesse Buntyn, Jolie Wise, Danielle Koche">
   <meta name="dcterms.date" content="2024-04-11">
@@ -32,7 +32,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -99,7 +99,6 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
-      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -243,8 +242,7 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    padding-bottom: 0.5rem;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -427,9 +425,10 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 </section>
 <section id="introduction" class="slide level2">
 <h2>Introduction</h2>
-<p>This is an introduction to understanding cross-validation, its methods, and its importance in data science &amp; statistics.</p>
 <p>Cross-validation is a cornerstone methodology in the field of data science, essential for assessing the predictive performance of statistical models and ensuring their generalizability to unseen data. This resampling technique allows researchers to evaluate how models will perform in practice, addressing critical challenges like overfitting and underfitting, thereby ensuring robustness and reliability of model predictions across various data subsets.</p>
-<p>The tutorial by <span class="citation" data-cites="song2021making">(<a href="#/references" role="doc-biblioref" onclick="">Song, Tang, and Wee 2021</a>)</span> further elaborates on the practical application of cross-validation, presenting a structured, step-by-step approach to assessing model generalizability and emphasizing the significance of the repeated k-folds technique for reducing bias in model evaluation.</p>
+</section>
+<section id="cross-validation-steps" class="slide level2">
+<h2>Cross-Validation Steps</h2>
 <p><strong>The overall 5-step process to cross-validation introduced by them is as follows:</strong></p>
 <ol type="1">
 <li>Split the data into a training set and test set, typically 80/20 or 70/30.</li>
@@ -438,14 +437,41 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 <li>Repeat steps one through three.</li>
 <li>Calculate the average cross-validation prediction accuracy across all repetitions.</li>
 </ol>
-<p><span class="citation" data-cites="berrar2019cross">(<a href="#/references" role="doc-biblioref" onclick="">Berrar et al. 2019</a>)</span> exposition on cross-validation underscores its importance in parameter tuning and model selection, providing a detailed overview of its common types, including k-fold and leave-one-out cross-validation, and emphasizing its role in balancing the bias-variance tradeoff for improved model performance.</p>
-<p><strong>Specifically, common types of cross-validation include:</strong></p>
-<p><strong>Single Hold-Out Method:</strong> This is one of the more simple methods of cross-validation and tends to be less time-consuming to conduct <span class="citation" data-cites="yadav2016analysis">(<a href="#/references" role="doc-biblioref" onclick="">Yadav and Shukla 2016</a>)</span>. It divides data into a training set and a test set, usually in a 70-30 or 90-10 split.</p>
-<p><strong>Monte Carlo cross-validation:</strong> Using random sampling without replacement from certain probability distributions when splitting your data sets <span class="citation" data-cites="james1980monte">(<a href="#/references" role="doc-biblioref" onclick="">James 1980</a>)</span>. It aims to decrease overfitting by allowing the algorithm to better explore the experimental space.</p>
-<p><strong>K-Fold Cross-Validation:</strong> The dataset is split into k equally sized folds. Each fold is used once as a test set while the rest serve as the training set.</p>
-<p><strong>Leave-One-Out Cross-Validation (LOOCV):</strong> This is a special case of k-fold cross-validation where k equals the number of data points <span class="citation" data-cites="shao2016efficient">(<a href="#/references" role="doc-biblioref" onclick="">Shao and Er 2016</a>)</span>. Each data point is used once as a test set.</p>
-<p><strong>Stratified Cross-Validation:</strong> Ensures each fold reflects the class proportions in the dataset, particularly useful for imbalanced datasets.</p>
-<p><strong>Repeated K-Fold Cross-Validation:</strong> Repeats the K-Fold process multiple times and averages the results.</p>
+</section>
+<section id="cross-validation-techniques" class="slide level2">
+<h2>Cross-Validation Techniques</h2>
+<ul>
+<li>Single Hold-Out Method</li>
+<li>Monte Carlo Cross-Validation</li>
+<li>K-Fold Cross-Validation</li>
+<li>Leave-One-Out Cross-Validation (LOOCV)</li>
+<li>Stratified Cross-Validation</li>
+<li>Repeated K-Fold Cross-Validation</li>
+</ul>
+</section>
+<section id="single-hold-out-method" class="slide level2">
+<h2>Single Hold-Out Method:</h2>
+<p>his is one of the more simple methods of cross-validation and tends to be less time-consuming to conduct <span class="citation" data-cites="yadav2016analysis">(<a href="#/references" role="doc-biblioref" onclick="">Yadav and Shukla 2016</a>)</span>. It divides data into a training set and a test set, usually in a 70-30 or 90-10 split.</p>
+</section>
+<section id="monte-carlo-cross-validation" class="slide level2">
+<h2>Monte Carlo Cross-Validation:</h2>
+<p>Using random sampling without replacement from certain probability distributions when splitting your data sets <span class="citation" data-cites="james1980monte">(<a href="#/references" role="doc-biblioref" onclick="">James 1980</a>)</span>. It aims to decrease overfitting by allowing the algorithm to better explore the experimental space.</p>
+</section>
+<section id="k-fold-cross-validation" class="slide level2">
+<h2>K-Fold Cross-Validation:</h2>
+<p>The dataset is split into k equally sized folds. Each fold is used once as a test set while the rest serve as the training set.</p>
+</section>
+<section id="leave-one-out-cross-validation-loocv" class="slide level2">
+<h2>Leave-One-Out Cross-Validation (LOOCV):</h2>
+<p>This is a special case of k-fold cross-validation where k equals the number of data points <span class="citation" data-cites="shao2016efficient">(<a href="#/references" role="doc-biblioref" onclick="">Shao and Er 2016</a>)</span>. Each data point is used once as a test set.</p>
+</section>
+<section id="stratified-cross-validation" class="slide level2">
+<h2>Stratified Cross-Validation:</h2>
+<p>Ensures each fold reflects the class proportions in the dataset, particularly useful for imbalanced datasets.</p>
+</section>
+<section id="repeated-k-fold-cross-validation" class="slide level2">
+<h2>Repeated K-Fold Cross-Validation:</h2>
+<p>Repeats the K-Fold process multiple times and averages the results.</p>
 <p>The perspective of Berrar is enriched by <span class="citation" data-cites="schaffer1993selecting">(<a href="#/references" role="doc-biblioref" onclick="">Schaffer 1993</a>)</span>, who explores the significance of cross-validation in selecting optimal classification methods, highlighting its necessity in dealing with imbalanced datasets through stratified approaches.</p>
 <h3 id="related-work">Related Work</h3>
 <p><span class="citation" data-cites="zhang2015cross">(<a href="#/references" role="doc-biblioref" onclick="">Zhang and Yang 2015</a>)</span> delve into the strategic use of cross-validation for model selection, particularly in high-dimensional settings, challenging traditional approaches and proposing the integration of AIC and BIC for optimal model estimation. AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion) are both measures used to evaluate the quality of a statistical model, often in the context of model selection. While they are not directly used for cross-validation, they serve a similar purpose in helping to choose between different models by considering both the goodness of fit and the complexity of the model.</p>
@@ -459,7 +485,7 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 </section>
 <section id="methods" class="slide level2">
 <h2>Methods</h2>
-<h3 id="cross-validation-techniques">Cross-Validation Techniques</h3>
+<h3 id="cross-validation-techniques-1">Cross-Validation Techniques</h3>
 <p>There are many techniques of cross-validation, the one being used depending on what needs to be accomplished. Many of which, mentioned in the introduction. The following will introduce some of those important techniques.</p>
 <p>Single hold-out cross-validation is one more simple versions of cross-validation being used <span class="citation" data-cites="yadav2016analysis">(<a href="#/references" role="doc-biblioref" onclick="">Yadav and Shukla 2016</a>)</span>. The dataset gets divided into a training set and validation, or hold-out, set. The training set is used to fit a model, which is then used for prediction on the validation set. The performance of the model is then determined by the variance between the predictions and the actual data. One of the main drawbacks of this method is that the training set and validation set can have different distributions, causing potentially unreliable models <span class="citation" data-cites="santos2023statistical">(<a href="#/references" role="doc-biblioref" onclick="">Santos et al. 2023</a>)</span>.</p>
 <p><span class="citation" data-cites="jung2015ak">(<a href="#/references" role="doc-biblioref" onclick="">Jung and Hu 2015</a>)</span> introduce an advanced k-fold averaging cross-validation procedure, advocating for the averaging of parameter estimates across folds to yield more stable and efficient outcomes. This method demonstrates significant potential in handling high-dimensional data and improving parameter estimation.</p>
@@ -471,12 +497,7 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 <li><p>Calculate the prediction error for the response variable in the hold-out fold.</p></li>
 <li><p>Repeat steps 2-4 k times, using each fold as a hold-out once.</p></li>
 <li><p>Calculate the overall test predictors by averaging all k test predictors.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/K-fold-cross-validation-1.webp" width="413"></p>
-<figcaption>Figure 1: Basic K-Fold Cross-Validation, k=5</figcaption>
-</figure>
-</div>
+<img data-src="images/K-fold-cross-validation-1.webp" width="413" alt="Figure 1: Basic K-Fold Cross-Validation, k=5">
 <p>Source: <span class="citation" data-cites="Ranjan_2021">(<a href="#/references" role="doc-biblioref" onclick="">Ranjan 2021</a>)</span></p></li>
 </ol>
 <p>The MSE calculation using K-folds is as follows <span class="citation" data-cites="jung2015ak">(<a href="#/references" role="doc-biblioref" onclick="">Jung and Hu 2015</a>)</span>:</p>
@@ -609,42 +630,34 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># loading packages </span></span>
-<span id="cb1-2"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href=""></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-4"><a href=""></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb1-5"><a href=""></a><span class="fu">library</span>(ggrepel)</span>
-<span id="cb1-6"><a href=""></a><span class="fu">library</span>(dslabs)</span>
-<span id="cb1-7"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-8"><a href=""></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb1-9"><a href=""></a><span class="fu">library</span>(rsample)</span>
-<span id="cb1-10"><a href=""></a><span class="fu">library</span>(tidymodels)</span>
-<span id="cb1-11"><a href=""></a><span class="fu">library</span>(Metrics)</span>
-<span id="cb1-12"><a href=""></a><span class="fu">library</span>(ROCR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># loading packages </span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(dslabs)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="fu">library</span>(rsample)</span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="fu">library</span>(Metrics)</span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="fu">library</span>(ROCR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Load Data</span></span>
-<span id="cb2-2"><a href=""></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'heart_failure_clinical_records_dataset.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Load Data</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'heart_failure_clinical_records_dataset.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <h4 id="continuous-variables">Continuous Variables</h4>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure>
 <p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
-</figure>
-</div>
 </div>
 </div>
 <p>The age of patients ranged from 40 to 95 years old, which the majority aged below 70 years old. The time variable is the number of days in the follow-up period for each patient, ranging from 4 to 285 days. Creatinine phosphokinase indicates the level of this enzyme in the patient’s blood, which is present when muscle tissue is damaged <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>. The serum creatinine is created by this creatinine when muscle breaks down <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>, so this variable was included as another potential indicator of injury. Variables were included that observe the levels of sodium (serum sodium) and number of platelets in the patient’s blood. The ejection fraction variable is the percentage of blood leaving the left ventricle during each contraction of the heart <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>.</p>
 <h4 id="categorical-variables">Categorical Variables</h4>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure>
 <p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
-</figure>
-</div>
 </div>
 </div>
 <p>All of our categorical variables are Boolean and are encoded as ‘0’ and ‘1’ to indicate negative or positive occurrence of a variable’s condition, respectively. These variables include whether the patient is a smoker, has diabetes, anaemia, or high blood pressure. The sex variable indicates whether the patient is a female (‘0’) or male (‘1’). Our target variable, death event, indicates whether the patient died before the end of the follow-up period.</p>
@@ -667,11 +680,7 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <h4 id="checking-for-outliers">Checking for Outliers</h4>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure>
 <p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
-</figure>
-</div>
 </div>
 </div>
 <p>Boxplots for our continuous variables were created in our exploratory analysis to evaluate if any variables have outlier that need to be addressed. The boxplots do indicate that some of our variables have potential outliers, namely creatinine phosphokinase, ejection fraction, platelets, serum creatinine, and serum sodium. However, these data points will remain untouched for our analysis. The indicated outlier do not appear to be recording errors, such as a negative time variable or unrealistic age. The outliers in the boxplots appear to be genuine observations and should be considered in our model. The original article also did not remove any outliers <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>.)</span></p>
@@ -679,18 +688,10 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <p>The majority of the variables do not appear to have a significant correlation to the other. The most significant was between the time variable and our target variable, death event. There’s a negative relationship, meaning the patients who had more days in the follow-up period tended to survive through the end of the follow-up period. There was a slight positive correlation between sex of the patient and smoker status, meaning more male patients tended to be smokers than female patients.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure>
 <p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
-</figure>
-</div>
 </div>
 <div class="cell-output-display">
-<div>
-<figure>
 <p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-7-2.png" width="960"></p>
-</figure>
-</div>
 </div>
 </div>
 </section>
@@ -733,7 +734,7 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </div>
 <p>Similar to the 10-fold models above, our dataset is split into equal pieces. However, in this case, we are only doing 5 folds compared to our 10-fold analysis above. Again, in model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included. With 5-fold cross validation, the data set is divided into 5 parts (as opposed to 10 in 10-fold). Model 1 still has a lower MSE than the full model that includes all predictor variables.</p>
 </section>
-<section id="single-hold-out-method" class="slide level2">
+<section id="single-hold-out-method-1" class="slide level2">
 <h2>Single Hold-Out Method:</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -774,7 +775,7 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </div>
 <p>Using the Single Hold-Out Method, the data set is split into a training set and a test/validation set. Here, we are using a 50-50 split. After conducting the analysis, it can be seen that model 2 provides us with a lower mean squared error. Model 2 includes only ejection fraction and serum creatinine as predictor variables, meaning this reduced model is a better fit according to this cross-validation technique.</p>
 </section>
-<section id="leave-one-out-cross-validation-loocv" class="slide level2">
+<section id="leave-one-out-cross-validation-loocv-1" class="slide level2">
 <h2>Leave-One-Out Cross-Validation (LOOCV):</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -786,14 +787,14 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </div>
 <p>Leave-One-Out cross-validation (LOOCV) follows a similar data set splitting technique, but in this case, the data is split k-ways, where k is equal to the number of data points. According to LOOCV, the full model (which includes all predictor variables) is a better fit due to a lower mean squared error compared to the reduced model (which only includes serum creatinine and ejection fraction).</p>
 </section>
-<section id="monte-carlo-cross-validation" class="slide level2">
+<section id="monte-carlo-cross-validation-1" class="slide level2">
 <h2>Monte Carlo Cross-Validation:</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
   M1_MCCV_MSE$mean M2_MCCV_MSE$mean M1_MCCV_AUC$mean M2_MCCV_AUC$mean
              &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1            0.139            0.183            0.864            0.763</code></pre>
+1            0.864            0.763               NA               NA</code></pre>
 </div>
 </div>
 <p>For the Monte Carlo technique, logistic regression will be used to create the models. Unlike previous techniques, a resampling function was created to repeat the splitting of the data many times. Our proportion of training to validation sets is the standard 70/30 split, and the data will be resampled 100 times. For the MSE of the models, we’ll be using the Brier score as our resampling fitting function generates the Brier score automatically, and it performs similarly to MSE in classification problems <span class="citation" data-cites="ferro2012bias">(<a href="#/references" role="doc-biblioref" onclick="">Ferro and Fricker 2012</a>)</span>. Similar to the previously discussed techniques, our full model had the lower MSE/ Brier score and higher AUC. The smaller model’s AUC of 0.763 is still acceptable as far as the metric’s ideal scores go, but the increase of about 0.1 indicates there might be another predictor or two that could contribute significantly to the model.</p>
@@ -807,15 +808,10 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
-<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
-</div>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-berrar2019cross" class="csl-entry" role="listitem">
-Berrar, Daniel et al. 2019. <span>“Cross-Validation.”</span>
-</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-cantor2000determining" class="csl-entry" role="listitem">
 Cantor, Scott B, and Michael W Kattan. 2000. <span>“Determining the Area Under the ROC Curve for a Binary Diagnostic Test.”</span> <em>Medical Decision Making</em> 20 (4): 468–70.
 </div>
@@ -867,9 +863,6 @@ Schaffer, Cullen. 1993. <span>“Selecting a Classification Method by Cross-Vali
 <div id="ref-shao2016efficient" class="csl-entry" role="listitem">
 Shao, Zhifei, and Meng Joo Er. 2016. <span>“Efficient Leave-One-Out Cross-Validation-Based Regularized Extreme Learning Machine.”</span> <em>Neurocomputing</em> 194: 260–70.
 </div>
-<div id="ref-song2021making" class="csl-entry" role="listitem">
-Song, Q Chelsea, Chen Tang, and Serena Wee. 2021. <span>“Making Sense of Model Generalizability: A Tutorial on Cross-Validation in r and Shiny.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 4 (1): 2515245920947067.
-</div>
 <div id="ref-wong2015performance" class="csl-entry" role="listitem">
 Wong, Tzu-Tsung. 2015. <span>“Performance Evaluation of Classification Algorithms by k-Fold and Leave-One-Out Cross Validation.”</span> <em>Pattern Recognition</em> 48 (9): 2839–46.
 </div>
@@ -913,6 +906,7 @@ Zhang, Yongli, and Yuhong Yang. 2015. <span>“Cross-Validation for Selecting a 
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
+'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1211,9 +1205,10 @@ Zhang, Yongli, and Yuhong Yang. 2015. <span>“Cross-Validation for Selecting a 
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      function tippyHover(el, contentFn) {
         const config = {
           allowHTML: true,
+          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1223,17 +1218,8 @@ Zhang, Yongli, and Yuhong Yang. 2015. <span>“Cross-Validation for Selecting a 
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start',
+          placement: 'bottom-start'
         };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
