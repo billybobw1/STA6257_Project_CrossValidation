@@ -620,14 +620,15 @@ validation_SHO <- validation_SHO %>%
 
 head(validation_SHO)
 
-mean(validation_SHO$sqerr_m1_SHO, na.rm = TRUE)
-mean(validation_SHO$sqerr_m2_SHO, na.rm = TRUE)
+SHO_m1_mse <- mean(validation_SHO$sqerr_m1_SHO, na.rm = TRUE)
+SHO_m2_mse <- mean(validation_SHO$sqerr_m2_SHO, na.rm = TRUE)
 
 #Calculate AUC
 SHO_m1_auc = auc(validation_SHO$DEATH_EVENT,validation_SHO$yhat_m1_SHO)
 SHO_m2_auc = auc(validation_SHO$DEATH_EVENT,validation_SHO$yhat_m2_SHO)
-SHO_m1_auc
-SHO_m2_auc
+
+SHOtibble = tibble(M1_SHO_MSE = SHO_m1_mse, M2_SHO_MSE = SHO_m2_mse, M1_SHO_AUC = SHO_m1_auc, M2_SHO_AUC = SHO_m2_auc)
+SHOtibble
 ```
 
 Using the Single Hold-Out Method, the data set is split into a training
