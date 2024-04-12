@@ -666,13 +666,6 @@ includes serum creatinine and ejection fraction).
 data$DEATH_EVENT=as.factor(data$DEATH_EVENT)
 set.seed(30)
 resample1 <- mc_cv(data, times = 100, prop = .7)
-map_dbl(
-  resample1$splits,
-  function(x) {
-    dat <- as.data.frame(x)$DEATH_EVENT
-    mean(dat == "Yes")
-  }
-)
 
 m1_recipe <- recipe(DEATH_EVENT ~ ., data = data)
 mccv_model <- logistic_reg() %>% #creating classification model
