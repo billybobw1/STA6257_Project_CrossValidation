@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.4.542">
 
   <meta name="author" content="Jesse Buntyn, Jolie Wise, Danielle Koche">
-  <meta name="dcterms.date" content="2024-04-11">
+  <meta name="dcterms.date" content="2024-04-13">
   <title>Cross-Validation - Methods &amp; Importance in Data Science and Statistics</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -423,7 +423,7 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 </div>
 </div>
 
-  <p class="date">2024-04-11</p>
+  <p class="date">2024-04-13</p>
 </section>
 <section id="introduction" class="slide level2">
 <h2>Introduction</h2>
@@ -793,10 +793,10 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <h2>Leave-One-Out Cross-Validation (LOOCV):</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1342392 0.1342105</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1815995 0.1815950</code></pre>
+<pre><code># A tibble: 1 × 4
+  `M1 LOOCV MSE` `M2 LOOCV MSE` `M1 LOOCV AUC` `M2 LOOCV AUC`
+           &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+1          0.134          0.182          0.827          0.742</code></pre>
 </div>
 </div>
 <p>Leave-One-Out cross-validation (LOOCV) follows a similar data set splitting technique, but in this case, the data is split k-ways, where k is equal to the number of data points. According to LOOCV, the full model (which includes all predictor variables) is a better fit due to a lower mean squared error compared to the reduced model (which only includes serum creatinine and ejection fraction).</p>

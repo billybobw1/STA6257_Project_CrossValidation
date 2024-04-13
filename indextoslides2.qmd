@@ -633,10 +633,11 @@ m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ej
          family = "binomial"(link = "logit"))
 
 loocv_m1_mse <- cv.glm(data, m1)$delta
-loocv_m1_mse
 
-#loocv_m1_auc <- cv.glm(data, m1, cost = auc)$delta
-#loocv_m1_auc
+cost <- function(labels,pred){
+ mean(labels==ifelse(pred > 0.5, 1, 0))
+}
+loocv_m1_auc <- cv.glm(data, m1, cost = cost)$delta
 
 set.seed(20987)
 m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
@@ -644,10 +645,12 @@ m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
          family = "binomial"(link = "logit"))
 
 loocv_m2_mse <- cv.glm(data, m2)$delta
-loocv_m2_mse
 
-#loocv_m2_auc <- cv.glm(data, m2, cost = auc)$delta
-#loocv_m2_auc
+loocv_m2_auc <- cv.glm(data, m2, cost = cost)$delta
+
+loocv_tibble <- tibble("M1 LOOCV MSE" = loocv_m1_mse[2], "M2 LOOCV MSE" = loocv_m2_mse[2], "M1 LOOCV AUC" = loocv_m1_auc[2], "M2 LOOCV AUC" = loocv_m2_auc[2])
+loocv_tibble
+
 ```
 
 Leave-One-Out cross-validation (LOOCV) follows a similar data set
