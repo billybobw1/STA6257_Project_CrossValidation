@@ -30,71 +30,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     /* CSS for citations */
     div.csl-bib-body { }
     div.csl-entry {
@@ -331,6 +266,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -429,7 +365,7 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 <h2>Introduction</h2>
 <p>Cross-validation is a cornerstone methodology in the field of data science, essential for assessing the predictive performance of statistical models and ensuring their generalizability to unseen data. This resampling technique allows researchers to evaluate how models will perform in practice, addressing critical challenges like overfitting and underfitting, thereby ensuring robustness and reliability of model predictions across various data subsets.</p>
 </section>
-<section id="cross-validation-steps" class="slide level2">
+<section id="cross-validation-steps" class="slide level2 scrollable">
 <h2>Cross-Validation Steps</h2>
 <ol type="1">
 <li>Split the data into a training set and test set, typically 80/20 or 70/30.</li>
@@ -484,7 +420,7 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 <p>Finally, <span class="citation" data-cites="lei2020cross">(<a href="#/references" role="doc-biblioref" onclick="">Lei 2020</a>)</span> introduces a method called Cross-Validation with Confidence (CVC) aimed at reducing overfitting, a common problem with traditional cross-validation that uses small splits and ends up with too-simple models. CVC works by checking the predicted risk of different models and using p-values to choose models that best fit without being overly complex. It has proven effective, particularly when dealing with a decent amount of data and models that don’t use too many predictors, resulting in simpler, easy-to-understand predictive models. However, CVC hasn’t yet been applied to unsupervised learning or models with binary outcomes, pointing out areas for further exploration.</p>
 <p>Collectively, these papers illuminate the multifaceted nature of cross-validation, showcasing its critical role in model evaluation, selection, and generalization. From theoretical underpinnings to practical implementations, cross-validation emerges as an essential tool in a data scientist’s arsenal, ensuring models are not only predictive but also generalizable across diverse datasets and contexts.</p>
 </section>
-<section id="methods" class="slide level2">
+<section id="methods" class="slide level2 scrollable">
 <h2>Methods</h2>
 <h3 id="cross-validation-techniques-1">Cross-Validation Techniques</h3>
 <p>There are many techniques of cross-validation, the one being used depending on what needs to be accomplished. Many of which, mentioned in the introduction. The following will introduce some of those important techniques.</p>
@@ -554,6 +490,9 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <p>This heart failure clinical records dataset, obtained via the UC Irvine Machine Learning Repository, contains the medical records of 299 patients who had heart failure, collected during their follow-up period, where each patient profile has 13 clinical features <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>.</p>
 <p>More specifically, the dataset comprises medical records of 299 heart failure patients from Faisalabad, Pakistan, collected between April and December 2015. It includes 13 clinical, body, and lifestyle features, both categorical and continuous. The dataset was used to facilitate machine learning predictions on patient survival based solely on serum creatinine and ejection fraction levels. Various machine learning and biostatistical methods were employed for binary classification of survival, feature ranking, and to examine the predictability of survival using the mentioned key features. This study aims to demonstrate the potential of specific biomarkers in predicting heart failure outcomes and to streamline the prediction process for medical practitioners. Notably, <span class="citation" data-cites="de2020cross">(<a href="#/references" role="doc-biblioref" onclick="">Rooij and Weeda 2020</a>)</span> highlight the ways in which cross-validation can be implemented on a dataset, such as ours, through different cross-validation methods and techniques.</p>
 <p>Our data description is as follows:</p>
+</section>
+<section id="data" class="slide level2">
+<h2>Data</h2>
 <table>
 <colgroup>
 <col style="width: 32%">
@@ -635,47 +574,19 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </tr>
 </tbody>
 </table>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># loading packages </span></span>
-<span id="cb1-2"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href=""></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-4"><a href=""></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb1-5"><a href=""></a><span class="fu">library</span>(ggrepel)</span>
-<span id="cb1-6"><a href=""></a><span class="fu">library</span>(dslabs)</span>
-<span id="cb1-7"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-8"><a href=""></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb1-9"><a href=""></a><span class="fu">library</span>(rsample)</span>
-<span id="cb1-10"><a href=""></a><span class="fu">library</span>(tidymodels)</span>
-<span id="cb1-11"><a href=""></a><span class="fu">library</span>(Metrics)</span>
-<span id="cb1-12"><a href=""></a><span class="fu">library</span>(ROCR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Load Data</span></span>
-<span id="cb2-2"><a href=""></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'heart_failure_clinical_records_dataset.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<h4 id="continuous-variables">Continuous Variables</h4>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The age of patients ranged from 40 to 95 years old, which the majority aged below 70 years old. The time variable is the number of days in the follow-up period for each patient, ranging from 4 to 285 days. Creatinine phosphokinase indicates the level of this enzyme in the patient’s blood, which is present when muscle tissue is damaged <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>. The serum creatinine is created by this creatinine when muscle breaks down <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>, so this variable was included as another potential indicator of injury. Variables were included that observe the levels of sodium (serum sodium) and number of platelets in the patient’s blood. The ejection fraction variable is the percentage of blood leaving the left ventricle during each contraction of the heart <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>.</p>
-<h4 id="categorical-variables">Categorical Variables</h4>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>All of our categorical variables are Boolean and are encoded as ‘0’ and ‘1’ to indicate negative or positive occurrence of a variable’s condition, respectively. These variables include whether the patient is a smoker, has diabetes, anaemia, or high blood pressure. The sex variable indicates whether the patient is a female (‘0’) or male (‘1’). Our target variable, death event, indicates whether the patient died before the end of the follow-up period.</p>
-<h4 id="missing-values">Missing Values</h4>
+</section>
+<section id="continuous-variables" class="slide level2">
+<h2>Continuous Variables</h2>
+
+<img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"><p>The age of patients ranged from 40 to 95 years old, which the majority aged below 70 years old. The time variable is the number of days in the follow-up period for each patient, ranging from 4 to 285 days. Creatinine phosphokinase indicates the level of this enzyme in the patient’s blood, which is present when muscle tissue is damaged <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>. The serum creatinine is created by this creatinine when muscle breaks down <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>, so this variable was included as another potential indicator of injury. Variables were included that observe the levels of sodium (serum sodium) and number of platelets in the patient’s blood. The ejection fraction variable is the percentage of blood leaving the left ventricle during each contraction of the heart <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>.</p>
+</section>
+<section id="categorical-variables" class="slide level2">
+<h2>Categorical Variables</h2>
+
+<img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"><p>All of our categorical variables are Boolean and are encoded as ‘0’ and ‘1’ to indicate negative or positive occurrence of a variable’s condition, respectively. These variables include whether the patient is a smoker, has diabetes, anaemia, or high blood pressure. The sex variable indicates whether the patient is a female (‘0’) or male (‘1’). Our target variable, death event, indicates whether the patient died before the end of the follow-up period.</p>
+</section>
+<section id="missing-values" class="slide level2">
+<h2>Missing Values</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>                     age                  anaemia creatinine_phosphokinase 
@@ -691,39 +602,20 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </div>
 </div>
 <p>We found the total number of missing values for each variable, and none were found. The analysis can continue without deleting rows or imputation of values.</p>
-<h4 id="checking-for-outliers">Checking for Outliers</h4>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Boxplots for our continuous variables were created in our exploratory analysis to evaluate if any variables have outlier that need to be addressed. The boxplots do indicate that some of our variables have potential outliers, namely creatinine phosphokinase, ejection fraction, platelets, serum creatinine, and serum sodium. However, these data points will remain untouched for our analysis. The indicated outlier do not appear to be recording errors, such as a negative time variable or unrealistic age. The outliers in the boxplots appear to be genuine observations and should be considered in our model. The original article also did not remove any outliers <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>.)</span></p>
-<h4 id="correlation">Correlation</h4>
-<p>The majority of the variables do not appear to have a significant correlation to the other. The most significant was between the time variable and our target variable, death event. There’s a negative relationship, meaning the patients who had more days in the follow-up period tended to survive through the end of the follow-up period. There was a slight positive correlation between sex of the patient and smoker status, meaning more male patients tended to be smokers than female patients.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-7-2.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
 </section>
+<section id="checking-for-outliers" class="slide level2">
+<h2>Checking for Outliers</h2>
+
+<img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"><p>Boxplots for our continuous variables were created in our exploratory analysis to evaluate if any variables have outlier that need to be addressed. The boxplots do indicate that some of our variables have potential outliers, namely creatinine phosphokinase, ejection fraction, platelets, serum creatinine, and serum sodium. However, these data points will remain untouched for our analysis. The indicated outlier do not appear to be recording errors, such as a negative time variable or unrealistic age. The outliers in the boxplots appear to be genuine observations and should be considered in our model. The original article also did not remove any outliers <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>.)</span></p>
+</section>
+<section id="correlation" class="slide level2">
+<h2>Correlation</h2>
+<p>The majority of the variables do not appear to have a significant correlation to the other. The most significant was between the time variable and our target variable, death event. There’s a negative relationship, meaning the patients who had more days in the follow-up period tended to survive through the end of the follow-up period. There was a slight positive correlation between sex of the patient and smoker status, meaning more male patients tended to be smokers than female patients.</p>
+
+<img data-src="indextoslides2_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
 <section id="statistical-modeling" class="slide level2">
 <h2>Statistical Modeling</h2>
-<p>Since the outcome variable (death event) is binary, logistic regression will be used with each of our techniques to fit our models. Two different models will be fit for each technique: one with every predictor variable included (Model 1), and the other using only creatinine phosphokinase and ejection fraction (Model 2), as was advised by <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>. The goal is to compare how the difference in performance between the two models changes when various cross-validation techniques are applied. The performance of the models will be determined using their MSE and AUC values.</p>
+<p>Since the outcome variable (death event) is binary, logistic regression will be used with each of our techniques to fit our models. Two different models will be fit for each technique: one with every predictor variable included (Model 1), and the other using only serum creatinine and ejection fraction (Model 2), as was advised by <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>. The goal is to compare how the difference in performance between the two models changes when various cross-validation techniques are applied. The performance of the models will be determined using their MSE and AUC values.</p>
 </section>
 <section id="fold-cross-validation" class="slide level2">
 <h2>10-fold Cross Validation:</h2>
@@ -753,29 +645,6 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <h2>Single Hold-Out Method:</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>  obs DEATH_EVENT yhat_m1_SHO sqerr_m1_SHO yhat_m2_SHO sqerr_m2_SHO age anaemia
-1   4           1    1.954605    0.9112698   0.4937831 2.562556e-01  50       1
-2   5           1    3.929549    8.5822549   1.0210942 4.449632e-04  65       1
-3  10           1    4.648967   13.3149595   4.7305118 1.391672e+01  80       1
-4  14           1    0.138805    0.7416568  -0.8817033 3.540807e+00  50       1
-5  16           1    2.162099    1.3504749  -1.3153256 5.360733e+00  82       1
-6  19           1    2.324967    1.7555370  -0.3350461 1.782348e+00  70       1
-  creatinine_phosphokinase diabetes ejection_fraction high_blood_pressure
-1                      111        0                20                   0
-2                      160        1                20                   0
-3                      123        0                35                   1
-4                      168        0                38                   1
-5                      379        0                50                   0
-6                      125        0                25                   1
-  platelets serum_creatinine serum_sodium sex smoking time
-1    210000              1.9          137   1       0    7
-2    327000              2.7          116   0       0    8
-3    388000              9.4          133   1       1   10
-4    276000              1.1          137   1       0   11
-5     47000              1.3          136   1       0   13
-6    237000              1.0          140   0       0   15</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
   M1_SHO_MSE M2_SHO_MSE M1_SHO_AUC M2_SHO_AUC
        &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
@@ -794,7 +663,7 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 1          0.134          0.182          0.827          0.742</code></pre>
 </div>
 </div>
-<p>Leave-One-Out cross-validation (LOOCV) follows a similar data set splitting technique, but in this case, the data is split k-ways, where k is equal to the number of data points. According to LOOCV, the full model (which includes all predictor variables) is a better fit due to a lower mean squared error compared to the reduced model (which only includes serum creatinine and ejection fraction).</p>
+<p>Leave-One-Out cross-validation (LOOCV) follows a similar data set splitting technique, but in this case, the data is split k-ways, where k is equal to the number of data points. In this case, k would be 299. According to LOOCV, the full model (which includes all predictor variables) is a better fit due to a lower mean squared error compared to the reduced model (which only includes serum creatinine and ejection fraction).</p>
 </section>
 <section id="monte-carlo-cross-validation-1" class="slide level2">
 <h2>Monte Carlo Cross-Validation:</h2>

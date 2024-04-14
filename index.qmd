@@ -431,13 +431,13 @@ hist(data$smoking, main = "Smoking", breaks = 2)
 hist(data$DEATH_EVENT,main = "Death Event",breaks=2)
 ```
 
-All of our categorical variables are Boolean and are encoded as '0' and
+"All of our categorical variables are Boolean and are encoded as '0' and
 '1' to indicate negative or positive occurrence of a variable's
 condition, respectively. These variables include whether the patient is
 a smoker, has diabetes, anaemia, or high blood pressure. The sex
 variable indicates whether the patient is a female ('0') or male ('1').
 Our target variable, death event, indicates whether the patient died
-before the end of the follow-up period.
+before the end of the follow-up period."
 
 #### Missing Values
 
@@ -489,19 +489,11 @@ patients.
 cor(data) %>%
   corrplot(method = 'ellipse', type = 'upper')
 
-par(mfrow=c(2,4))
-plot(x=data$age,y=data$DEATH_EVENT, main="Age", ylim = c(-.5,1.5))
-plot(x=data$creatinine_phosphokinase,y=data$DEATH_EVENT, main="Creatinine Phosphokinase",ylim = c(-.5,1.5))
-plot(x=data$ejection_fraction,y=data$DEATH_EVENT, main="Ejection Fraction",ylim = c(-.5,1.5))
-plot(x=data$platelets,y=data$DEATH_EVENT, main="Platelets",ylim = c(-.5,1.5))
-plot(x=data$serum_creatinine,y=data$DEATH_EVENT, main="Serum Creatinine",ylim = c(-.5,1.5))
-plot(x=data$serum_sodium,y=data$DEATH_EVENT, main="Serum Sodium",ylim = c(-.5,1.5))
-plot(x=data$time,y=data$DEATH_EVENT, main="Time",ylim = c(-.5,1.5))
 ```
 
 ### Statistical Modeling
 
-Since the outcome variable (death event) is binary, logistic regression will be used with each of our techniques to fit our models. Two different models will be fit for each technique: one with every predictor variable included (Model 1), and the other using only creatinine phosphokinase and ejection fraction (Model 2), as was advised by [@chicco2020machine]. The goal is to compare how the difference in performance between the two models changes when various cross-validation techniques are applied. The performance of the models will be determined using their MSE and AUC values.
+Since the outcome variable (death event) is binary, logistic regression will be used with each of our techniques to fit our models. Two different models will be fit for each technique: one with every predictor variable included (Model 1), and the other using only serum creatinine and ejection fraction (Model 2), as was advised by [@chicco2020machine]. The goal is to compare how the difference in performance between the two models changes when various cross-validation techniques are applied. The performance of the models will be determined using their MSE and AUC values.
 
 #### 10-fold Cross Validation:
 
@@ -621,7 +613,7 @@ validation_SHO <- validation_SHO %>%
          sqerr_m2_SHO = (yhat_m2_SHO - DEATH_EVENT)^2) %>%
   relocate(obs, DEATH_EVENT, yhat_m1_SHO, sqerr_m1_SHO, yhat_m2_SHO, sqerr_m2_SHO)
 
-head(validation_SHO)
+#head(validation_SHO)
 
 SHO_m1_mse <- mean(validation_SHO$sqerr_m1_SHO, na.rm = TRUE)
 SHO_m2_mse <- mean(validation_SHO$sqerr_m2_SHO, na.rm = TRUE)
@@ -672,7 +664,7 @@ loocv_tibble
 
 Leave-One-Out cross-validation (LOOCV) follows a similar data set
 splitting technique, but in this case, the data is split k-ways, where k
-is equal to the number of data points. According to LOOCV, the full
+is equal to the number of data points. In this case, k would be 299. According to LOOCV, the full
 model (which includes all predictor variables) is a better fit due to a
 lower mean squared error compared to the reduced model (which only
 includes serum creatinine and ejection fraction).
