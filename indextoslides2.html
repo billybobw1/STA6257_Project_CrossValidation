@@ -723,6 +723,7 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </section>
 <section id="statistical-modeling" class="slide level2">
 <h2>Statistical Modeling</h2>
+<p>Since the outcome variable (death event) is binary, logistic regression will be used with each of our techniques to fit our models. Two different models will be fit for each technique: one with every predictor variable included (Model 1), and the other using only creatinine phosphokinase and ejection fraction (Model 2), as was advised by <span class="citation" data-cites="chicco2020machine">(<a href="#/references" role="doc-biblioref" onclick="">Chicco and Jurman 2020</a>)</span>. The goal is to compare how the difference in performance between the two models changes when various cross-validation techniques are applied. The performance of the models will be determined using their MSE and AUC values.</p>
 </section>
 <section id="fold-cross-validation" class="slide level2">
 <h2>10-fold Cross Validation:</h2>
@@ -823,7 +824,7 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
 <p>This paper shows various cross-validation techniques that can be used for modeling validation, including single hold-out, 5 &amp; 10 k-folds, leave-one-out, and Monte Carlo cross-validation.</p>
-<p>While the researchers that provided the dataset found that survival of heart attack patients can be predicted using only serum creatinine and ejection fraction as predictor variables. The linear regression analysis we conducted using various cross-validation techniques has shown that the full model (which includes all predictor variables within the dataset) has a lower mean squared error (MSE) after testing. This essentially means the full model is more robust with predictive ability compared to the reduced model. That being said, the difference in MSEs between the two models is marginal, however, the full model by technicality does have slightly more predictive ability.</p>
+<p>While the researchers that provided the dataset found that survival of heart attack patients can be predicted using only serum creatinine and ejection fraction as predictor variables. The logistic regression analysis we conducted using various cross-validation techniques has shown that the full model (which includes all predictor variables within the dataset) has a lower mean squared error (MSE) after testing. This essentially means the full model is more robust with predictive ability compared to the reduced model. That being said, the difference in MSEs between the two models is marginal, however, the full model by technicality does have slightly more predictive ability.</p>
 <p>The marginal difference between models supports the argument made by the researchers because the model with two predictor variables and the model with twelve predictor variables produced small differences in MSEs as seen in the analysis above; models with less predictor variables are typically preferred in statistical analysis.</p>
 <p>Ultimately, while the k-folds CV technique (particularly 10 folds) seemed to perform the best, most of these techniques seem sufficient to help validate a model based on this example.</p>
 </section>

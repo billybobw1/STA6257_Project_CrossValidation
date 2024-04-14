@@ -3609,6 +3609,7 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </section>
 <section id="statistical-modeling" class="level3">
 <h3 class="anchored" data-anchor-id="statistical-modeling">Statistical Modeling</h3>
+<p>Since the outcome variable (death event) is binary, logistic regression will be used with each of our techniques to fit our models. Two different models will be fit for each technique: one with every predictor variable included (Model 1), and the other using only creatinine phosphokinase and ejection fraction (Model 2), as was advised by <span class="citation" data-cites="chicco2020machine">(<a href="#ref-chicco2020machine" role="doc-biblioref">Chicco and Jurman 2020</a>)</span>. The goal is to compare how the difference in performance between the two models changes when various cross-validation techniques are applied. The performance of the models will be determined using their MSE and AUC values.</p>
 <section id="fold-cross-validation" class="level4">
 <h4 class="anchored" data-anchor-id="fold-cross-validation">10-fold Cross Validation:</h4>
 <div class="cell">
