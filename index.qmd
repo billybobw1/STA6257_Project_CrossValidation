@@ -681,13 +681,6 @@ includes serum creatinine and ejection fraction).
 data$DEATH_EVENT=as.factor(data$DEATH_EVENT)
 set.seed(30)
 resample1 <- mc_cv(data, times = 100, prop = .7)
-map_dbl(
-  resample1$splits,
-  function(x) {
-    dat <- as.data.frame(x)$DEATH_EVENT
-    mean(dat == "Yes")
-  }
-)
 
 m1_recipe <- recipe(DEATH_EVENT ~ ., data = data)
 mccv_model <- logistic_reg() %>% #creating classification model
@@ -710,15 +703,32 @@ keep_pred <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
 set.seed(30)
 m1_MCCV <-m1_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
 m1_MCCV_metrics <- collect_metrics(m1_MCCV)
+mccv_m1_mse <- as.numeric(m1_MCCV_metrics[2,3])
+mccv_m1_auc <- as.numeric(m1_MCCV_metrics[3,3])
 m2_MCCV <- m2_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
 m2_MCCV_metrics <-collect_metrics(m2_MCCV)
+mccv_m2_mse <- as.numeric(m2_MCCV_metrics[2,3])
+mccv_m2_auc <- as.numeric(m2_MCCV_metrics[3,3])
 ```
 ```{r}
-MCCVtibble = tibble(M1_MCCV_MSE = m1_MCCV_metrics[2,3], M2_MCCV_MSE = m2_MCCV_metrics[2,3], M1_MCCV_AUC= m1_MCCV_metrics[3,3], M2_MCCV_AUC= m2_MCCV_metrics[3,3])
-#MCCV_table = data.frame(Metric=c('Model 1 MSE','Model 2 MSE','Model 1 AUC', 'Model 2 AUC'),Value = #MCCVtibble)
+MCCVtibble = tibble(M1_MCCV_MSE = mccv_m1_mse, M2_MCCV_MSE = mccv_m2_mse, M1_MCCV_AUC= mccv_m1_auc, M2_MCCV_AUC= mccv_m2_auc)
 MCCVtibble
 ```
 For the Monte Carlo technique, logistic regression will be used to create the models. Unlike previous techniques, a resampling function was created to repeat the splitting of the data many times. Our proportion of training to validation sets is the standard 70/30 split, and the data will be resampled 100 times. For the MSE of the models, we'll be using the Brier score as our resampling fitting function generates the Brier score automatically, and it performs similarly to MSE in classification problems [@ferro2012bias]. Similar to the previously discussed techniques, our full model had the lower MSE/ Brier score and higher AUC. The smaller model's AUC of 0.763 is still acceptable as far as the metric's ideal scores go, but the increase of about 0.1 indicates there might be another predictor or two that could contribute significantly to the model.
+
+### Comparing Technique Performance
+
+```{r}
+MODEL_COMP <- data.frame(
+  CV = c("10-Fold", "5-Fold", "Single Hold-Out", "LOOCV", "MCCV"),
+  M1_MSE = c(k10tibble$M1_K5_MSE, k5tibble$M1_K5_MSE, SHOtibble$M1_SHO_MSE, loocv_tibble$`M1 LOOCV MSE`, MCCVtibble$M1_MCCV_MSE),
+  M1_AUC = c(k10tibble$M1_K5_AUC, k5tibble$M1_K5_AUC, SHOtibble$M1_SHO_AUC, loocv_tibble$`M1 LOOCV AUC`, MCCVtibble$M1_MCCV_AUC),
+  M2_MSE = c(k10tibble$M2_K5_MSE, k5tibble$M2_K5_MSE, SHOtibble$M2_SHO_MSE, loocv_tibble$`M2 LOOCV MSE`, MCCVtibble$M2_MCCV_MSE),
+  M2_AUC = c(k10tibble$M2_K5_AUC, k5tibble$M2_K5_AUC, SHOtibble$M2_SHO_AUC, loocv_tibble$`M2 LOOCV AUC`, MCCVtibble$M2_MCCV_AUC)
+)
+MODEL_COMP
+```
+
 
 ## Conclusion
 

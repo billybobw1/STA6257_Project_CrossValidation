@@ -3819,62 +3819,75 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>DEATH_EVENT<span class="ot">=</span><span class="fu">as.factor</span>(data<span class="sc">$</span>DEATH_EVENT)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>resample1 <span class="ot">&lt;-</span> <span class="fu">mc_cv</span>(data, <span class="at">times =</span> <span class="dv">100</span>, <span class="at">prop =</span> .<span class="dv">7</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  resample1<span class="sc">$</span>splits,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(x) {</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    dat <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(x)<span class="sc">$</span>DEATH_EVENT</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(dat <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span>)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
- [38] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
- [75] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m1_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(DEATH_EVENT <span class="sc">~</span> ., <span class="at">data =</span> data)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>mccv_model <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span> <span class="co">#creating classification model</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">&quot;glm&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>m1_wflow <span class="ot">&lt;-</span> <span class="co">#adding variables for model 1</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_formula</span>(</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    DEATH_EVENT <span class="sc">~</span> .) <span class="sc">%&gt;%</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(mccv_model)</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>m2_wflow <span class="ot">&lt;-</span> <span class="co"># adding variables for model 2</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_formula</span>(</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    DEATH_EVENT <span class="sc">~</span> ejection_fraction <span class="sc">+</span> serum_creatinine) <span class="sc">%&gt;%</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(mccv_model)</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>keep_pred <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>, <span class="at">save_workflow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>)</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>m1_MCCV <span class="ot">&lt;-</span>m1_wflow <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> resample1, <span class="at">control =</span> keep_pred)</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>m1_MCCV_metrics <span class="ot">&lt;-</span> <span class="fu">collect_metrics</span>(m1_MCCV)</span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>m2_MCCV <span class="ot">&lt;-</span> m2_wflow <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> resample1, <span class="at">control =</span> keep_pred)</span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>m2_MCCV_metrics <span class="ot">&lt;-</span><span class="fu">collect_metrics</span>(m2_MCCV)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>m1_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(DEATH_EVENT <span class="sc">~</span> ., <span class="at">data =</span> data)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>mccv_model <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span> <span class="co">#creating classification model</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">&quot;glm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>m1_wflow <span class="ot">&lt;-</span> <span class="co">#adding variables for model 1</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_formula</span>(</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    DEATH_EVENT <span class="sc">~</span> .) <span class="sc">%&gt;%</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(mccv_model)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>m2_wflow <span class="ot">&lt;-</span> <span class="co"># adding variables for model 2</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_formula</span>(</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    DEATH_EVENT <span class="sc">~</span> ejection_fraction <span class="sc">+</span> serum_creatinine) <span class="sc">%&gt;%</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(mccv_model)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>keep_pred <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>, <span class="at">save_workflow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>)</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>m1_MCCV <span class="ot">&lt;-</span>m1_wflow <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> resample1, <span class="at">control =</span> keep_pred)</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>m1_MCCV_metrics <span class="ot">&lt;-</span> <span class="fu">collect_metrics</span>(m1_MCCV)</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>mccv_m1_mse <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(m1_MCCV_metrics[<span class="dv">2</span>,<span class="dv">3</span>])</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>mccv_m1_auc <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(m1_MCCV_metrics[<span class="dv">3</span>,<span class="dv">3</span>])</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>m2_MCCV <span class="ot">&lt;-</span> m2_wflow <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> resample1, <span class="at">control =</span> keep_pred)</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>m2_MCCV_metrics <span class="ot">&lt;-</span><span class="fu">collect_metrics</span>(m2_MCCV)</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>mccv_m2_mse <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(m2_MCCV_metrics[<span class="dv">2</span>,<span class="dv">3</span>])</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>mccv_m2_auc <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(m2_MCCV_metrics[<span class="dv">3</span>,<span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>MCCVtibble <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">M1_MCCV_MSE =</span> m1_MCCV_metrics[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">M2_MCCV_MSE =</span> m2_MCCV_metrics[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">M1_MCCV_AUC=</span> m1_MCCV_metrics[<span class="dv">3</span>,<span class="dv">3</span>], <span class="at">M2_MCCV_AUC=</span> m2_MCCV_metrics[<span class="dv">3</span>,<span class="dv">3</span>])</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#MCCV_table = data.frame(Metric=c(&#39;Model 1 MSE&#39;,&#39;Model 2 MSE&#39;,&#39;Model 1 AUC&#39;, &#39;Model 2 AUC&#39;),Value = #MCCVtibble)</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>MCCVtibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>MCCVtibble <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">M1_MCCV_MSE =</span> mccv_m1_mse, <span class="at">M2_MCCV_MSE =</span> mccv_m2_mse, <span class="at">M1_MCCV_AUC=</span> mccv_m1_auc, <span class="at">M2_MCCV_AUC=</span> mccv_m2_auc)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>MCCVtibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
-  M1_MCCV_MSE$mean M2_MCCV_MSE$mean M1_MCCV_AUC$mean M2_MCCV_AUC$mean
-             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1            0.139            0.183            0.864            0.763</code></pre>
+  M1_MCCV_MSE M2_MCCV_MSE M1_MCCV_AUC M2_MCCV_AUC
+        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+1       0.139       0.183       0.864       0.763</code></pre>
 </div>
 </div>
 <p>For the Monte Carlo technique, logistic regression will be used to create the models. Unlike previous techniques, a resampling function was created to repeat the splitting of the data many times. Our proportion of training to validation sets is the standard 70/30 split, and the data will be resampled 100 times. For the MSE of the models, we’ll be using the Brier score as our resampling fitting function generates the Brier score automatically, and it performs similarly to MSE in classification problems <span class="citation" data-cites="ferro2012bias">(<a href="#ref-ferro2012bias" role="doc-biblioref">Ferro and Fricker 2012</a>)</span>. Similar to the previously discussed techniques, our full model had the lower MSE/ Brier score and higher AUC. The smaller model’s AUC of 0.763 is still acceptable as far as the metric’s ideal scores go, but the increase of about 0.1 indicates there might be another predictor or two that could contribute significantly to the model.</p>
 </section>
+</section>
+<section id="comparing-technique-performance" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-technique-performance">Comparing Technique Performance</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>MODEL_COMP <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">CV =</span> <span class="fu">c</span>(<span class="st">&quot;10-Fold&quot;</span>, <span class="st">&quot;5-Fold&quot;</span>, <span class="st">&quot;Single Hold-Out&quot;</span>, <span class="st">&quot;LOOCV&quot;</span>, <span class="st">&quot;MCCV&quot;</span>),</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">M1_MSE =</span> <span class="fu">c</span>(k10tibble<span class="sc">$</span>M1_K5_MSE, k5tibble<span class="sc">$</span>M1_K5_MSE, SHOtibble<span class="sc">$</span>M1_SHO_MSE, loocv_tibble<span class="sc">$</span><span class="st">`</span><span class="at">M1 LOOCV MSE</span><span class="st">`</span>, MCCVtibble<span class="sc">$</span>M1_MCCV_MSE),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">M1_AUC =</span> <span class="fu">c</span>(k10tibble<span class="sc">$</span>M1_K5_AUC, k5tibble<span class="sc">$</span>M1_K5_AUC, SHOtibble<span class="sc">$</span>M1_SHO_AUC, loocv_tibble<span class="sc">$</span><span class="st">`</span><span class="at">M1 LOOCV AUC</span><span class="st">`</span>, MCCVtibble<span class="sc">$</span>M1_MCCV_AUC),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">M2_MSE =</span> <span class="fu">c</span>(k10tibble<span class="sc">$</span>M2_K5_MSE, k5tibble<span class="sc">$</span>M2_K5_MSE, SHOtibble<span class="sc">$</span>M2_SHO_MSE, loocv_tibble<span class="sc">$</span><span class="st">`</span><span class="at">M2 LOOCV MSE</span><span class="st">`</span>, MCCVtibble<span class="sc">$</span>M2_MCCV_MSE),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">M2_AUC =</span> <span class="fu">c</span>(k10tibble<span class="sc">$</span>M2_K5_AUC, k5tibble<span class="sc">$</span>M2_K5_AUC, SHOtibble<span class="sc">$</span>M2_SHO_AUC, loocv_tibble<span class="sc">$</span><span class="st">`</span><span class="at">M2 LOOCV AUC</span><span class="st">`</span>, MCCVtibble<span class="sc">$</span>M2_MCCV_AUC)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>MODEL_COMP</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>               CV    M1_MSE    M1_AUC    M2_MSE    M2_AUC
+1         10-Fold 0.1327269 0.8675932 0.1816103 0.7559824
+2          5-Fold 0.1355044 0.8719124 0.1798165 0.7585011
+3 Single Hold-Out 7.4504247 0.8374603 1.6855614 0.8203175
+4           LOOCV 0.1342105 0.8271048 0.1815950 0.7423519
+5            MCCV 0.1393454 0.8644844 0.1831616 0.7633794</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="conclusion" class="level2">

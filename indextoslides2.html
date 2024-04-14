@@ -800,12 +800,25 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
-  M1_MCCV_MSE$mean M2_MCCV_MSE$mean M1_MCCV_AUC$mean M2_MCCV_AUC$mean
-             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
-1            0.139            0.183            0.864            0.763</code></pre>
+  M1_MCCV_MSE M2_MCCV_MSE M1_MCCV_AUC M2_MCCV_AUC
+        &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+1       0.139       0.183       0.864       0.763</code></pre>
 </div>
 </div>
 <p>For the Monte Carlo technique, logistic regression will be used to create the models. Unlike previous techniques, a resampling function was created to repeat the splitting of the data many times. Our proportion of training to validation sets is the standard 70/30 split, and the data will be resampled 100 times. For the MSE of the models, we’ll be using the Brier score as our resampling fitting function generates the Brier score automatically, and it performs similarly to MSE in classification problems <span class="citation" data-cites="ferro2012bias">(<a href="#/references" role="doc-biblioref" onclick="">Ferro and Fricker 2012</a>)</span>. Similar to the previously discussed techniques, our full model had the lower MSE/ Brier score and higher AUC. The smaller model’s AUC of 0.763 is still acceptable as far as the metric’s ideal scores go, but the increase of about 0.1 indicates there might be another predictor or two that could contribute significantly to the model.</p>
+</section>
+<section id="comparing-technique-performance" class="slide level2">
+<h2>Comparing Technique Performance</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>               CV    M1_MSE    M1_AUC    M2_MSE    M2_AUC
+1         10-Fold 0.1327269 0.8675932 0.1816103 0.7559824
+2          5-Fold 0.1355044 0.8719124 0.1798165 0.7585011
+3 Single Hold-Out 7.4504247 0.8374603 1.6855614 0.8203175
+4           LOOCV 0.1342105 0.8271048 0.1815950 0.7423519
+5            MCCV 0.1393454 0.8644844 0.1831616 0.7633794</code></pre>
+</div>
+</div>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
