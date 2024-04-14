@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.4.542">
 
   <meta name="author" content="Jesse Buntyn, Jolie Wise, Danielle Koche">
-  <meta name="dcterms.date" content="2024-04-13">
+  <meta name="dcterms.date" content="2024-04-14">
   <title>Cross-Validation - Methods &amp; Importance in Data Science and Statistics</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -423,7 +423,7 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 </div>
 </div>
 
-  <p class="date">2024-04-13</p>
+  <p class="date">2024-04-14</p>
 </section>
 <section id="introduction" class="slide level2">
 <h2>Introduction</h2>
@@ -728,16 +728,10 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <h2>10-fold Cross Validation:</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1335980 0.1327269</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8663912 0.8675932</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1817633 0.1816103</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7556413 0.7559824</code></pre>
+<pre><code># A tibble: 1 × 4
+  M1_K5_MSE M2_K5_MSE M1_K5_AUC M2_K5_AUC
+      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1     0.133     0.182     0.868     0.756</code></pre>
 </div>
 </div>
 <p>With any variation of k-fold cross validation, the dataset is split into k sized folds that will all be equal. Here, the dataset is split in 10 folds. As previously discussed, <span class="citation" data-cites="wong2019reliable">(<a href="#/references" role="doc-biblioref" onclick="">Wong and Yeh 2019</a>)</span> mentions 10-fold cross validation analysis to be most effective in most cases. In model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included, as the researchers that provided the data set came to the conclusion that death events could be predicted using those 2 variables alone. Interestingly enough, the first model that included all variables produced a lower MSE (mean square error), indicating that from this CV test, model one would be better to use than model 2.</p>

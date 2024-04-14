@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jesse Buntyn, Jolie Wise, Danielle Koche">
-<meta name="dcterms.date" content="2024-04-13">
+<meta name="dcterms.date" content="2024-04-14">
 
 <title>Cross-Validation - Methods &amp; Importance in Data Science and Statistics</title>
 <style>
@@ -3253,7 +3253,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 13, 2024</p>
+      <p class="date">April 14, 2024</p>
     </div>
   </div>
   
@@ -3627,38 +3627,30 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>k10_m1_mse <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m1, <span class="at">K=</span><span class="dv">10</span>)<span class="sc">$</span>delta</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>k10_m1_mse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>k10_m1_auc <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m1, <span class="at">K=</span><span class="dv">10</span>, <span class="at">cost=</span>auc)<span class="sc">$</span>delta</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">85329</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> ejection_fraction <span class="sc">+</span> serum_creatinine,</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data=</span>data)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>k10_m2_mse <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m2, <span class="at">K=</span><span class="dv">10</span>)<span class="sc">$</span>delta</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>k10_m2_auc <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(<span class="at">data=</span>data, <span class="at">glmfit=</span>m2, <span class="at">cost=</span>auc, <span class="at">K=</span><span class="dv">10</span>)<span class="sc">$</span>delta</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>k10tibble <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">M1_K5_MSE =</span> k10_m1_mse[<span class="dv">2</span>], <span class="at">M2_K5_MSE =</span> k10_m2_mse[<span class="dv">2</span>], <span class="at">M1_K5_AUC =</span> k10_m1_auc[<span class="dv">2</span>], <span class="at">M2_K5_AUC =</span> k10_m2_auc[<span class="dv">2</span>])</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>k10tibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1335980 0.1327269</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>k10_m1_auc <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m1, <span class="at">K=</span><span class="dv">10</span>, <span class="at">cost=</span>auc)<span class="sc">$</span>delta</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>k10_m1_auc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8663912 0.8675932</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">85329</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> ejection_fraction <span class="sc">+</span> serum_creatinine,</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="at">data=</span>data)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>k10_m2_mse <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m2, <span class="at">K=</span><span class="dv">10</span>)<span class="sc">$</span>delta</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>k10_m2_mse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1817633 0.1816103</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>k10_m2_auc <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(<span class="at">data=</span>data, <span class="at">glmfit=</span>m2, <span class="at">cost=</span>auc, <span class="at">K=</span><span class="dv">10</span>)<span class="sc">$</span>delta</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>k10_m2_auc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7556413 0.7559824</code></pre>
+<pre><code># A tibble: 1 × 4
+  M1_K5_MSE M2_K5_MSE M1_K5_AUC M2_K5_AUC
+      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1     0.133     0.182     0.868     0.756</code></pre>
 </div>
 </div>
 <p>With any variation of k-fold cross validation, the dataset is split into k sized folds that will all be equal. Here, the dataset is split in 10 folds. As previously discussed, <span class="citation" data-cites="wong2019reliable">(<a href="#ref-wong2019reliable" role="doc-biblioref">Wong and Yeh 2019</a>)</span> mentions 10-fold cross validation analysis to be most effective in most cases. In model 1, all predictor variables are included. In model 2, only ejection fraction and serum creatinine are included, as the researchers that provided the data set came to the conclusion that death events could be predicted using those 2 variables alone. Interestingly enough, the first model that included all variables produced a lower MSE (mean square error), indicating that from this CV test, model one would be better to use than model 2.</p>
@@ -3668,28 +3660,28 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">143269</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> age <span class="sc">+</span> anaemia <span class="sc">+</span> creatinine_phosphokinase <span class="sc">+</span> diabetes <span class="sc">+</span> ejection_fraction <span class="sc">+</span> high_blood_pressure <span class="sc">+</span> platelets <span class="sc">+</span> serum_creatinine <span class="sc">+</span> serum_sodium <span class="sc">+</span> sex <span class="sc">+</span> smoking <span class="sc">+</span> time,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> data, </span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>k5_m1_mse <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m1, <span class="at">K=</span><span class="dv">5</span>)<span class="sc">$</span>delta</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>k5_m1_auc <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m1, <span class="at">K=</span><span class="dv">5</span>, <span class="at">cost=</span>auc)<span class="sc">$</span>delta</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">185329</span>)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> ejection_fraction <span class="sc">+</span> serum_creatinine,</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> data, </span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>k5_m2_mse <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m2, <span class="at">K=</span><span class="dv">5</span>)<span class="sc">$</span>delta</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>k5_m2_auc <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m2, <span class="at">K=</span><span class="dv">5</span>, <span class="at">cost=</span>auc)<span class="sc">$</span>delta</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>k5tibble <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">M1_K5_MSE =</span> k5_m1_mse[<span class="dv">2</span>], <span class="at">M2_K5_MSE =</span> k5_m2_mse[<span class="dv">2</span>], <span class="at">M1_K5_AUC =</span> k5_m1_auc[<span class="dv">2</span>], <span class="at">M2_K5_AUC =</span> k5_m2_auc[<span class="dv">2</span>])</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>k5tibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">143269</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> age <span class="sc">+</span> anaemia <span class="sc">+</span> creatinine_phosphokinase <span class="sc">+</span> diabetes <span class="sc">+</span> ejection_fraction <span class="sc">+</span> high_blood_pressure <span class="sc">+</span> platelets <span class="sc">+</span> serum_creatinine <span class="sc">+</span> serum_sodium <span class="sc">+</span> sex <span class="sc">+</span> smoking <span class="sc">+</span> time,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> data, </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>k5_m1_mse <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m1, <span class="at">K=</span><span class="dv">5</span>)<span class="sc">$</span>delta</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>k5_m1_auc <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m1, <span class="at">K=</span><span class="dv">5</span>, <span class="at">cost=</span>auc)<span class="sc">$</span>delta</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">185329</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> ejection_fraction <span class="sc">+</span> serum_creatinine,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> data, </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>k5_m2_mse <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m2, <span class="at">K=</span><span class="dv">5</span>)<span class="sc">$</span>delta</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>k5_m2_auc <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m2, <span class="at">K=</span><span class="dv">5</span>, <span class="at">cost=</span>auc)<span class="sc">$</span>delta</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>k5tibble <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">M1_K5_MSE =</span> k5_m1_mse[<span class="dv">2</span>], <span class="at">M2_K5_MSE =</span> k5_m2_mse[<span class="dv">2</span>], <span class="at">M1_K5_AUC =</span> k5_m1_auc[<span class="dv">2</span>], <span class="at">M2_K5_AUC =</span> k5_m2_auc[<span class="dv">2</span>])</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>k5tibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
@@ -3705,37 +3697,37 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#add obs # for each row</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>data_SHO <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">obs =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(obs)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#split</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rsample)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">726159</span>)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>split_SHO <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(data_SHO, <span class="at">prop =</span> <span class="fl">0.5</span>)</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>training_SHO <span class="ot">&lt;-</span> <span class="fu">training</span>(split_SHO)</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>validation_SHO <span class="ot">&lt;-</span> <span class="fu">testing</span>(split_SHO)</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">#create SHO models with training set</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>m1_SHO <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> age <span class="sc">+</span> anaemia <span class="sc">+</span> creatinine_phosphokinase <span class="sc">+</span> diabetes <span class="sc">+</span> ejection_fraction <span class="sc">+</span> high_blood_pressure <span class="sc">+</span> platelets <span class="sc">+</span> serum_creatinine <span class="sc">+</span> serum_sodium <span class="sc">+</span> sex <span class="sc">+</span> smoking <span class="sc">+</span> time,</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> training_SHO, </span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>m2_SHO <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> ejection_fraction <span class="sc">+</span> serum_creatinine,</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> training_SHO, </span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate MSE</span></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>validation_SHO <span class="ot">&lt;-</span> validation_SHO <span class="sc">%&gt;%</span> </span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">yhat_m1_SHO =</span> <span class="fu">predict</span>(m1_SHO, <span class="at">newdata =</span> validation_SHO),</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">yhat_m2_SHO =</span> <span class="fu">predict</span>(m2_SHO, <span class="at">newdata =</span> validation_SHO)) <span class="sc">%&gt;%</span></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sqerr_m1_SHO =</span> (yhat_m1_SHO <span class="sc">-</span> DEATH_EVENT)<span class="sc">^</span><span class="dv">2</span>,</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>         <span class="at">sqerr_m2_SHO =</span> (yhat_m2_SHO <span class="sc">-</span> DEATH_EVENT)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(obs, DEATH_EVENT, yhat_m1_SHO, sqerr_m1_SHO, yhat_m2_SHO, sqerr_m2_SHO)</span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(validation_SHO)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#add obs # for each row</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>data_SHO <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">obs =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(obs)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#split</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rsample)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">726159</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>split_SHO <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(data_SHO, <span class="at">prop =</span> <span class="fl">0.5</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>training_SHO <span class="ot">&lt;-</span> <span class="fu">training</span>(split_SHO)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>validation_SHO <span class="ot">&lt;-</span> <span class="fu">testing</span>(split_SHO)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#create SHO models with training set</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>m1_SHO <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> age <span class="sc">+</span> anaemia <span class="sc">+</span> creatinine_phosphokinase <span class="sc">+</span> diabetes <span class="sc">+</span> ejection_fraction <span class="sc">+</span> high_blood_pressure <span class="sc">+</span> platelets <span class="sc">+</span> serum_creatinine <span class="sc">+</span> serum_sodium <span class="sc">+</span> sex <span class="sc">+</span> smoking <span class="sc">+</span> time,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> training_SHO, </span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>m2_SHO <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> ejection_fraction <span class="sc">+</span> serum_creatinine,</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> training_SHO, </span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate MSE</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>validation_SHO <span class="ot">&lt;-</span> validation_SHO <span class="sc">%&gt;%</span> </span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">yhat_m1_SHO =</span> <span class="fu">predict</span>(m1_SHO, <span class="at">newdata =</span> validation_SHO),</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">yhat_m2_SHO =</span> <span class="fu">predict</span>(m2_SHO, <span class="at">newdata =</span> validation_SHO)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sqerr_m1_SHO =</span> (yhat_m1_SHO <span class="sc">-</span> DEATH_EVENT)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>         <span class="at">sqerr_m2_SHO =</span> (yhat_m2_SHO <span class="sc">-</span> DEATH_EVENT)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(obs, DEATH_EVENT, yhat_m1_SHO, sqerr_m1_SHO, yhat_m2_SHO, sqerr_m2_SHO)</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(validation_SHO)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  obs DEATH_EVENT yhat_m1_SHO sqerr_m1_SHO yhat_m2_SHO sqerr_m2_SHO age anaemia
@@ -3762,15 +3754,15 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>SHO_m1_mse <span class="ot">&lt;-</span> <span class="fu">mean</span>(validation_SHO<span class="sc">$</span>sqerr_m1_SHO, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>SHO_m2_mse <span class="ot">&lt;-</span> <span class="fu">mean</span>(validation_SHO<span class="sc">$</span>sqerr_m2_SHO, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate AUC</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>SHO_m1_auc <span class="ot">=</span> <span class="fu">auc</span>(validation_SHO<span class="sc">$</span>DEATH_EVENT,validation_SHO<span class="sc">$</span>yhat_m1_SHO)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>SHO_m2_auc <span class="ot">=</span> <span class="fu">auc</span>(validation_SHO<span class="sc">$</span>DEATH_EVENT,validation_SHO<span class="sc">$</span>yhat_m2_SHO)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>SHOtibble <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">M1_SHO_MSE =</span> SHO_m1_mse, <span class="at">M2_SHO_MSE =</span> SHO_m2_mse, <span class="at">M1_SHO_AUC =</span> SHO_m1_auc, <span class="at">M2_SHO_AUC =</span> SHO_m2_auc)</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>SHOtibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>SHO_m1_mse <span class="ot">&lt;-</span> <span class="fu">mean</span>(validation_SHO<span class="sc">$</span>sqerr_m1_SHO, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>SHO_m2_mse <span class="ot">&lt;-</span> <span class="fu">mean</span>(validation_SHO<span class="sc">$</span>sqerr_m2_SHO, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate AUC</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>SHO_m1_auc <span class="ot">=</span> <span class="fu">auc</span>(validation_SHO<span class="sc">$</span>DEATH_EVENT,validation_SHO<span class="sc">$</span>yhat_m1_SHO)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>SHO_m2_auc <span class="ot">=</span> <span class="fu">auc</span>(validation_SHO<span class="sc">$</span>DEATH_EVENT,validation_SHO<span class="sc">$</span>yhat_m2_SHO)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>SHOtibble <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">M1_SHO_MSE =</span> SHO_m1_mse, <span class="at">M2_SHO_MSE =</span> SHO_m2_mse, <span class="at">M1_SHO_AUC =</span> SHO_m1_auc, <span class="at">M2_SHO_AUC =</span> SHO_m2_auc)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>SHOtibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
@@ -3786,29 +3778,29 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7432</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> age <span class="sc">+</span> anaemia <span class="sc">+</span> creatinine_phosphokinase <span class="sc">+</span> diabetes <span class="sc">+</span> ejection_fraction <span class="sc">+</span> high_blood_pressure <span class="sc">+</span> platelets <span class="sc">+</span> serum_creatinine <span class="sc">+</span> serum_sodium <span class="sc">+</span> sex <span class="sc">+</span> smoking <span class="sc">+</span> time,</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> data, </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>loocv_m1_mse <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m1)<span class="sc">$</span>delta</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>cost <span class="ot">&lt;-</span> <span class="cf">function</span>(labels,pred){</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">mean</span>(labels<span class="sc">==</span><span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>loocv_m1_auc <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m1, <span class="at">cost =</span> cost)<span class="sc">$</span>delta</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20987</span>)</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> ejection_fraction <span class="sc">+</span> serum_creatinine,</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> data, </span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>loocv_m2_mse <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m2)<span class="sc">$</span>delta</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>loocv_m2_auc <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m2, <span class="at">cost =</span> cost)<span class="sc">$</span>delta</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>loocv_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">&quot;M1 LOOCV MSE&quot;</span> <span class="ot">=</span> loocv_m1_mse[<span class="dv">2</span>], <span class="st">&quot;M2 LOOCV MSE&quot;</span> <span class="ot">=</span> loocv_m2_mse[<span class="dv">2</span>], <span class="st">&quot;M1 LOOCV AUC&quot;</span> <span class="ot">=</span> loocv_m1_auc[<span class="dv">2</span>], <span class="st">&quot;M2 LOOCV AUC&quot;</span> <span class="ot">=</span> loocv_m2_auc[<span class="dv">2</span>])</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>loocv_tibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7432</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> age <span class="sc">+</span> anaemia <span class="sc">+</span> creatinine_phosphokinase <span class="sc">+</span> diabetes <span class="sc">+</span> ejection_fraction <span class="sc">+</span> high_blood_pressure <span class="sc">+</span> platelets <span class="sc">+</span> serum_creatinine <span class="sc">+</span> serum_sodium <span class="sc">+</span> sex <span class="sc">+</span> smoking <span class="sc">+</span> time,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> data, </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>loocv_m1_mse <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m1)<span class="sc">$</span>delta</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>cost <span class="ot">&lt;-</span> <span class="cf">function</span>(labels,pred){</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">mean</span>(labels<span class="sc">==</span><span class="fu">ifelse</span>(pred <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>loocv_m1_auc <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m1, <span class="at">cost =</span> cost)<span class="sc">$</span>delta</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20987</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(DEATH_EVENT <span class="sc">~</span> ejection_fraction <span class="sc">+</span> serum_creatinine,</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> data, </span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>loocv_m2_mse <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m2)<span class="sc">$</span>delta</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>loocv_m2_auc <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(data, m2, <span class="at">cost =</span> cost)<span class="sc">$</span>delta</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>loocv_tibble <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">&quot;M1 LOOCV MSE&quot;</span> <span class="ot">=</span> loocv_m1_mse[<span class="dv">2</span>], <span class="st">&quot;M2 LOOCV MSE&quot;</span> <span class="ot">=</span> loocv_m2_mse[<span class="dv">2</span>], <span class="st">&quot;M1 LOOCV AUC&quot;</span> <span class="ot">=</span> loocv_m1_auc[<span class="dv">2</span>], <span class="st">&quot;M2 LOOCV AUC&quot;</span> <span class="ot">=</span> loocv_m2_auc[<span class="dv">2</span>])</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>loocv_tibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
@@ -3824,16 +3816,16 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>DEATH_EVENT<span class="ot">=</span><span class="fu">as.factor</span>(data<span class="sc">$</span>DEATH_EVENT)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>resample1 <span class="ot">&lt;-</span> <span class="fu">mc_cv</span>(data, <span class="at">times =</span> <span class="dv">100</span>, <span class="at">prop =</span> .<span class="dv">7</span>)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  resample1<span class="sc">$</span>splits,</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(x) {</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    dat <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(x)<span class="sc">$</span>DEATH_EVENT</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(dat <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span>)</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>DEATH_EVENT<span class="ot">=</span><span class="fu">as.factor</span>(data<span class="sc">$</span>DEATH_EVENT)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>resample1 <span class="ot">&lt;-</span> <span class="fu">mc_cv</span>(data, <span class="at">times =</span> <span class="dv">100</span>, <span class="at">prop =</span> .<span class="dv">7</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  resample1<span class="sc">$</span>splits,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(x) {</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    dat <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(x)<span class="sc">$</span>DEATH_EVENT</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(dat <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -3842,37 +3834,37 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>m1_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(DEATH_EVENT <span class="sc">~</span> ., <span class="at">data =</span> data)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>mccv_model <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span> <span class="co">#creating classification model</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">&quot;glm&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>m1_wflow <span class="ot">&lt;-</span> <span class="co">#adding variables for model 1</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_formula</span>(</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    DEATH_EVENT <span class="sc">~</span> .) <span class="sc">%&gt;%</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(mccv_model)</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>m2_wflow <span class="ot">&lt;-</span> <span class="co"># adding variables for model 2</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_formula</span>(</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    DEATH_EVENT <span class="sc">~</span> ejection_fraction <span class="sc">+</span> serum_creatinine) <span class="sc">%&gt;%</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(mccv_model)</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>keep_pred <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>, <span class="at">save_workflow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>)</span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>m1_MCCV <span class="ot">&lt;-</span>m1_wflow <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> resample1, <span class="at">control =</span> keep_pred)</span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>m1_MCCV_metrics <span class="ot">&lt;-</span> <span class="fu">collect_metrics</span>(m1_MCCV)</span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>m2_MCCV <span class="ot">&lt;-</span> m2_wflow <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> resample1, <span class="at">control =</span> keep_pred)</span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>m2_MCCV_metrics <span class="ot">&lt;-</span><span class="fu">collect_metrics</span>(m2_MCCV)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m1_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(DEATH_EVENT <span class="sc">~</span> ., <span class="at">data =</span> data)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>mccv_model <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span> <span class="co">#creating classification model</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">&quot;glm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>m1_wflow <span class="ot">&lt;-</span> <span class="co">#adding variables for model 1</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_formula</span>(</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    DEATH_EVENT <span class="sc">~</span> .) <span class="sc">%&gt;%</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(mccv_model)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>m2_wflow <span class="ot">&lt;-</span> <span class="co"># adding variables for model 2</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_formula</span>(</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    DEATH_EVENT <span class="sc">~</span> ejection_fraction <span class="sc">+</span> serum_creatinine) <span class="sc">%&gt;%</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(mccv_model)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>keep_pred <span class="ot">&lt;-</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>, <span class="at">save_workflow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">30</span>)</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>m1_MCCV <span class="ot">&lt;-</span>m1_wflow <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> resample1, <span class="at">control =</span> keep_pred)</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>m1_MCCV_metrics <span class="ot">&lt;-</span> <span class="fu">collect_metrics</span>(m1_MCCV)</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>m2_MCCV <span class="ot">&lt;-</span> m2_wflow <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(<span class="at">resamples =</span> resample1, <span class="at">control =</span> keep_pred)</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>m2_MCCV_metrics <span class="ot">&lt;-</span><span class="fu">collect_metrics</span>(m2_MCCV)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>MCCVtibble <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">M1_MCCV_MSE =</span> m1_MCCV_metrics[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">M2_MCCV_MSE =</span> m2_MCCV_metrics[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">M1_MCCV_AUC=</span> m1_MCCV_metrics[<span class="dv">3</span>,<span class="dv">3</span>], <span class="at">M2_MCCV_AUC=</span> m2_MCCV_metrics[<span class="dv">3</span>,<span class="dv">3</span>])</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#MCCV_table = data.frame(Metric=c(&#39;Model 1 MSE&#39;,&#39;Model 2 MSE&#39;,&#39;Model 1 AUC&#39;, &#39;Model 2 AUC&#39;),Value = #MCCVtibble)</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>MCCVtibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>MCCVtibble <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">M1_MCCV_MSE =</span> m1_MCCV_metrics[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">M2_MCCV_MSE =</span> m2_MCCV_metrics[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">M1_MCCV_AUC=</span> m1_MCCV_metrics[<span class="dv">3</span>,<span class="dv">3</span>], <span class="at">M2_MCCV_AUC=</span> m2_MCCV_metrics[<span class="dv">3</span>,<span class="dv">3</span>])</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#MCCV_table = data.frame(Metric=c(&#39;Model 1 MSE&#39;,&#39;Model 2 MSE&#39;,&#39;Model 1 AUC&#39;, &#39;Model 2 AUC&#39;),Value = #MCCVtibble)</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>MCCVtibble</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4

@@ -517,10 +517,10 @@ m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ej
          family = "binomial"(link = "logit"))
 
 k10_m1_mse <- cv.glm(data, m1, K=10)$delta
-k10_m1_mse
+
 
 k10_m1_auc <- cv.glm(data, m1, K=10, cost=auc)$delta
-k10_m1_auc
+
 
 
 set.seed(85329)
@@ -528,10 +528,13 @@ m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
          family = "binomial"(link = "logit"), data=data)
 
 k10_m2_mse <- cv.glm(data, m2, K=10)$delta
-k10_m2_mse
+
 
 k10_m2_auc <- cv.glm(data=data, glmfit=m2, cost=auc, K=10)$delta
-k10_m2_auc
+
+
+k10tibble = tibble(M1_K5_MSE = k10_m1_mse[2], M2_K5_MSE = k10_m2_mse[2], M1_K5_AUC = k10_m1_auc[2], M2_K5_AUC = k10_m2_auc[2])
+k10tibble
 
 ```
 
