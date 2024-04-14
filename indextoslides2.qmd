@@ -73,7 +73,7 @@ explores the significance of cross-validation in selecting optimal
 classification methods, highlighting its necessity in dealing with
 imbalanced datasets through stratified approaches.
 
-### Related Work
+## Literature Review
 
 [@zhang2015cross] delve into the strategic use of cross-validation for
 model selection, particularly in high-dimensional settings, challenging
