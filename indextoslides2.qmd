@@ -67,11 +67,13 @@ This is a special case of k-fold cross-validation where k equals the
 number of data points [@shao2016efficient]. Each data point is used once
 as a test set.
 
+---
+
 ### Stratified Cross-Validation:
 Ensures each fold reflects the class proportions in the dataset, particularly
 useful for imbalanced datasets.
 
-## Repeated K-Fold Cross-Validation:
+### Repeated K-Fold Cross-Validation:
 Repeats the K-Fold process multiple times and averages the results.
 
 The perspective of Berrar is enriched by [@schaffer1993selecting], who
