@@ -70,21 +70,6 @@ This is a special case of k-fold cross-validation where k equals the
 number of data points [@shao2016efficient]. Each data point is used once
 as a test set. In a sense, Leave-One-Out Cross-Validation (LOOCV) is equivalent to setting k=1 in k-Fold Cross-Validation.
 
-------------------------------------------------------------------------
-
-### Stratified Cross-Validation:
-
-Ensures each fold reflects the class proportions in the dataset,
-particularly useful for imbalanced datasets.
-
-### Repeated K-Fold Cross-Validation:
-
-Repeats the K-Fold process multiple times and averages the results.
-
-The perspective of Berrar is enriched by [@schaffer1993selecting], who
-explores the significance of cross-validation in selecting optimal
-classification methods, highlighting its necessity in dealing with
-imbalanced datasets through stratified approaches.
 
 ## Literature Review - [@zhang2015cross]
 
