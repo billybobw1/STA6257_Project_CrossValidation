@@ -296,33 +296,6 @@ $$
 where MSEi is the mean squared error for the ith fold, and K is the
 number of folds [@jung2015ak].
 
-## Performance Metrics - $R^2$
-
-Related, in statistical modeling, $R^2$, also known as the coefficient
-of determination, is a measure that indicates the proportion of the
-variance in the dependent variable that is predictable from the
-independent variables. It provides a sense of how well the independent
-variables predict the dependent variable; the closer $R^2$ is to 1, the
-better the model explains the data.
-
-This can be written as:
-
-$$
-R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{5}
-$$
-
-where $\bar{y}$ is the mean value of $y$ [@ott2015introduction].
-
-## Performance Metrics
-### $R^2$ vs. MSE Comparison
-
-Ultimately, $R^2$ and MSE are related in that they both measure the
-model's performance, but they do it in different ways. While $R^2$
-measures the proportion of variance explained by the model, MSE measures
-the average error of the model's predictions. In the context of
-cross-validation, both metrics can be used to compare models: a higher
-$R^2$ and a lower MSE would typically indicate a better predictive
-model.
 
 ## Performance Metrics - AUC {.smaller}
 
