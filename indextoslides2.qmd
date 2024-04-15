@@ -6,6 +6,7 @@ format: revealjs
 scrollable: true
 css: fontsize.css
 bibliography: references.bib # file contains bibtex for references
+self-contained: true
 ---
 
 ## Introduction
@@ -29,6 +30,7 @@ predictions across various data subsets.
 5.  Calculate the average cross-validation prediction accuracy across
     all repetitions.
 
+[@song2021making]
 
 ## Cross-Validation Techniques
 
@@ -113,37 +115,23 @@ Xu et al. (2018) introduce Representative Splitting Cross-Validation (RSCV).
 - K-Fold cross-validation is then performed on the split data
 - RSCV was only found to be significantly different from traditional cross-validation techniques in one experiment.
 
----
+## Literature Review - [@rabinowicz2022cross]
 
-Building on this, [@rabinowicz2022cross] explore the influence of
-correlation structures on cross-validation effectiveness, proposing a
-bias-correction measure, CVc, to address potential biases. This
-correction is unnecessary when dataset splitting maintains the
-distributional relationship between training and testing sets, ensuring
-unbiased cross-validation. Their analysis showed that CVc more
-accurately estimates generalization error compared to traditional
-cross-validation, remaining unbiased provided the covariance structure
-is correctly specified, even without the ideal prediction method. This
-research contributes to refining cross-validation techniques,
-particularly in handling complex data correlations.
+Rabinowicz & Rosset (2022) propose a bias-correction measure, CVc to explore the influences of correlational structure on cross-validation effectiveness.
+ 
+- Correction is unnecessary when distribution of data is not different when between training and testing datasets.
+- The performance of CVc was compared to that of basic cross-validation on two datasets: one with a cluster of correlation structure, and one with a hierarchical spatial correlation structure.
+- CVc more accurately estimated generalization error, remaining unbiased as long as the covariance structure was specified.
 
-Finally, [@lei2020cross] introduces a method called Cross-Validation
-with Confidence (CVC) aimed at reducing overfitting, a common problem
-with traditional cross-validation that uses small splits and ends up
-with too-simple models. CVC works by checking the predicted risk of
-different models and using p-values to choose models that best fit
-without being overly complex. It has proven effective, particularly when
-dealing with a decent amount of data and models that don't use too many
-predictors, resulting in simpler, easy-to-understand predictive models.
-However, CVC hasn't yet been applied to unsupervised learning or models
-with binary outcomes, pointing out areas for further exploration.
+## Literature Review - [@lei2020cross]
 
-Collectively, these papers illuminate the multifaceted nature of
-cross-validation, showcasing its critical role in model evaluation,
-selection, and generalization. From theoretical underpinnings to
-practical implementations, cross-validation emerges as an essential tool
-in a data scientist's arsenal, ensuring models are not only predictive
-but also generalizable across diverse datasets and contexts.
+Lei (2020) introduce Cross-Validation with Confidence (CVC) to try to reduce overfitting.
+
+- CVC uses the predicted risk of candidate models and their residuals to fit models.
+  + This method can be used for model fitting as well as parameter tuning.
+- CVC can be computationally complex, but Lei claims the running time is comparable to other cross-validation methods.
+- When compared to standard cross-validation, CVC was able to produce an adequate predictive model with fewer predictors and better interpretibility.
+- CVC had not been considered for unsupervised methods or binary outcome variables at the time of publication.
 
 ## Methods
 
