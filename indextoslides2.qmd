@@ -324,11 +324,12 @@ cross-validation, both metrics can be used to compare models: a higher
 $R^2$ and a lower MSE would typically indicate a better predictive
 model.
 
-## Performance Metrics - AUC
+## Performance Metrics - AUC {.smaller}
 
-Another performance metric that will be used to determine model performance is the area under the ROC curve (AUC). AUC conveys how well a model can differentiate between different classes, and it is preferable to other metrics, such as accuracy, because it accounts for both specificity and sensitivity [@cantor2000determining]. AUC scores can range from 0 to 1, with 0 indicating the model has no ability to discern between classes, and 1 indicating the model perfectly predicts classification.
+Another performance metric that will be used to determine model performance is the area under the ROC curve (AUC). 
 
-## Performance Metrics - AUC (cont.)
+- AUC conveys how well a model can differentiate between different classes, and it is preferable to other metrics, such as accuracy, because it accounts for both specificity and sensitivity [@cantor2000determining]. 
+- AUC scores can range from 0 to 1
 
 Figure 6 demonstrates how AUC uses the positive and negative outcomes to calculate a value that indicates the probability of a positive result ranking higher than negative results, where $S_p$ is the total number of positive outcomes ranked, and $n_p$ and $n_n$ are the number of positive and negative outcomes, respectively [@hossin2015review].
 
