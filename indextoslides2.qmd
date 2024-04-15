@@ -275,13 +275,6 @@ The main performance metrics our analysis is focused on include:
 -   Mean Squared Prediction Error (MSPE)
 -   Area Under the ROC Curve (AUC)
 
-## Performance Metrics - MSE/MSPE
-
-In terms of the mathematical methodology, the article by Jung and Hu
-(2015) provides important equations for calculating the mean squared
-prediction error (MSPE) and mean squared error (MSE) as metrics to
-evaluate model performance.
-
 ## Performance Metrics - MSE
 
 The MSE is the expectation of the squared norm of the difference between
@@ -295,17 +288,6 @@ where $\hat{\beta}_i$ is the estimated value of the $i$-th parameter,
 $\beta_i$ is the true value of the $i$-th parameter, and $p$ is the
 total number of parameters. The lower the MSE, the better the model's
 predictions match the actual data.
-
-## Performance Metrics - MSPE
-
-The overall test predictors are evaluated using the MSPE, calculated as:
-
-$$
-MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{4}
-$$
-
-where MSEi is the mean squared error for the ith fold, and K is the
-number of folds [@jung2015ak].
 
 ## Performance Metrics - AUC {.smaller}
 
@@ -541,7 +523,8 @@ difference in performance between the two models changes when various
 cross-validation techniques are applied. The performance of the models
 will be determined using their MSE and AUC values.
 
-## 10-fold Cross Validation - Model 1
+## 10-fold Cross Validation
+### Model 1
 
 With any variation of k-fold cross validation, the dataset is split into
 k sized folds that will all be equal. The function used to create our
@@ -550,8 +533,12 @@ model, and the number of folds for the cross validation. Here, the
 dataset is split in 10 folds. As previously discussed,
 [@wong2019reliable] mentions 10-fold cross validation analysis to be
 most effective in most cases. Our glm model was changed from a linear
-regression to logistic, since our outcome variable is binary. In model
-1, all predictor variables are included. The default metric for cv.glm
+regression to logistic, since our outcome variable is binary.
+
+## 10-fold Cross Validation
+### Model 1
+
+In model 1, all predictor variables are included. The default metric for cv.glm
 is MSE, so a cost function was created to calculate the AUC values for
 the models. This cost function will be used for both k-folds and LOOCV.
 
@@ -575,7 +562,8 @@ k10_m1_auc <- cv.glm(data, m1, K=10, cost=auc)$delta
 
 ```
 
-## 10-fold Cross Validation - Model 2
+## 10-fold Cross Validation
+### Model 2
 
 In model 2, only ejection fraction and serum creatinine are included, as
 the researchers that provided the data set came to the conclusion that
@@ -591,7 +579,8 @@ k10_m2_mse <- cv.glm(data, m2, K=10)$delta
 k10_m2_auc <- cv.glm(data=data, glmfit=m2, cost=auc, K=10)$delta
 ```
 
-## 10-fold Cross Validation - Performance
+## 10-fold Cross Validation
+### Performance
 
 Interestingly enough, the first model that included all variables
 produced a lower MSE and a higher AUC, indicating that from this CV
@@ -604,7 +593,8 @@ k10tibble = tibble(M1_K5_MSE = k10_m1_mse[2], M2_K5_MSE = k10_m2_mse[2], M1_K5_A
 k10tibble
 ```
 
-## 5-fold Cross Validation - Model 1
+## 5-fold Cross Validation
+### Model 1
 
 Similar to the 10-fold models above, our dataset is split into equal
 pieces using cv.glm. However, in this case, we are only doing 5 folds
@@ -624,7 +614,8 @@ k5_m1_auc <- cv.glm(data, m1, K=5, cost=auc)$delta
 
 ```
 
-## 5-fold Cross Validation - Model 2
+## 5-fold Cross Validation
+### Model 2
 
 In model 2, only ejection fraction and serum creatinine are included.
 
@@ -638,7 +629,8 @@ k5_m2_mse <- cv.glm(data, m2, K=5)$delta
 k5_m2_auc <- cv.glm(data, m2, K=5, cost=auc)$delta
 ```
 
-## 5-fold Cross Validation - Performance
+## 5-fold Cross Validation
+### Performance
 
 Model 1 once again performed the best based on its MSE and AUC values.
 Both AUC values are acceptable, and their MSE's are fairly low. However,
@@ -649,7 +641,8 @@ k5tibble = tibble(M1_K5_MSE = k5_m1_mse[2], M2_K5_MSE = k5_m2_mse[2], M1_K5_AUC 
 k5tibble
 ```
 
-## Single Hold-Out Method - Test/Train Split & Model Creation
+## Single Hold-Out Method
+### Test/Train Split & Model Creation
 
 Using the Single Hold-Out Method, the data set is split into a training
 set and a test/validation set. Since the cv.glm function only applies to
@@ -682,7 +675,8 @@ m2_SHO <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
          family = "binomial"(link = "logit"))
 ```
 
-## Single Hold-Out Method - MSE & AUC Calculation
+## Single Hold-Out Method
+### MSE & AUC Calculation
 
 The models were applied to the validation set to find the predicted
 outcome values. The means of the squared errors of our predicted values
@@ -708,7 +702,8 @@ SHO_m2_auc = auc(validation_SHO$DEATH_EVENT,validation_SHO$yhat_m2_SHO)
 
 ```
 
-## Single Hold-Out Method - Performance
+## Single Hold-Out Method
+### Performance
 
 After conducting the analysis, it can be seen that model 2 provides us
 with a significantly lower mean squared error. Both models have very
@@ -734,8 +729,11 @@ can be used for data splitting. The "K=" argument isn't necessary when
 performing LOOCV, as the function assumes that the number of folds will
 be equal to the number of observations. Once again, the cost function is
 used to find our AUC values. The same function (glm()) was used to fit
-our logistic regression models as the other k-fold techniques. Once
-again, the processes for both models was identical apart from the number
+our logistic regression models as the other k-fold techniques.
+
+## LOOCV (cont.)
+
+Once again, the processes for both models was identical apart from the number
 of predictors included in the models.
 
 ```{r, echo=TRUE}
@@ -760,7 +758,8 @@ loocv_m2_mse <- cv.glm(data, m2)$delta
 loocv_m2_auc <- cv.glm(data, m2, cost = cost)$delta
 ```
 
-## Leave-One-Out Cross-Validation (LOOCV) - Performance
+## Leave-One-Out Cross-Validation (LOOCV)
+### Performance
 
 According to LOOCV, the full model (M1) is a better fit due to a lower
 MSE compared to the reduced model (M2). The AUC models follow a similar
@@ -771,7 +770,8 @@ loocv_tibble <- tibble("M1 LOOCV MSE" = loocv_m1_mse[2], "M2 LOOCV MSE" = loocv_
 loocv_tibble
 ```
 
-## Monte Carlo Cross-Validation - Resampling Function & Model Creation
+## Monte Carlo Cross-Validation
+### Resampling Function & Model Creation
 
 Unlike previous techniques, a mc_cv function was created to repeat the
 splitting of the data many times. Our proportion of training to
@@ -800,7 +800,8 @@ m2_wflow <- # adding variables for model 2
   add_model(mccv_model)
 ```
 
-## Monte Carlo Cross-Validation - Resampling & Metric Calculation
+## Monte Carlo Cross-Validation
+### Resampling & Metric Calculation
 
 The fit_resamples() function applies our resampling function created
 earlier to our models to perform our cross-validation. For the MSE of
@@ -824,7 +825,8 @@ mccv_m2_mse <- as.numeric(m2_MCCV_metrics[2,3])
 mccv_m2_auc <- as.numeric(m2_MCCV_metrics[3,3])
 ```
 
-## Monte Carlo Cross-Validation - Performance
+## Monte Carlo Cross-Validation
+### Performance
 
 Similar to the previously discussed techniques, our full model had the
 lower MSE/Brier score and higher AUC. The smaller model's AUC of 0.763
