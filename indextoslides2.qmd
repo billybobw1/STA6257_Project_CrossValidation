@@ -231,13 +231,11 @@ preferable to other methods when the sample size is small because the
 lack of randomness when dividing the dataset causes the accuracy
 estimate of the models to be constant [@wong2015performance].
 
-## Methods - CV Techniques
+## Methods - CV Techniques {.smaller}
 
 ### Monte Carlo
 
-Monte Carlo Cross-Validation (MCCV) is another commonly used method.
-Similar to the k-folds technique, MCCV randomly removes significant
-chunks of the dataset without replacement to use as its training and
+MCCV randomly removes significant chunks of the dataset without replacement to use as its training and
 validation ($s_v$) data sets [@haddad2013applicability]. This sampling
 is repeated N times. The criterion for this techniques, according to
 [@haddad2013applicability], is as follows:
@@ -246,9 +244,8 @@ $$
 MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2 \tag{2}
 $$
 
-One of the appeals of MCCV over some other techniques its reduced
-computational complexity compared to other techniques, such as
-LOOCV[@james1980monte].
+- Observations could be used in the validation set multiple times or not at all
+- Reduced computational complexity than other techniques (ex., LOOCV) [@james1980monte]
 
 ## Methods - Performance Metrics
 
