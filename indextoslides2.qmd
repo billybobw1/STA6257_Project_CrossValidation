@@ -138,11 +138,7 @@ Lei (2020) introduce Cross-Validation with Confidence (CVC) to try to reduce ove
 - CVC had not been considered for unsupervised methods or binary outcome variables at the time of publication.
 
 ## Methods - Cross Validation Techniques
-
-There are many techniques of cross-validation, the one being used
-depending on what needs to be accomplished. Many of which, mentioned in
-the introduction. The following will introduce some of those important
-techniques.
+### Single Hold-Out
 
 Single hold-out cross-validation is one more simple versions of
 cross-validation being used [@yadav2016analysis]. The dataset gets
@@ -154,11 +150,17 @@ main drawbacks of this method is that the training set and validation
 set can have different distributions, causing potentially unreliable
 models [@santos2023statistical].
 
+## Methods - Cross Validation Techniques
+### K-Fold
+
 [@jung2015ak] introduce an advanced k-fold averaging cross-validation
 procedure, advocating for the averaging of parameter estimates across
 folds to yield more stable and efficient outcomes. This method
 demonstrates significant potential in handling high-dimensional data and
 improving parameter estimation.
+
+## Methods - Cross Validation Techniques
+### K-Fold
 
 **For the k-fold cross-validation process, the steps are as follows and
 see Figure 1:**
@@ -178,6 +180,10 @@ see Figure 1:**
 6.  Calculate the overall test predictors by averaging all k test
     predictors.
 
+
+## Methods - Cross Validation Techniques
+### K-Fold (cont.)
+
     ![Figure 1: Basic K-Fold Cross-Validation,
     k=5](images/K-fold-cross-validation-1.webp){width="413"}
 
@@ -189,6 +195,9 @@ $$
 CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{1}
 $$
 
+## Methods - Cross Validation Techniques
+### Repeated K-Fold
+
 **For clarity, the difference between K-folds and repeated K-folds,
 another method mentioned earlier, is as follows:**
 
@@ -196,7 +205,13 @@ Repeated K-Fold Cross-Validation enhances the robustness of K-Fold by
 repeating the process multiple times and averaging the results. This
 method helps to reduce the variability of the single trial of K-Fold
 cross-validation, providing a more accurate estimate of the model's
-ability to generalize to unseen data. Here's the process:
+ability to generalize to unseen data. 
+
+
+## Methods - Cross Validation Techniques
+### Repeated K-Fold (cont.)
+
+Here's the process:
 
 1.  **Repeated Splitting:** The data is split into k folds as before,
     but this process is repeated n times, with a different random split
@@ -213,6 +228,9 @@ Notably, this technique of repeated K-Folds is especially useful when
 the data set is not too large and there is a need to ensure the
 stability of the evaluation metrics across different splits of the data.
 
+## Methods - Cross Validation Techniques
+### Leave-One-Out
+
 Leave-one-out cross-validation (LOOCV) is a variation of k-fold
 cross-validation in that the dataset gets divided into multiple folds to
 be used for training and validation sets, then the model gets fitted and
@@ -222,6 +240,9 @@ is equal to the sample size [@shao2016efficient]. This method can be
 preferable to other methods when the sample size is small because the
 lack of randomness when dividing the dataset causes the accuracy
 estimate of the models to be constant [@wong2015performance].
+
+## Methods - Cross Validation Techniques
+### Monte Carlo
 
 Monte Carlo Cross-Validation (MCCV) is another commonly used method.
 Similar to the k-folds technique, MCCV randomly removes significant
