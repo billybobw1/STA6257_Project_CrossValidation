@@ -195,37 +195,6 @@ CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{1}
 $$
 
 ## Methods - CV Techniques
-### Repeated K-Fold
-
-For clarity, the difference between K-folds and repeated K-folds,
-another method mentioned earlier, is as follows:
-
-Repeated K-Fold Cross-Validation enhances the robustness of K-Fold by
-repeating the process multiple times and averaging the results. This
-method helps to reduce the variability of the single trial of K-Fold
-cross-validation, providing a more accurate estimate of the model's
-ability to generalize to unseen data. 
-
-
-## Methods - CV Techniques
-### Repeated K-Fold Process
-
-1.  **Repeated Splitting:** The data is split into k folds as before,
-    but this process is repeated n times, with a different random split
-    each time.
-
-2.  **Model Evaluation:** Just like in K-Fold, models are trained and
-    evaluated k times on each repetition with different splits, leading
-    to n\*k total evaluations.
-
-3.  **Final Estimation:** The scores across all repeats are aggregated
-    to provide a final measure.
-
-Notably, this technique of repeated K-Folds is especially useful when
-the data set is not too large and there is a need to ensure the
-stability of the evaluation metrics across different splits of the data.
-
-## Methods - CV Techniques
 ### Leave-One-Out
 
 Leave-one-out cross-validation (LOOCV) is a variation of k-fold
