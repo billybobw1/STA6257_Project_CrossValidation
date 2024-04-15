@@ -313,7 +313,8 @@ $$
 
 where $\bar{y}$ is the mean value of $y$ [@ott2015introduction].
 
-## $R^2$ vs. MSE Comparison
+## Performance Metrics
+### $R^2$ vs. MSE Comparison
 
 Ultimately, $R^2$ and MSE are related in that they both measure the
 model's performance, but they do it in different ways. While $R^2$
