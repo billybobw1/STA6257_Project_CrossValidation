@@ -309,13 +309,13 @@ where each patient profile has 13 clinical features
 
 ::::{.columns}
 
-:::{.column width="60%"}
+:::{.column width="40%"}
 - The dataset contains 13 clinical, body, and lifestyle features from 299 heart failure patients in Faisalabad, Pakistan in 2015
 - The goal was to demonstrate potential biomarkers in predicting heart failure outcomes
 - The study focused solely on serum creatinine and ejection fraction as predictors of patient survival
 :::
 
-:::{.column width="30%"}
+:::{.column width="60%"}
 | **Variable**           | **Type**  | **Characteristic**                    |
 |------------------------|-----------|---------------------------------------|
 | Age                    | Predictor | Integer                               |
@@ -359,32 +359,52 @@ data <- read.csv('heart_failure_clinical_records_dataset.csv')
 
 ::::{.columns}
 
+:::{.column width="50%"}
+```{r}
+par(mfrow=c(2,2))
+hist(data$age, main="Age")
+hist(data$time, main="Time")
+hist(data$creatinine_phosphokinase, main="Creatinine Phosphokinase")
+hist(data$serum_creatinine, main="Serum Creatinine")
+```
+:::
+
+:::{.column width="50%"}
+- The age of patients ranged from 40 to 95 years old, which the majority
+aged below 70 years old. 
+- The time variable is the number of days in the
+follow-up period for each patient, ranging from 4 to 285 days.
+- Creatinine phosphokinase indicates the level of this enzyme in the
+patient's blood, which is present when muscle tissue is damaged
+[@chicco2020machine]. 
+- The serum creatinine is created by this creatinine
+when muscle breaks down [@chicco2020machine], so this variable was
+included as another potential indicator of injury.
+- Both creatinine features indicate some right-tailed skewness
+:::
+
+::::
+
+## Continuous Variables (cont.) {.smaller}
+
+::::{.columns}
+
 :::{.column width="60%"}
 ```{r}
-par(mfrow=c(2,4))
-hist(data$age, main="Age")
-hist(data$creatinine_phosphokinase, main="Creatinine Phosphokinase")
-hist(data$ejection_fraction, main="Ejection Fraction")
+par(mfrow=c(2,2))
 hist(data$platelets, main="Platelets")
-hist(data$serum_creatinine, main="Serum Creatinine")
 hist(data$serum_sodium, main="Serum Sodium")
-hist(data$time, main="Time")
+hist(data$ejection_fraction, main="Ejection Fraction")
 ```
 :::
 
 :::{.column width="40%"}
-The age of patients ranged from 40 to 95 years old, which the majority
-aged below 70 years old. The time variable is the number of days in the
-follow-up period for each patient, ranging from 4 to 285 days.
-Creatinine phosphokinase indicates the level of this enzyme in the
-patient's blood, which is present when muscle tissue is damaged
-[@chicco2020machine]. The serum creatinine is created by this creatinine
-when muscle breaks down [@chicco2020machine], so this variable was
-included as another potential indicator of injury. Variables were
-included that observe the levels of sodium (serum sodium) and number of
-platelets in the patient's blood. The ejection fraction variable is the
+- Variables were included that observe the levels of sodium (serum sodium) and number of
+platelets in the patient's blood. 
+- The ejection fraction variable is the
 percentage of blood leaving the left ventricle during each contraction
 of the heart [@chicco2020machine].
+- These features look fairly normally distributed, with some potential skewing in the platelet and serum sodium features.
 :::
 
 ::::
@@ -393,19 +413,20 @@ of the heart [@chicco2020machine].
 
 ::::{.columns}
 
-:::{.column width="70%"}
+:::{.column width="60%"}
 ```{r}
-par(mfrow=c(2,3))
+par(mfrow=c(2,2))
 hist(data$anaemia, main="Anaemia", breaks=2)
 hist(data$diabetes, main="Diabetes", breaks=2)
 hist(data$high_blood_pressure, main="High Blood Pressure", breaks=2)
 hist(data$sex, main="Sex", breaks=2)
+par(mfrow=c(1,2))
 hist(data$smoking, main = "Smoking", breaks = 2)
 hist(data$DEATH_EVENT,main = "Death Event",breaks=2)
 ```
 :::
 
-:::{.column width="30%"}
+:::{.column width="40%"}
 
 - All of our categorical variables are Boolean and are encoded as '0' and
 '1' to indicate negative or positive occurrence of a variable's
@@ -461,7 +482,7 @@ observations and should be considered in our model.
 
 ## Correlation {.smaller}
 
-:::: {.columns}
+::::{.columns}
 
 :::{.column width="60%"}
 ```{r}
