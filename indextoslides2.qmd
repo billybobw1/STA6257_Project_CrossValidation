@@ -137,7 +137,7 @@ Lei (2020) introduce Cross-Validation with Confidence (CVC) to try to reduce ove
 - When compared to standard cross-validation, CVC was able to produce an adequate predictive model with fewer predictors and better interpretibility.
 - CVC had not been considered for unsupervised methods or binary outcome variables at the time of publication.
 
-## Methods - Cross Validation Techniques
+## Methods - CV Techniques
 ### Single Hold-Out
 
 Single hold-out cross-validation is one more simple versions of
@@ -150,7 +150,7 @@ main drawbacks of this method is that the training set and validation
 set can have different distributions, causing potentially unreliable
 models [@santos2023statistical].
 
-## Methods - Cross Validation Techniques
+## Methods - CV Techniques
 ### K-Fold
 
 [@jung2015ak] introduce an advanced k-fold averaging cross-validation
@@ -159,7 +159,7 @@ folds to yield more stable and efficient outcomes. This method
 demonstrates significant potential in handling high-dimensional data and
 improving parameter estimation.
 
-## Methods - Cross Validation Techniques
+## Methods - CV Techniques
 ### K-Fold
 
 **For the k-fold cross-validation process, the steps are as follows and
@@ -181,7 +181,7 @@ see Figure 1:**
     predictors.
 
 
-## Methods - Cross Validation Techniques
+## Methods - CV Techniques
 ### K-Fold (cont.)
 
     ![Figure 1: Basic K-Fold Cross-Validation,
@@ -195,7 +195,7 @@ $$
 CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{1}
 $$
 
-## Methods - Cross Validation Techniques
+## Methods - CV Techniques
 ### Repeated K-Fold
 
 **For clarity, the difference between K-folds and repeated K-folds,
@@ -208,7 +208,7 @@ cross-validation, providing a more accurate estimate of the model's
 ability to generalize to unseen data. 
 
 
-## Methods - Cross Validation Techniques
+## Methods - CV Techniques
 ### Repeated K-Fold (cont.)
 
 Here's the process:
@@ -228,7 +228,7 @@ Notably, this technique of repeated K-Folds is especially useful when
 the data set is not too large and there is a need to ensure the
 stability of the evaluation metrics across different splits of the data.
 
-## Methods - Cross Validation Techniques
+## Methods - CV Techniques
 ### Leave-One-Out
 
 Leave-one-out cross-validation (LOOCV) is a variation of k-fold
@@ -241,7 +241,7 @@ preferable to other methods when the sample size is small because the
 lack of randomness when dividing the dataset causes the accuracy
 estimate of the models to be constant [@wong2015performance].
 
-## Methods - Cross Validation Techniques
+## Methods - CV Techniques
 ### Monte Carlo
 
 Monte Carlo Cross-Validation (MCCV) is another commonly used method.
