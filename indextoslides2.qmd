@@ -70,7 +70,7 @@ as a test set while the rest serve as the training set.
 
 This is a special case of k-fold cross-validation where k equals the
 number of data points [@shao2016efficient]. Each data point is used once
-as a test set.
+as a test set. In a sense, Leave-One-Out Cross-Validation (LOOCV) is equivalent to setting k=1 in k-Fold Cross-Validation.
 
 ------------------------------------------------------------------------
 
