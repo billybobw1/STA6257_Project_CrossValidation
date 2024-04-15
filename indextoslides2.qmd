@@ -137,9 +137,7 @@ Lei (2020) introduce Cross-Validation with Confidence (CVC) to try to reduce ove
 - When compared to standard cross-validation, CVC was able to produce an adequate predictive model with fewer predictors and better interpretibility.
 - CVC had not been considered for unsupervised methods or binary outcome variables at the time of publication.
 
-## Methods
-
-### Cross-Validation Techniques
+## Methods - Cross Validation Techniques
 
 There are many techniques of cross-validation, the one being used
 depending on what needs to be accomplished. Many of which, mentioned in
@@ -240,7 +238,7 @@ One of the appeals of MCCV over some other techniques its reduced
 computational complexity compared to other techniques, such as
 LOOCV[@james1980monte].
 
-### Performance Metrics
+## Methods - Performance Metrics
 
 In terms of the mathematical methodology, the article by Jung and Hu
 (2015) provides important equations for calculating the mean squared
@@ -299,7 +297,7 @@ $$
 
 ## Analysis and Results
 
-### Data Description and Visualization
+### Data Description
 
 This heart failure clinical records dataset, obtained via the UC Irvine
 Machine Learning Repository, contains the medical records of 299
@@ -307,24 +305,12 @@ patients who had heart failure, collected during their follow-up period,
 where each patient profile has 13 clinical features
 [@chicco2020machine].
 
-More specifically, the dataset comprises medical records of 299 heart
-failure patients from Faisalabad, Pakistan, collected between April and
-December 2015. It includes 13 clinical, body, and lifestyle features,
-both categorical and continuous. The dataset was used to facilitate
-machine learning predictions on patient survival based solely on serum
-creatinine and ejection fraction levels. Various machine learning and
-biostatistical methods were employed for binary classification of
-survival, feature ranking, and to examine the predictability of survival
-using the mentioned key features. This study aims to demonstrate the
-potential of specific biomarkers in predicting heart failure outcomes
-and to streamline the prediction process for medical practitioners.
-Notably, [@de2020cross] highlight the ways in which cross-validation can
-be implemented on a dataset, such as ours, through different
-cross-validation methods and techniques.
+## Data Description & Features
 
-Our data description is as follows:
+- The dataset contains 13 clinical, body, and lifestyle features from 299 heart failure patients in Faisalabad, Pakistan in 2015
+- The goal was to demonstrate potential biomarkers in predicting heart failure outcomes
+- The study focused solely on serum creatinine and ejection fraction as predictors of patient survival
 
-## Data
 
 | **Variable**           | **Type**  | **Characteristic**                    |
 |------------------------|-----------|---------------------------------------|
@@ -462,7 +448,7 @@ cor(data) %>%
 
 ## Statistical Modeling
 
-Since the outcome variable (death event) is binary, logistic regression will be used with each of our techniques to fit our models. Two different models will be fit for each technique: one with every predictor variable included (Model 1), and the other using only serum creatinine and ejection fraction (Model 2), as was advised by [@chicco2020machine]. The goal is to compare how the difference in performance between the two models changes when various cross-validation techniques are applied. The performance of the models will be determined using their MSE and AUC values.
+Since the outcome variable (death event) is binary, logistic regression will be used with five different cross-validation techniques: 10-fold, 5-fold, single hold-out, leave-one-out, and Monte Carlo cross-validation. Two different models will be fit for each technique: one with every predictor variable included (Model 1), and the other using only serum creatinine and ejection fraction (Model 2), as was advised by [@chicco2020machine]. The goal is to compare how the difference in performance between the two models changes when various cross-validation techniques are applied. The performance of the models will be determined using their MSE and AUC values.
 
 ## 10-fold Cross Validation - Model 1
 
