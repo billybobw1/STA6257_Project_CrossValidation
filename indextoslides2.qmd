@@ -160,10 +160,7 @@ demonstrates significant potential in handling high-dimensional data and
 improving parameter estimation.
 
 ## Methods - CV Techniques
-### K-Fold
-
-**For the k-fold cross-validation process, the steps are as follows and
-see Figure 1:**
+### K-Fold Steps
 
 1.  Randomly and evenly split the dataset into k-folds.
 
@@ -198,8 +195,8 @@ $$
 ## Methods - CV Techniques
 ### Repeated K-Fold
 
-**For clarity, the difference between K-folds and repeated K-folds,
-another method mentioned earlier, is as follows:**
+For clarity, the difference between K-folds and repeated K-folds,
+another method mentioned earlier, is as follows:
 
 Repeated K-Fold Cross-Validation enhances the robustness of K-Fold by
 repeating the process multiple times and averaging the results. This
@@ -209,9 +206,7 @@ ability to generalize to unseen data.
 
 
 ## Methods - CV Techniques
-### Repeated K-Fold (cont.)
-
-Here's the process:
+### Repeated K-Fold Process
 
 1.  **Repeated Splitting:** The data is split into k folds as before,
     but this process is repeated n times, with a different random split

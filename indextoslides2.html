@@ -1374,8 +1374,7 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 </section>
 <section id="methods---cv-techniques-2" class="slide level2">
 <h2>Methods - CV Techniques</h2>
-<h3 id="k-fold-1">K-Fold</h3>
-<p><strong>For the k-fold cross-validation process, the steps are as follows and see Figure 1:</strong></p>
+<h3 id="k-fold-steps">K-Fold Steps</h3>
 <ol type="1">
 <li><p>Randomly and evenly split the dataset into k-folds.</p></li>
 <li><p>Use k-1 folds as the training set to fit the model.</p></li>
@@ -1400,13 +1399,12 @@ CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{1}
 <section id="methods---cv-techniques-4" class="slide level2">
 <h2>Methods - CV Techniques</h2>
 <h3 id="repeated-k-fold">Repeated K-Fold</h3>
-<p><strong>For clarity, the difference between K-folds and repeated K-folds, another method mentioned earlier, is as follows:</strong></p>
+<p>For clarity, the difference between K-folds and repeated K-folds, another method mentioned earlier, is as follows:</p>
 <p>Repeated K-Fold Cross-Validation enhances the robustness of K-Fold by repeating the process multiple times and averaging the results. This method helps to reduce the variability of the single trial of K-Fold cross-validation, providing a more accurate estimate of the model’s ability to generalize to unseen data.</p>
 </section>
 <section id="methods---cv-techniques-5" class="slide level2">
 <h2>Methods - CV Techniques</h2>
-<h3 id="repeated-k-fold-cont.">Repeated K-Fold (cont.)</h3>
-<p>Here’s the process:</p>
+<h3 id="repeated-k-fold-process">Repeated K-Fold Process</h3>
 <ol type="1">
 <li><p><strong>Repeated Splitting:</strong> The data is split into k folds as before, but this process is repeated n times, with a different random split each time.</p></li>
 <li><p><strong>Model Evaluation:</strong> Just like in K-Fold, models are trained and evaluated k times on each repetition with different splits, leading to n*k total evaluations.</p></li>
