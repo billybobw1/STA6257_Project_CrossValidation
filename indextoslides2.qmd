@@ -41,8 +41,6 @@ predictions across various data subsets.
 -   Monte Carlo Cross-Validation
 -   K-Fold Cross-Validation
 -   Leave-One-Out Cross-Validation (LOOCV)
--   Stratified Cross-Validation
--   Repeated K-Fold Cross-Validation
 
 ------------------------------------------------------------------------
 
