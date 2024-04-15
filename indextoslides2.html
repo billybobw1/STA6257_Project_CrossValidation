@@ -1429,25 +1429,53 @@ MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)
 </section>
 <section id="methods---performance-metrics" class="slide level2">
 <h2>Methods - Performance Metrics</h2>
+<p>The main performance metrics our analysis is focused on include:</p>
+<ul>
+<li>Mean Squared Error (MSE)</li>
+<li>Mean Squared Prediction Error (MSPE)</li>
+<li>Area Under the ROC Curve (AUC)</li>
+</ul>
+</section>
+<section id="performance-metrics---msemspe" class="slide level2">
+<h2>Performance Metrics - MSE/MSPE</h2>
 <p>In terms of the mathematical methodology, the article by Jung and Hu (2015) provides important equations for calculating the mean squared prediction error (MSPE) and mean squared error (MSE) as metrics to evaluate model performance.</p>
+</section>
+<section id="performance-metrics---mse" class="slide level2">
+<h2>Performance Metrics - MSE</h2>
 <p>The MSE is the expectation of the squared norm of the difference between the estimated and the true parameter vectors, and can be calculated as:</p>
 <p><span class="math display">\[
 MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{3}
 \]</span></p>
 <p>where <span class="math inline">\(\hat{\beta}_i\)</span> is the estimated value of the <span class="math inline">\(i\)</span>-th parameter, <span class="math inline">\(\beta_i\)</span> is the true value of the <span class="math inline">\(i\)</span>-th parameter, and <span class="math inline">\(p\)</span> is the total number of parameters. The lower the MSE, the better the model’s predictions match the actual data.</p>
+</section>
+<section id="performance-metrics---mspe" class="slide level2">
+<h2>Performance Metrics - MSPE</h2>
 <p>The overall test predictors are evaluated using the MSPE, calculated as:</p>
 <p><span class="math display">\[
 MSPE = \frac{1}{K} \sum_{i=1}^{K} MSE_i \tag{4}
 \]</span></p>
 <p>where MSEi is the mean squared error for the ith fold, and K is the number of folds <span class="citation" data-cites="jung2015ak">(<a href="#/references" role="doc-biblioref" onclick>Jung and Hu 2015</a>)</span>.</p>
+</section>
+<section id="performance-metrics---r2" class="slide level2">
+<h2>Performance Metrics - <span class="math inline">\(R^2\)</span></h2>
 <p>Related, in statistical modeling, <span class="math inline">\(R^2\)</span>, also known as the coefficient of determination, is a measure that indicates the proportion of the variance in the dependent variable that is predictable from the independent variables. It provides a sense of how well the independent variables predict the dependent variable; the closer <span class="math inline">\(R^2\)</span> is to 1, the better the model explains the data.</p>
 <p>This can be written as:</p>
 <p><span class="math display">\[
 R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{5}
 \]</span></p>
 <p>where <span class="math inline">\(\bar{y}\)</span> is the mean value of <span class="math inline">\(y\)</span> <span class="citation" data-cites="ott2015introduction">(<a href="#/references" role="doc-biblioref" onclick>Ott and Longnecker 2015</a>)</span>.</p>
+</section>
+<section id="r2-vs.-mse-comparison" class="slide level2">
+<h2><span class="math inline">\(R^2\)</span> vs. MSE Comparison</h2>
 <p>Ultimately, <span class="math inline">\(R^2\)</span> and MSE are related in that they both measure the model’s performance, but they do it in different ways. While <span class="math inline">\(R^2\)</span> measures the proportion of variance explained by the model, MSE measures the average error of the model’s predictions. In the context of cross-validation, both metrics can be used to compare models: a higher <span class="math inline">\(R^2\)</span> and a lower MSE would typically indicate a better predictive model.</p>
-<p>Another performance metric that will be used to determine model performance is the area under the ROC curve (AUC). AUC conveys how well a model can differentiate between different classes, and it is preferable to other metrics, such as accuracy, because it accounts for both specificity and sensitivity <span class="citation" data-cites="cantor2000determining">(<a href="#/references" role="doc-biblioref" onclick>Cantor and Kattan 2000</a>)</span>. AUC scores can range from 0 to 1, with 0 indicating the model has no ability to discern between classes, and 1 indicating the model perfectly predicts classfication. Figure 6 demonstrates how AUC uses the positive and negative outcomes to calculate a value that indicates the probability of a positive result ranking higher than negative results, where <span class="math inline">\(S_p\)</span> is the total number of positive outcomes ranked, and <span class="math inline">\(n_p\)</span> and <span class="math inline">\(n_n\)</span> are the number of positive and negative outcomes, respectively <span class="citation" data-cites="hossin2015review">(<a href="#/references" role="doc-biblioref" onclick>Hossin and Sulaiman 2015</a>)</span>.</p>
+</section>
+<section id="performance-metrics---auc" class="slide level2">
+<h2>Performance Metrics - AUC</h2>
+<p>Another performance metric that will be used to determine model performance is the area under the ROC curve (AUC). AUC conveys how well a model can differentiate between different classes, and it is preferable to other metrics, such as accuracy, because it accounts for both specificity and sensitivity <span class="citation" data-cites="cantor2000determining">(<a href="#/references" role="doc-biblioref" onclick>Cantor and Kattan 2000</a>)</span>. AUC scores can range from 0 to 1, with 0 indicating the model has no ability to discern between classes, and 1 indicating the model perfectly predicts classification.</p>
+</section>
+<section id="performance-metrics---auc-cont." class="slide level2">
+<h2>Performance Metrics - AUC (cont.)</h2>
+<p>Figure 6 demonstrates how AUC uses the positive and negative outcomes to calculate a value that indicates the probability of a positive result ranking higher than negative results, where <span class="math inline">\(S_p\)</span> is the total number of positive outcomes ranked, and <span class="math inline">\(n_p\)</span> and <span class="math inline">\(n_n\)</span> are the number of positive and negative outcomes, respectively <span class="citation" data-cites="hossin2015review">(<a href="#/references" role="doc-biblioref" onclick>Hossin and Sulaiman 2015</a>)</span>.</p>
 <p><span class="math display">\[
 AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 \]</span></p>
