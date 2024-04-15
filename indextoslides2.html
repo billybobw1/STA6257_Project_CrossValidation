@@ -444,7 +444,7 @@
   <meta name="generator" content="quarto-1.4.542">
 
   <meta name="author" content="Jesse Buntyn, Jolie Wise, Danielle Koche">
-  <meta name="dcterms.date" content="2024-04-14">
+  <meta name="dcterms.date" content="2024-04-15">
   <title>Cross-Validation - Methods &amp; Importance in Data Science and Statistics</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1241,7 +1241,7 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 </div>
 </div>
 
-  <p class="date">2024-04-14</p>
+  <p class="date">2024-04-15</p>
 </section>
 <section id="introduction" class="slide level2">
 <h2>Introduction</h2>
@@ -1269,24 +1269,20 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 <li>Repeated K-Fold Cross-Validation</li>
 </ul>
 </section>
-<section id="single-hold-out-method" class="slide level2">
-<h2>Single Hold-Out Method:</h2>
+<section class="slide level2">
+
+<h3 id="single-hold-out-method">Single Hold-Out Method:</h3>
 <p>This is one of the more simple methods of cross-validation and tends to be less time-consuming to conduct <span class="citation" data-cites="yadav2016analysis">(<a href="#/references" role="doc-biblioref" onclick>Yadav and Shukla 2016</a>)</span>. It divides data into a training set and a test set, usually in a 70-30 or 90-10 split.</p>
-</section>
-<section id="monte-carlo-cross-validation" class="slide level2">
-<h2>Monte Carlo Cross-Validation:</h2>
+<h3 id="monte-carlo-cross-validation">Monte Carlo Cross-Validation:</h3>
 <p>Using random sampling without replacement from certain probability distributions when splitting your data sets <span class="citation" data-cites="james1980monte">(<a href="#/references" role="doc-biblioref" onclick>James 1980</a>)</span>. It aims to decrease overfitting by allowing the algorithm to better explore the experimental space.</p>
 </section>
-<section id="k-fold-cross-validation" class="slide level2">
-<h2>K-Fold Cross-Validation:</h2>
+<section class="slide level2">
+
+<h3 id="k-fold-cross-validation">K-Fold Cross-Validation:</h3>
 <p>The dataset is split into k equally sized folds. Each fold is used once as a test set while the rest serve as the training set.</p>
-</section>
-<section id="leave-one-out-cross-validation-loocv" class="slide level2">
-<h2>Leave-One-Out Cross-Validation (LOOCV):</h2>
+<h3 id="leave-one-out-cross-validation-loocv">Leave-One-Out Cross-Validation (LOOCV):</h3>
 <p>This is a special case of k-fold cross-validation where k equals the number of data points <span class="citation" data-cites="shao2016efficient">(<a href="#/references" role="doc-biblioref" onclick>Shao and Er 2016</a>)</span>. Each data point is used once as a test set.</p>
-</section>
-<section id="stratified-cross-validation" class="slide level2">
-<h2>Stratified Cross-Validation:</h2>
+<h3 id="stratified-cross-validation">Stratified Cross-Validation:</h3>
 <p>Ensures each fold reflects the class proportions in the dataset, particularly useful for imbalanced datasets.</p>
 </section>
 <section id="repeated-k-fold-cross-validation" class="slide level2">

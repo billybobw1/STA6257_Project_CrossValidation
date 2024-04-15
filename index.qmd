@@ -17,6 +17,8 @@ editor:
     wrap: 72
 ---
 
+[Slides](indextoslides2.html)
+
 ## Introduction
 
 This is an introduction to understanding cross-validation, its methods,
@@ -325,12 +327,23 @@ cross-validation, both metrics can be used to compare models: a higher
 $R^2$ and a lower MSE would typically indicate a better predictive
 model.
 
-Another performance metric that will be used to determine model performance is the area under the ROC curve (AUC). AUC conveys how well a model can differentiate between different classes, and it is preferable to other metrics, such as accuracy, because it accounts for both specificity and sensitivity [@cantor2000determining]. AUC scores can range from 0 to 1, with 0 indicating the model has no ability to discern between classes, and 1 indicating the model perfectly predicts classfication. Figure 6 demonstrates how AUC uses the positive and negative outcomes to calculate a value that indicates the probability of a positive result ranking higher than negative results, where $S_p$ is the total number of positive outcomes ranked, and $n_p$ and $n_n$ are the number of positive and negative outcomes, respectively [@hossin2015review].
+Another performance metric that will be used to determine model
+performance is the area under the ROC curve (AUC). AUC conveys how well
+a model can differentiate between different classes, and it is
+preferable to other metrics, such as accuracy, because it accounts for
+both specificity and sensitivity [@cantor2000determining]. AUC scores
+can range from 0 to 1, with 0 indicating the model has no ability to
+discern between classes, and 1 indicating the model perfectly predicts
+classfication. Figure 6 demonstrates how AUC uses the positive and
+negative outcomes to calculate a value that indicates the probability of
+a positive result ranking higher than negative results, where $S_p$ is
+the total number of positive outcomes ranked, and $n_p$ and $n_n$ are
+the number of positive and negative outcomes, respectively
+[@hossin2015review].
 
 $$
 AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
-$$
-## Analysis and Results
+$$ \## Analysis and Results
 
 ### Data Description and Visualization
 
@@ -493,7 +506,15 @@ cor(data) %>%
 
 ### Statistical Modeling
 
-Since the outcome variable (death event) is binary, logistic regression will be used with each of our techniques to fit our models. Two different models will be fit for each technique: one with every predictor variable included (Model 1), and the other using only serum creatinine and ejection fraction (Model 2), as was advised by [@chicco2020machine]. The goal is to compare how the difference in performance between the two models changes when various cross-validation techniques are applied. The performance of the models will be determined using their MSE and AUC values.
+Since the outcome variable (death event) is binary, logistic regression
+will be used with each of our techniques to fit our models. Two
+different models will be fit for each technique: one with every
+predictor variable included (Model 1), and the other using only serum
+creatinine and ejection fraction (Model 2), as was advised by
+[@chicco2020machine]. The goal is to compare how the difference in
+performance between the two models changes when various cross-validation
+techniques are applied. The performance of the models will be determined
+using their MSE and AUC values.
 
 #### 10-fold Cross Validation:
 
@@ -579,7 +600,6 @@ included. With 5-fold cross validation, the data set is divided into 5
 parts (as opposed to 10 in 10-fold). Model 1 still has a lower MSE than
 the full model that includes all predictor variables.
 
-
 #### Single Hold-Out Method:
 
 ```{r}
@@ -664,10 +684,11 @@ loocv_tibble
 
 Leave-One-Out cross-validation (LOOCV) follows a similar data set
 splitting technique, but in this case, the data is split k-ways, where k
-is equal to the number of data points. In this case, k would be 299. According to LOOCV, the full
-model (which includes all predictor variables) is a better fit due to a
-lower mean squared error compared to the reduced model (which only
-includes serum creatinine and ejection fraction).
+is equal to the number of data points. In this case, k would be 299.
+According to LOOCV, the full model (which includes all predictor
+variables) is a better fit due to a lower mean squared error compared to
+the reduced model (which only includes serum creatinine and ejection
+fraction).
 
 #### Monte Carlo Cross-Validation:
 
@@ -704,11 +725,25 @@ m2_MCCV_metrics <-collect_metrics(m2_MCCV)
 mccv_m2_mse <- as.numeric(m2_MCCV_metrics[2,3])
 mccv_m2_auc <- as.numeric(m2_MCCV_metrics[3,3])
 ```
+
 ```{r}
 MCCVtibble = tibble(M1_MCCV_MSE = mccv_m1_mse, M2_MCCV_MSE = mccv_m2_mse, M1_MCCV_AUC= mccv_m1_auc, M2_MCCV_AUC= mccv_m2_auc)
 MCCVtibble
 ```
-For the Monte Carlo technique, logistic regression will be used to create the models. Unlike previous techniques, a resampling function was created to repeat the splitting of the data many times. Our proportion of training to validation sets is the standard 70/30 split, and the data will be resampled 100 times. For the MSE of the models, we'll be using the Brier score as our resampling fitting function generates the Brier score automatically, and it performs similarly to MSE in classification problems [@ferro2012bias]. Similar to the previously discussed techniques, our full model had the lower MSE/ Brier score and higher AUC. The smaller model's AUC of 0.763 is still acceptable as far as the metric's ideal scores go, but the increase of about 0.1 indicates there might be another predictor or two that could contribute significantly to the model.
+
+For the Monte Carlo technique, logistic regression will be used to
+create the models. Unlike previous techniques, a resampling function was
+created to repeat the splitting of the data many times. Our proportion
+of training to validation sets is the standard 70/30 split, and the data
+will be resampled 100 times. For the MSE of the models, we'll be using
+the Brier score as our resampling fitting function generates the Brier
+score automatically, and it performs similarly to MSE in classification
+problems [@ferro2012bias]. Similar to the previously discussed
+techniques, our full model had the lower MSE/ Brier score and higher
+AUC. The smaller model's AUC of 0.763 is still acceptable as far as the
+metric's ideal scores go, but the increase of about 0.1 indicates there
+might be another predictor or two that could contribute significantly to
+the model.
 
 ### Comparing Technique Performance
 
@@ -722,7 +757,6 @@ MODEL_COMP <- data.frame(
 )
 MODEL_COMP
 ```
-
 
 ## Conclusion
 
