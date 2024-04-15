@@ -411,13 +411,60 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 <p>Repeats the K-Fold process multiple times and averages the results.</p>
 <p>The perspective of Berrar is enriched by <span class="citation" data-cites="schaffer1993selecting">(<a href="#/references" role="doc-biblioref" onclick="">Schaffer 1993</a>)</span>, who explores the significance of cross-validation in selecting optimal classification methods, highlighting its necessity in dealing with imbalanced datasets through stratified approaches.</p>
 </section>
-<section id="literature-review" class="slide level2">
-<h2>Literature Review</h2>
-<p><span class="citation" data-cites="zhang2015cross">(<a href="#/references" role="doc-biblioref" onclick="">Zhang and Yang 2015</a>)</span> delve into the strategic use of cross-validation for model selection, particularly in high-dimensional settings, challenging traditional approaches and proposing the integration of AIC and BIC for optimal model estimation. AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion) are both measures used to evaluate the quality of a statistical model, often in the context of model selection. While they are not directly used for cross-validation, they serve a similar purpose in helping to choose between different models by considering both the goodness of fit and the complexity of the model.</p>
-<p>Likewise, <span class="citation" data-cites="wong2019reliable">(<a href="#/references" role="doc-biblioref" onclick="">Wong and Yeh 2019</a>)</span> contribute to the discourse by examining the reliability of accuracy estimates derived from k-fold cross-validation, cautioning against the uncritical increase of replications without considering the correlation between them, and recommending specific strategies for achieving more dependable accuracy estimates. More specifically, their experiments across 20 datasets indicate that accuracy estimates from different replications of k-fold cross-validation are generally highly correlated, especially as the number of folds increases. They instead recommend using a larger number of folds with fewer replications for performance evaluation. Particularly, their research concludes that ten-fold cross-validation yields the most significant scores among k-fold cross-validation techniques. A similar conclusion of the optimal for k is shared by <span class="citation" data-cites="marcot2021optimal">(<a href="#/references" role="doc-biblioref" onclick="">Marcot and Hanea 2021</a>)</span>, as their evidence from their study that explores the ideal value of k for k-fold cross-validation analysis showed that the ideal value of k is 10, however, 5 can be sufficient in some cases.</p>
-<p>Ultimately, in statistical analysis, researchers are constantly innovating and refining cross-validation techniques to enhance model performance and address challenges associated with existing methodologies. <span class="citation" data-cites="filzmoser2009repeated">(<a href="#/references" role="doc-biblioref" onclick="">Filzmoser, Liebmann, and Varmuza 2009</a>)</span> sought to explore a method intended to improve the reliability and predictive accuracy of complex linear models, particularly those developed from small datasets, and to provide more accurate prediction error estimates for future observations. Their investigation was centered around the concept of repeated double cross-validation (rdCV), an advanced technique that entails a dual-phase partitioning of the dataset.</p>
-<p>The initial phase involves dividing the data into training and testing sets, which serves as the foundation for prediction accuracy estimation. Subsequently, the second phase employs the training set from the first division in a further round of cross-validation. This dual-loop process is repeated multiple iterations, generating a comprehensive set of predicted outcomes. The aggregate of these outcomes not only facilitates the enhancement of the model’s performance but also aids in the more precise estimation of the variability in the model’s predictions.</p>
-<p>Another technique, introduced by <span class="citation" data-cites="xu2018representative">(<a href="#/references" role="doc-biblioref" onclick="">Xu et al. 2018</a>)</span> is Representative Splitting Cross-Validation (RSCV), aiming to enhance the representativeness and uniformity of calibration and validation sets in experimental studies, with an emphasis on its utility for latent variable selection. This method employs the DUPLEX algorithm for data segmentation, followed by k-fold cross-validation on the divided sets.</p>
+<section id="literature-review---zhang2015cross" class="slide level2">
+<h2>Literature Review - <span class="citation" data-cites="zhang2015cross">(<a href="#/references" role="doc-biblioref" onclick="">Zhang and Yang 2015</a>)</span></h2>
+<p>Zhang and Yang (2015) focus on cross-validation as a model selection method.</p>
+<ul>
+<li>Cross-validation techniques can be used for model selection in high-dimensional settings</li>
+<li>Model parameters can be selected through the use of cross-validation (ex., Akaike Information Criterion (AIC) vs.&nbsp;Bayesian Information Criterion (BIC))</li>
+<li>Highlight the importance of selecting an ideal data-splitting ratio for the dataset
+<ul>
+<li>Parametric vs Nonparametric Data</li>
+</ul></li>
+</ul>
+</section>
+<section id="literature-review---wong2019reliable-marcot2021optimal" class="slide level2">
+<h2>Literature Review - <span class="citation" data-cites="wong2019reliable">(<a href="#/references" role="doc-biblioref" onclick="">Wong and Yeh 2019</a>)</span> &amp; <span class="citation" data-cites="marcot2021optimal">(<a href="#/references" role="doc-biblioref" onclick="">Marcot and Hanea 2021</a>)</span></h2>
+<p>Wong and Yeh (2020) examine the reliability of accuracy estimates derived from k-fold cross-validation.</p>
+<ul>
+<li>The correlation between replications of k-folds should be considered before increasing the number of replications.</li>
+<li>Experimentation across 20 datasets</li>
+<li>It is recommended to use a larger number of folds with fewer replications
+<ul>
+<li>10-Fold Cross-Validation was found to be ideal</li>
+</ul></li>
+</ul>
+<p>Marcot and Hanea (2021) confirmed that 10 folds is the standard, but 5-folds can also work in some cases.</p>
+</section>
+<section id="literature-review---filzmoser2009repeated" class="slide level2">
+<h2>Literature Review - <span class="citation" data-cites="filzmoser2009repeated">(<a href="#/references" role="doc-biblioref" onclick="">Filzmoser, Liebmann, and Varmuza 2009</a>)</span></h2>
+<p>Filzmoser et al.&nbsp;(2009) explored repeated double cross-validation (rdCV).</p>
+<ul>
+<li>The goals of rdCV are as follows:
+<ul>
+<li>Improve predictive accuracy of complex linear models</li>
+<li>Provide more accurate prediction error estimates for future models</li>
+</ul></li>
+<li>The procedure for rdCV is to:
+<ul>
+<li>Split the data into testing and training subsets</li>
+<li>Perform another round of cross-validation on the training data</li>
+<li>Repeat the process multiple times</li>
+</ul></li>
+</ul>
+</section>
+<section id="literature-review---xu2018representative" class="slide level2">
+<h2>Literature Review - <span class="citation" data-cites="xu2018representative">(<a href="#/references" role="doc-biblioref" onclick="">Xu et al. 2018</a>)</span></h2>
+<p>Xu et al.&nbsp;(2018) introduce Representative Splitting Cross-Validation (RSCV).</p>
+<ul>
+<li>RSCV aims to enhance representativeness and uniformity in data sets</li>
+<li>The DUPLEX algorithm is employed to split the data into training and testing sets and uniformly distribute the farthest data</li>
+<li>K-Fold cross-validation is then performed on the split data</li>
+<li>RSCV was only found to be significantly different from traditional cross-validation techniques in one experiment.</li>
+</ul>
+</section>
+<section class="slide level2">
+
 <p>Building on this, <span class="citation" data-cites="rabinowicz2022cross">(<a href="#/references" role="doc-biblioref" onclick="">Rabinowicz and Rosset 2022</a>)</span> explore the influence of correlation structures on cross-validation effectiveness, proposing a bias-correction measure, CVc, to address potential biases. This correction is unnecessary when dataset splitting maintains the distributional relationship between training and testing sets, ensuring unbiased cross-validation. Their analysis showed that CVc more accurately estimates generalization error compared to traditional cross-validation, remaining unbiased provided the covariance structure is correctly specified, even without the ideal prediction method. This research contributes to refining cross-validation techniques, particularly in handling complex data correlations.</p>
 <p>Finally, <span class="citation" data-cites="lei2020cross">(<a href="#/references" role="doc-biblioref" onclick="">Lei 2020</a>)</span> introduces a method called Cross-Validation with Confidence (CVC) aimed at reducing overfitting, a common problem with traditional cross-validation that uses small splits and ends up with too-simple models. CVC works by checking the predicted risk of different models and using p-values to choose models that best fit without being overly complex. It has proven effective, particularly when dealing with a decent amount of data and models that don’t use too many predictors, resulting in simpler, easy-to-understand predictive models. However, CVC hasn’t yet been applied to unsupervised learning or models with binary outcomes, pointing out areas for further exploration.</p>
 <p>Collectively, these papers illuminate the multifaceted nature of cross-validation, showcasing its critical role in model evaluation, selection, and generalization. From theoretical underpinnings to practical implementations, cross-validation emerges as an essential tool in a data scientist’s arsenal, ensuring models are not only predictive but also generalizable across diverse datasets and contexts.</p>
