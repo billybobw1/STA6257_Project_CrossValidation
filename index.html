@@ -3365,8 +3365,11 @@ R^2 = 1 - \frac{\sum{(y_i - \hat{y})^2}}{\sum{(y_i - \bar{y})^2}} \tag{5}
 <p>Another performance metric that will be used to determine model performance is the area under the ROC curve (AUC). AUC conveys how well a model can differentiate between different classes, and it is preferable to other metrics, such as accuracy, because it accounts for both specificity and sensitivity <span class="citation" data-cites="cantor2000determining">(<a href="#ref-cantor2000determining" role="doc-biblioref">Cantor and Kattan 2000</a>)</span>. AUC scores can range from 0 to 1, with 0 indicating the model has no ability to discern between classes, and 1 indicating the model perfectly predicts classfication. Figure 6 demonstrates how AUC uses the positive and negative outcomes to calculate a value that indicates the probability of a positive result ranking higher than negative results, where <span class="math inline">\(S_p\)</span> is the total number of positive outcomes ranked, and <span class="math inline">\(n_p\)</span> and <span class="math inline">\(n_n\)</span> are the number of positive and negative outcomes, respectively <span class="citation" data-cites="hossin2015review">(<a href="#ref-hossin2015review" role="doc-biblioref">Hossin and Sulaiman 2015</a>)</span>.</p>
 <p><span class="math display">\[
 AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
-\]</span> ## Analysis and Results</p>
+\]</span></p>
 </section>
+</section>
+<section id="analysis-and-results" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-and-results">Analysis and Results</h2>
 <section id="data-description-and-visualization" class="level3">
 <h3 class="anchored" data-anchor-id="data-description-and-visualization">Data Description and Visualization</h3>
 <p>This heart failure clinical records dataset, obtained via the UC Irvine Machine Learning Repository, contains the medical records of 299 patients who had heart failure, collected during their follow-up period, where each patient profile has 13 clinical features <span class="citation" data-cites="chicco2020machine">(<a href="#ref-chicco2020machine" role="doc-biblioref">Chicco and Jurman 2020</a>)</span>.</p>

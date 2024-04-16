@@ -343,7 +343,9 @@ the number of positive and negative outcomes, respectively
 
 $$
 AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
-$$ \## Analysis and Results
+$$ 
+
+## Analysis and Results
 
 ### Data Description and Visualization
 
