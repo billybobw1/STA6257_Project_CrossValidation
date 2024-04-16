@@ -292,14 +292,14 @@ Source:[@ROC_2024]
 :::
 :::
 
-## Analysis and Results
+## Analysis and Results {.smaller}
 
-### Data Description & Features {.smaller}
+### Data Description & Features
 
 ::: columns
 ::: {.column width="40%"}
 -   The dataset contains 13 clinical, body, and lifestyle features from
-    299 heart failure patients in Faisalabad, Pakistan in 2015
+    299 heart failure patients in Faisalabad, Pakistan in 2015 [@chicco2020machine].
 -   The goal was to demonstrate potential biomarkers in predicting heart
     failure outcomes
 -   The study focused solely on serum creatinine and ejection fraction
