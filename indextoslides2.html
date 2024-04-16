@@ -1941,7 +1941,6 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
-<p>This paper shows various cross-validation techniques that can be used for modeling validation, including single hold-out, 5 &amp; 10 k-folds, leave-one-out, and Monte Carlo cross-validation.</p>
 <ul>
 <li>The full models (which includes all predictor variables within the dataset) tends to have lower mean squared error (MSE) and higher Area under the Curve (AUC) values after testing.</li>
 <li>This essentially means the full model is more robust with predictive ability compared to the reduced model.</li>
@@ -1957,7 +1956,12 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 </section>
 <section id="conclusion-cont.-1" class="slide level2">
 <h2>Conclusion (cont.)</h2>
-<p>Single hold-out CV stood out the most as having the worst performance, with MSE values that were significantly higher than that of the rest of the techniques. This result indicates that this technique will not always be the best route to take when trying to validate a model. The rest of the models had only marginal differences in performance. However, when considering the process of administering the techniques, the k-folds, including leave-one-out, provided the most straight-forward approach. Having a function that performed the cross-validation from the logistic regression model removed some of the opportunity for human error. Ultimately, most of these techniques seem sufficient to help validate a model based on this example.</p>
+<ul>
+<li>Single hold-out CV stood out the most as having the worst performance, with MSE values that were significantly higher than that of the rest of the techniques.</li>
+<li>The rest of the models had only marginal differences in performance. However, when considering the process of administering the techniques, the k-folds, including leave-one-out, provided the most straight-forward approach.</li>
+<li>Having a function that performed the cross-validation from the logistic regression model removed some of the opportunity for human error.</li>
+<li>Ultimately, most of these techniques seem sufficient to help validate a model based on this example.</li>
+</ul>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>

@@ -859,10 +859,6 @@ data is difficult.
 
 ## Conclusion
 
-This paper shows various cross-validation techniques that can be used
-for modeling validation, including single hold-out, 5 & 10 k-folds,
-leave-one-out, and Monte Carlo cross-validation.
-
   - The full models (which includes all predictor variables within
 the dataset) tends to have lower mean squared error (MSE) and higher
 Area under the Curve (AUC) values after testing.
@@ -888,16 +884,17 @@ demonstrated acceptable class discrimination.
 
 ## Conclusion (cont.)
 
-Single hold-out CV stood out the most as having the worst
+  - Single hold-out CV stood out the most as having the worst
 performance, with MSE values that were significantly higher than that of
-the rest of the techniques. This result indicates that this technique
-will not always be the best route to take when trying to validate a
-model. The rest of the models had only marginal differences in
+the rest of the techniques. 
+- The rest of the models had only marginal differences in
 performance. However, when considering the process of administering the
 techniques, the k-folds, including leave-one-out, provided the most
-straight-forward approach. Having a function that performed the
+straight-forward approach.
+- Having a function that performed the
 cross-validation from the logistic regression model removed some of the
-opportunity for human error. Ultimately, most of these techniques seem
+opportunity for human error.
+- Ultimately, most of these techniques seem
 sufficient to help validate a model based on this example.
 
 ## References
