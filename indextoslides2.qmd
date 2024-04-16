@@ -414,8 +414,7 @@ hist(data$DEATH_EVENT,main = "Death Event",breaks=2)
 
 ::: {.column width="40%"}
 -   All of our categorical variables are Boolean and are encoded as '0'
-    and '1' to indicate negative or positive occurrence of a variable's
-    condition, respectively.
+    and '1'.
 -   These variables include whether the patient is a smoker, has
     diabetes, anaemia, or high blood pressure.
 -   The sex variable indicates whether the patient is a female ('0') or
@@ -463,26 +462,13 @@ boxplot(data$time, main="Time")
 :::
 :::
 
-## Correlation {.smaller}
+## Correlation 
 
-::: columns
-::: {.column width="60%"}
 ```{r}
 cor(data) %>%
   corrplot(method = 'ellipse', type = 'upper')
 ```
-:::
 
-::: {.column width="\"30%"}
--   The most significant correlation was between the time variable and
-    our target variable, death event. There's a negative relationship,
-    meaning the patients who had more days in the follow-up period
-    tended to survive through the end of the follow-up period.
--   There was a slight positive correlation between sex of the patient
-    and smoker status, meaning more male patients tended to be smokers
-    than female patients.
-:::
-:::
 
 ## Statistical Modeling
 
