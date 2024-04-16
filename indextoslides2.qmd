@@ -172,21 +172,11 @@ cross-validation being used [@yadav2016analysis].
 
 - Can cause unreliable models due to differently distributed training and validation data [@santos2023statistical].
 
-## Methods - CV Techniques
-
-### K-Fold
-
-[@jung2015ak] introduce an advanced k-fold averaging cross-validation
-procedure, advocating for the averaging of parameter estimates across
-folds to yield more stable and efficient outcomes. This method
-demonstrates significant potential in handling high-dimensional data and
-improving parameter estimation.
-
 ## Methods - CV Techniques {.smaller}
 
 ::: columns
 ::: {.column width="50%"}
-### K-Fold Steps
+### K-Fold
 
 1.  Randomly and evenly split the dataset into k-folds.
 

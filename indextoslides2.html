@@ -1369,16 +1369,11 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 <li>Can cause unreliable models due to differently distributed training and validation data <span class="citation" data-cites="santos2023statistical">(<a href="#/references" role="doc-biblioref" onclick>Santos et al. 2023</a>)</span>.</li>
 </ul>
 </section>
-<section id="methods---cv-techniques-1" class="slide level2">
-<h2>Methods - CV Techniques</h2>
-<h3 id="k-fold">K-Fold</h3>
-<p><span class="citation" data-cites="jung2015ak">(<a href="#/references" role="doc-biblioref" onclick>Jung and Hu 2015</a>)</span> introduce an advanced k-fold averaging cross-validation procedure, advocating for the averaging of parameter estimates across folds to yield more stable and efficient outcomes. This method demonstrates significant potential in handling high-dimensional data and improving parameter estimation.</p>
-</section>
-<section id="methods---cv-techniques-2" class="slide level2 smaller scrollable">
+<section id="methods---cv-techniques-1" class="slide level2 smaller scrollable">
 <h2>Methods - CV Techniques</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<h3 id="k-fold-steps">K-Fold Steps</h3>
+<h3 id="k-fold">K-Fold</h3>
 <ol type="1">
 <li><p>Randomly and evenly split the dataset into k-folds.</p></li>
 <li><p>Use k-1 folds as the training set to fit the model.</p></li>
@@ -1396,7 +1391,7 @@ CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{1}
 </div>
 </div>
 </section>
-<section id="methods---cv-techniques-3" class="slide level2">
+<section id="methods---cv-techniques-2" class="slide level2">
 <h2>Methods - CV Techniques</h2>
 <h3 id="leave-one-out">Leave-One-Out</h3>
 <ul>
@@ -1406,7 +1401,7 @@ CV(k) = \frac{1}{k} \sum_{i=1}^{k} MSE_i \tag{1}
 <li>It can be computationally expensive due to the high number of folds for large datasets.</li>
 </ul>
 </section>
-<section id="methods---cv-techniques-4" class="slide level2 smaller">
+<section id="methods---cv-techniques-3" class="slide level2 smaller">
 <h2>Methods - CV Techniques</h2>
 <h3 id="monte-carlo">Monte Carlo</h3>
 <p>MCCV randomly removes significant chunks of the dataset without replacement to use as its training and validation (<span class="math inline">\(s_v\)</span>) data sets <span class="citation" data-cites="haddad2013applicability">(<a href="#/references" role="doc-biblioref" onclick>Haddad et al. 2013</a>)</span>. This sampling is repeated N times. The criterion for this techniques, according to <span class="citation" data-cites="haddad2013applicability">(<a href="#/references" role="doc-biblioref" onclick>Haddad et al. 2013</a>)</span>, is as follows:</p>
