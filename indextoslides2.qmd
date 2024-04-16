@@ -199,7 +199,7 @@ cross-validation being used [@yadav2016analysis].
 
 ::: {.column width="50%"}
 ![Figure 1: Basic K-Fold
-Cross-Validation](images/K-fold-cross-validation-1.webp)
+Cross-Validation](images/K-fold-cross-validation-1.png)
 Source:[@Ranjan_2021]
 
 The MSE calculation using K-folds is as follows [@jung2015ak]:

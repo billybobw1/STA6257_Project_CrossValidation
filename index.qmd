@@ -217,7 +217,7 @@ see Figure 1:**
     predictors.
 
     ![Figure 1: Basic K-Fold Cross-Validation,
-    k=5](images/K-fold-cross-validation-1.webp){width="413"}
+    k=5](images/K-fold-cross-validation-1.png){width="413"}
 
     Source: [@Ranjan_2021]
 
