@@ -891,9 +891,6 @@ the rest of the techniques.
 performance. However, when considering the process of administering the
 techniques, the k-folds, including leave-one-out, provided the most
 straight-forward approach.
-- Having a function that performed the
-cross-validation from the logistic regression model removed some of the
-opportunity for human error.
 - Ultimately, most of these techniques seem
 sufficient to help validate a model based on this example.
 
