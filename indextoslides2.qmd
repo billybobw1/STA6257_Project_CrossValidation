@@ -277,7 +277,7 @@ performance is the area under the ROC curve (AUC).
     [@cantor2000determining].
 -   AUC scores can range from 0 to 1
 
-Figure 2 and Formula 4 demonstrate how AUC uses the positive and negative outcomes to
+Formula 4 demonstrate how AUC uses the positive and negative outcomes to
 calculate a value that indicates the probability of a positive result
 ranking higher than negative results, where $S_p$ is the total number of
 positive outcomes ranked, and $n_p$ and $n_n$ are the number of positive
@@ -465,8 +465,7 @@ boxplot(data$time, main="Time")
     exploratory analysis to evaluate if any variables have outliers that
     need to be addressed.
 -   However, these data points will remain untouched for our analysis as
-    they do not appear to be recording errors. The outliers in the
-    boxplots appear to be genuine observations and should be considered
+    they appear to be genuine observations and should be considered
     in our model.
 :::
 :::
