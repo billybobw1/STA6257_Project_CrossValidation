@@ -384,12 +384,12 @@ hist(data$ejection_fraction, main="Ejection Fraction")
 :::
 
 ::: {.column width="40%"}
--   Variables were included that observe the levels of sodium (serum
-    sodium) and number of platelets in the patient's blood.
--   The ejection fraction variable is the percentage of blood leaving
+- Serum Sodium - levels of sodium in the patients bloods
+- Platelets - number of platelets in the patient's blood
+- Ejection fraction -  percentage of blood leaving
     the left ventricle during each contraction of the heart
     [@chicco2020machine].
--   These features look fairly normally distributed, with some potential
+- These features look fairly normally distributed, with some potential
     skewing in the platelet and serum sodium features.
 :::
 :::
@@ -411,7 +411,7 @@ hist(data$DEATH_EVENT,main = "Death Event",breaks=2)
 :::
 
 ::: {.column width="40%"}
--   All of our categorical variables are Boolean and are encoded as '0'
+-   All of our categorical variables are encoded as '0'
     and '1'.
 -   These variables include whether the patient is a smoker, has
     diabetes, anaemia, or high blood pressure.
@@ -453,7 +453,7 @@ boxplot(data$time, main="Time")
 -   Boxplots for our continuous variables were created in our
     exploratory analysis to evaluate if any variables have outliers that
     need to be addressed.
--   However, these data points will remain untouched for our analysis as
+-   No data points will be removed or altered for our analysis as
     they appear to be genuine observations and should be considered
     in our model.
 :::
