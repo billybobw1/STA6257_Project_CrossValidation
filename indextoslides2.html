@@ -1355,10 +1355,19 @@ Jesse Buntyn, Jolie Wise, Danielle Koche
 <li>CVC had not been considered for unsupervised methods or binary outcome variables at the time of publication.</li>
 </ul>
 </section>
-<section id="methods---cv-techniques" class="slide level2">
+<section id="methods---cv-techniques" class="slide level2 smaller scrollable">
 <h2>Methods - CV Techniques</h2>
 <h3 id="single-hold-out">Single Hold-Out</h3>
-<p>Single hold-out cross-validation is one more simple versions of cross-validation being used <span class="citation" data-cites="yadav2016analysis">(<a href="#/references" role="doc-biblioref" onclick>Yadav and Shukla 2016</a>)</span>. The dataset gets divided into a training set and validation, or hold-out, set. The training set is used to fit a model, which is then used for prediction on the validation set. The performance of the model is then determined by the variance between the predictions and the actual data. One of the main drawbacks of this method is that the training set and validation set can have different distributions, causing potentially unreliable models <span class="citation" data-cites="santos2023statistical">(<a href="#/references" role="doc-biblioref" onclick>Santos et al. 2023</a>)</span>.</p>
+<p>Single hold-out cross-validation is one more simple versions of cross-validation being used <span class="citation" data-cites="yadav2016analysis">(<a href="#/references" role="doc-biblioref" onclick>Yadav and Shukla 2016</a>)</span>.</p>
+<ol type="1">
+<li>Data gets divided into a training set and a validation set</li>
+<li>Fit a model using the training data</li>
+<li>Use the model on the validation set to create predicted outcome values</li>
+<li>Compare the predicted values to the actual outcome values to determine model performance</li>
+</ol>
+<ul>
+<li>Can cause unreliable models due to differently distributed training and validation data <span class="citation" data-cites="santos2023statistical">(<a href="#/references" role="doc-biblioref" onclick>Santos et al. 2023</a>)</span>.</li>
+</ul>
 </section>
 <section id="methods---cv-techniques-1" class="slide level2">
 <h2>Methods - CV Techniques</h2>
@@ -1414,7 +1423,6 @@ MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)
 <p>The main performance metrics our analysis is focused on include:</p>
 <ul>
 <li>Mean Squared Error (MSE)</li>
-<li>Mean Squared Prediction Error (MSPE)</li>
 <li>Area Under the ROC Curve (AUC)</li>
 </ul>
 </section>
@@ -1433,9 +1441,9 @@ MSE = \sum_{i=1}^{p} (\hat{\beta}_i - \beta_i)^2 \tag{3}
 <li>AUC conveys how well a model can differentiate between different classes, and it is preferable to other metrics, such as accuracy, because it accounts for both specificity and sensitivity <span class="citation" data-cites="cantor2000determining">(<a href="#/references" role="doc-biblioref" onclick>Cantor and Kattan 2000</a>)</span>.</li>
 <li>AUC scores can range from 0 to 1</li>
 </ul>
-<p>Figure 6 demonstrates how AUC uses the positive and negative outcomes to calculate a value that indicates the probability of a positive result ranking higher than negative results, where <span class="math inline">\(S_p\)</span> is the total number of positive outcomes ranked, and <span class="math inline">\(n_p\)</span> and <span class="math inline">\(n_n\)</span> are the number of positive and negative outcomes, respectively <span class="citation" data-cites="hossin2015review">(<a href="#/references" role="doc-biblioref" onclick>Hossin and Sulaiman 2015</a>)</span>.</p>
+<p>Figure 4 demonstrates how AUC uses the positive and negative outcomes to calculate a value that indicates the probability of a positive result ranking higher than negative results, where <span class="math inline">\(S_p\)</span> is the total number of positive outcomes ranked, and <span class="math inline">\(n_p\)</span> and <span class="math inline">\(n_n\)</span> are the number of positive and negative outcomes, respectively <span class="citation" data-cites="hossin2015review">(<a href="#/references" role="doc-biblioref" onclick>Hossin and Sulaiman 2015</a>)</span>.</p>
 <p><span class="math display">\[
-AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
+AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{4}
 \]</span></p>
 </section>
 <section id="analysis-and-results" class="slide level2">

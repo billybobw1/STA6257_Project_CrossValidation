@@ -158,19 +158,19 @@ reduce overfitting.
 -   CVC had not been considered for unsupervised methods or binary
     outcome variables at the time of publication.
 
-## Methods - CV Techniques
+## Methods - CV Techniques {.smaller}
 
 ### Single Hold-Out
 
 Single hold-out cross-validation is one more simple versions of
-cross-validation being used [@yadav2016analysis]. The dataset gets
-divided into a training set and validation, or hold-out, set. The
-training set is used to fit a model, which is then used for prediction
-on the validation set. The performance of the model is then determined
-by the variance between the predictions and the actual data. One of the
-main drawbacks of this method is that the training set and validation
-set can have different distributions, causing potentially unreliable
-models [@santos2023statistical].
+cross-validation being used [@yadav2016analysis].
+
+1. Data gets divided into a training set and a validation set
+2. Fit a model using the training data
+3. Use the model on the validation set to create predicted outcome values
+4. Compare the predicted values to the actual outcome values to determine model performance
+
+- Can cause unreliable models due to differently distributed training and validation data [@santos2023statistical].
 
 ## Methods - CV Techniques
 
@@ -248,7 +248,6 @@ $$
 The main performance metrics our analysis is focused on include:
 
 -   Mean Squared Error (MSE)
--   Mean Squared Prediction Error (MSPE)
 -   Area Under the ROC Curve (AUC)
 
 ## Performance Metrics - MSE
@@ -276,14 +275,14 @@ performance is the area under the ROC curve (AUC).
     [@cantor2000determining].
 -   AUC scores can range from 0 to 1
 
-Figure 6 demonstrates how AUC uses the positive and negative outcomes to
+Figure 4 demonstrates how AUC uses the positive and negative outcomes to
 calculate a value that indicates the probability of a positive result
 ranking higher than negative results, where $S_p$ is the total number of
 positive outcomes ranked, and $n_p$ and $n_n$ are the number of positive
 and negative outcomes, respectively [@hossin2015review].
 
 $$
-AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
+AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{4}
 $$
 
 ## Analysis and Results
