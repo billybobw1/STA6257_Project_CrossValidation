@@ -1942,9 +1942,22 @@ AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{6}
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
 <p>This paper shows various cross-validation techniques that can be used for modeling validation, including single hold-out, 5 &amp; 10 k-folds, leave-one-out, and Monte Carlo cross-validation.</p>
-<p>While the researchers that provided the dataset found that survival of heart attack patients can be predicted using only serum creatinine and ejection fraction as predictor variables. The logistic regression analysis we conducted using various cross-validation techniques has shown that the full model (which includes all predictor variables within the dataset) tends to have lower mean squared error (MSE) and higher Area under the Curve (AUC) values after testing. This essentially means the full model is more robust with predictive ability compared to the reduced model. That being said, the difference in MSEs between the two models is marginal, however, the full model by technicality does have slightly more predictive ability. It also has a better ability to distinguish between classes, whether or not the patient died within their follow-up period.</p>
-<p>The marginal difference between models supports the argument made by the researchers because the model with two predictor variables and the model with twelve predictor variables produced small differences in MSEs as seen in the analysis above; models with less predictor variables are typically preferred in statistical analysis. Since the AUC values did show differences between models, the model could perhaps benefit from some additional predictors. However, the reduced models still demonstrated acceptable class discrimination.</p>
-<p>Single hold-out cross-validation stood out the most as having the worst performance, with MSE values that were significantly higher than that of the rest of the techniques. This result indicates that this technique will not always be the best route to take when trying to validate a model. The rest of the models had only marginal differences in performance. However, when considering the process of administering the techniques, the k-folds, including leave-one-out, provided the most straight-forward approach. Having a function that performed the cross-validation from the logistic regression model removed some of the opportunity for human error. Ultimately, most of these techniques seem sufficient to help validate a model based on this example.</p>
+<ul>
+<li>The full models (which includes all predictor variables within the dataset) tends to have lower mean squared error (MSE) and higher Area under the Curve (AUC) values after testing.</li>
+<li>This essentially means the full model is more robust with predictive ability compared to the reduced model.</li>
+<li>However, the difference in MSEs between the two models is marginal, but the full model by technicality does have slightly more predictive ability. It also has a better ability to distinguish between classes, whether or not the patient died within their follow-up period.</li>
+</ul>
+</section>
+<section id="conclusion-cont." class="slide level2">
+<h2>Conclusion (cont.)</h2>
+<ul>
+<li>The marginal difference between models supports the argument made by the researchers because the model with two predictor variables and the model with twelve predictor variables produced small differences in MSEs as seen in the analysis above; models with less predictor variables are typically preferred in statistical analysis.</li>
+<li>Since the AUC values did show differences between models, the model could perhaps benefit from some additional predictors. However, the reduced models still demonstrated acceptable class discrimination.</li>
+</ul>
+</section>
+<section id="conclusion-cont.-1" class="slide level2">
+<h2>Conclusion (cont.)</h2>
+<p>Single hold-out CV stood out the most as having the worst performance, with MSE values that were significantly higher than that of the rest of the techniques. This result indicates that this technique will not always be the best route to take when trying to validate a model. The rest of the models had only marginal differences in performance. However, when considering the process of administering the techniques, the k-folds, including leave-one-out, provided the most straight-forward approach. Having a function that performed the cross-validation from the logistic regression model removed some of the opportunity for human error. Ultimately, most of these techniques seem sufficient to help validate a model based on this example.</p>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
