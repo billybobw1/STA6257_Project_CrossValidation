@@ -68,8 +68,8 @@ as a test set while the rest serve as the training set.
 
 This is a special case of k-fold cross-validation where k equals the
 number of data points [@shao2016efficient]. Each data point is used once
-as a test set. In a sense, Leave-One-Out Cross-Validation (LOOCV) is equivalent to setting k=1 in k-Fold Cross-Validation.
-
+as a test set. In a sense, Leave-One-Out Cross-Validation (LOOCV) is
+equivalent to setting k=1 in k-Fold Cross-Validation.
 
 ## Literature Review - [@zhang2015cross]
 
@@ -165,12 +165,15 @@ reduce overfitting.
 Single hold-out cross-validation is one more simple versions of
 cross-validation being used [@yadav2016analysis].
 
-1. Data gets divided into a training set and a validation set
-2. Fit a model using the training data
-3. Use the model on the validation set to create predicted outcome values
-4. Compare the predicted values to the actual outcome values to determine model performance
+1.  Data gets divided into a training set and a validation set
+2.  Fit a model using the training data
+3.  Use the model on the validation set to create predicted outcome
+    values
+4.  Compare the predicted values to the actual outcome values to
+    determine model performance
 
-- Can cause unreliable models due to differently distributed training and validation data [@santos2023statistical].
+-   Can cause unreliable models due to differently distributed training
+    and validation data [@santos2023statistical].
 
 ## Methods - CV Techniques {.smaller}
 
@@ -197,7 +200,7 @@ cross-validation being used [@yadav2016analysis].
 ::: {.column width="50%"}
 ![Figure 1: Basic K-Fold
 Cross-Validation](images/K-fold-cross-validation-1.webp)
-Source: \[\@Ranjan_2021\]
+Source:[@Ranjan_2021]
 
 The MSE calculation using K-folds is as follows [@jung2015ak]:
 
@@ -211,27 +214,33 @@ $$
 
 ### Leave-One-Out
 
-- LOOCV is a variation of k-fold cross-validation
-- The validation set is comprised of a single observation, so k is equal to the sample size [@shao2016efficient].
-- This technique can be ideal with smaller sample sizes, as the lack of randomization when dividing the dataset creates constant accuracy estimates  [@wong2015performance]
-- It can be computationally expensive due to the high number of folds for large datasets.
-
+-   LOOCV is a variation of k-fold cross-validation
+-   The validation set is comprised of a single observation, so k is
+    equal to the sample size [@shao2016efficient].
+-   This technique can be ideal with smaller sample sizes, as the lack
+    of randomization when dividing the dataset creates constant accuracy
+    estimates [@wong2015performance]
+-   It can be computationally expensive due to the high number of folds
+    for large datasets.
 
 ## Methods - CV Techniques {.smaller}
 
 ### Monte Carlo
 
-MCCV randomly removes significant chunks of the dataset without replacement to use as its training and
-validation ($s_v$) data sets [@haddad2013applicability]. This sampling
-is repeated N times. The criterion for this techniques, according to
-[@haddad2013applicability], is as follows:
+MCCV randomly removes significant chunks of the dataset without
+replacement to use as its training and validation ($s_v$) data sets
+[@haddad2013applicability]. This sampling is repeated N times. The
+criterion for this techniques, according to [@haddad2013applicability],
+is as follows:
 
 $$
 MCCV_{n_v}(\phi)=\frac{1}{Nn_v}\sum_{i=1}^{k}(y_{(s_v)(i)}-\hat{y}_{\phi(s_v)(i)})^2 \tag{2}
 $$
 
-- Observations could be used in the validation set multiple times or not at all
-- Reduced computational complexity than other techniques (ex., LOOCV) [@james1980monte]
+-   Observations could be used in the validation set multiple times or
+    not at all
+-   Reduced computational complexity than other techniques (ex., LOOCV)
+    [@james1980monte]
 
 ## Methods - Performance Metrics
 
@@ -251,29 +260,40 @@ $$
 
 where $\hat{\beta}_i$ is the estimated value of the $i$-th parameter,
 $\beta_i$ is the true value of the $i$-th parameter, and $p$ is the
-total number of parameters. The lower the MSE, the better the model's
-predictions match the actual data.
+total number of parameters [@jung2015ak].
+
+-   The lower the MSE, the better the model's predictions match the
+    actual data.
 
 ## Performance Metrics - AUC {.smaller}
 
 Another performance metric that will be used to determine model
 performance is the area under the ROC curve (AUC).
 
+::: columns
+::: {.column width="50%"}
 -   AUC conveys how well a model can differentiate between different
-    classes, and it is preferable to other metrics, such as accuracy,
-    because it accounts for both specificity and sensitivity
+    classes, and it is preferable to other metrics, such as accuracy
     [@cantor2000determining].
 -   AUC scores can range from 0 to 1
 
-Figure 4 demonstrates how AUC uses the positive and negative outcomes to
+Figure 2 and Formula 4 demonstrate how AUC uses the positive and negative outcomes to
 calculate a value that indicates the probability of a positive result
 ranking higher than negative results, where $S_p$ is the total number of
 positive outcomes ranked, and $n_p$ and $n_n$ are the number of positive
 and negative outcomes, respectively [@hossin2015review].
+:::
 
+::: {.column width="\"50%"}
 $$
 AUC = \frac{S_p-n_p(n_n+1)/2}{n_pn_n} \tag{4}
 $$
+
+![Figure 2: ROC AUC Curve](images/auc pic.png)
+
+Source:[@ROC_2024]
+:::
+:::
 
 ## Analysis and Results
 
@@ -284,7 +304,6 @@ Machine Learning Repository, contains the medical records of 299
 patients who had heart failure, collected during their follow-up period,
 where each patient profile has 13 clinical features
 [@chicco2020machine].
-
 
 ## Data Description & Features {.smaller}
 
@@ -452,13 +471,12 @@ boxplot(data$time, main="Time")
 :::
 :::
 
-## Correlation 
+## Correlation
 
 ```{r}
 cor(data) %>%
   corrplot(method = 'ellipse', type = 'upper')
 ```
-
 
 ## Statistical Modeling
 
@@ -474,6 +492,7 @@ cross-validation techniques are applied. The performance of the models
 will be determined using their MSE and AUC values.
 
 ## 10-fold Cross Validation
+
 ### Model 1
 
 With any variation of k-fold cross validation, the dataset is split into
@@ -486,13 +505,16 @@ most effective in most cases. Our glm model was changed from a linear
 regression to logistic, since our outcome variable is binary.
 
 ## 10-fold Cross Validation
+
 ### Model 1
 
-In model 1, all predictor variables are included. The default metric for cv.glm
-is MSE, so a cost function was created to calculate the AUC values for
-the models. This cost function will be used for both k-folds and LOOCV.
+In model 1, all predictor variables are included. The default metric for
+cv.glm is MSE, so a cost function was created to calculate the AUC
+values for the models. This cost function will be used for both k-folds
+and LOOCV.
 
 ## 10-fold Cross Validation
+
 ### Model 1 Code
 
 ```{r, echo=TRUE}
@@ -516,6 +538,7 @@ k10_m1_auc <- cv.glm(data, m1, K=10, cost=auc)$delta
 ```
 
 ## 10-fold Cross Validation
+
 ### Model 2
 
 In model 2, only ejection fraction and serum creatinine are included, as
@@ -533,6 +556,7 @@ k10_m2_auc <- cv.glm(data=data, glmfit=m2, cost=auc, K=10)$delta
 ```
 
 ## 10-fold Cross Validation
+
 ### Performance
 
 Interestingly enough, the first model that included all variables
@@ -547,6 +571,7 @@ k10tibble
 ```
 
 ## 5-fold Cross Validation
+
 ### Model 1
 
 Similar to the 10-fold models above, our dataset is split into equal
@@ -568,6 +593,7 @@ k5_m1_auc <- cv.glm(data, m1, K=5, cost=auc)$delta
 ```
 
 ## 5-fold Cross Validation
+
 ### Model 2
 
 In model 2, only ejection fraction and serum creatinine are included.
@@ -583,6 +609,7 @@ k5_m2_auc <- cv.glm(data, m2, K=5, cost=auc)$delta
 ```
 
 ## 5-fold Cross Validation
+
 ### Performance
 
 Model 1 once again performed the best based on its MSE and AUC values.
@@ -595,6 +622,7 @@ k5tibble
 ```
 
 ## Single Hold-Out Method
+
 ### Test/Train Split & Model Creation
 
 Using the Single Hold-Out Method, the data set is split into a training
@@ -605,6 +633,7 @@ each model was identical to our previous techniques, using glm() to
 perform logistic regression.
 
 ## Single Hold-Out Method
+
 ### Test/Train Split & Model Code
 
 ```{r, echo=TRUE}
@@ -632,6 +661,7 @@ m2_SHO <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
 ```
 
 ## Single Hold-Out Method
+
 ### MSE & AUC Calculation
 
 The models were applied to the validation set to find the predicted
@@ -641,6 +671,7 @@ use the auc() function with the original outcome variable and the
 predicted outcome variables of our validation set.
 
 ## Single Hold-Out Method
+
 ### MSE & AUC Calculation
 
 ```{r, echo=TRUE}
@@ -662,16 +693,16 @@ SHO_m2_auc = auc(validation_SHO$DEATH_EVENT,validation_SHO$yhat_m2_SHO)
 ```
 
 ## Single Hold-Out Method
+
 ### Performance
 
-After conducting the analysis, it can be seen that model 2 (m2) provides us
-with a significantly lower mean squared error. Both models have very
+After conducting the analysis, it can be seen that model 2 (m2) provides
+us with a significantly lower mean squared error. Both models have very
 similar AUC values, with the first model only producing a marginally
-higher value. M2 includes only ejection fraction and serum
-creatinine as predictor variables, meaning this reduced model is a
-better fit according to this cross-validation technique. This result
-aligns with the opinion of the original article this data was sourced
-from.
+higher value. M2 includes only ejection fraction and serum creatinine as
+predictor variables, meaning this reduced model is a better fit
+according to this cross-validation technique. This result aligns with
+the opinion of the original article this data was sourced from.
 
 ```{r}
 SHOtibble = tibble(M1_SHO_MSE = SHO_m1_mse, M2_SHO_MSE = SHO_m2_mse, M1_SHO_AUC = SHO_m1_auc, M2_SHO_AUC = SHO_m2_auc)
@@ -685,14 +716,15 @@ k-fold examples, but in this case, the data is split k-ways, where k is
 equal to the number of data points. In this case, k would be 299. Since
 LOOCV is a form of k-folds, cv.glm can be used for data splitting. The
 "K=" argument isn't necessary when performing LOOCV, as the function
-assumes that the number of folds will be equal to the number of observations.
-Once again, the cost function is used to find our AUC values. The same function
-(glm()) was used to fit our logistic regression models as the other k-fold techniques.
+assumes that the number of folds will be equal to the number of
+observations. Once again, the cost function is used to find our AUC
+values. The same function (glm()) was used to fit our logistic
+regression models as the other k-fold techniques.
 
 ## LOOCV (cont.)
 
-Once again, the processes for both models was identical apart from the number
-of predictors included in the models.
+Once again, the processes for both models was identical apart from the
+number of predictors included in the models.
 
 ```{r, echo=TRUE}
 cost <- function(labels,pred){
@@ -717,6 +749,7 @@ loocv_m2_auc <- cv.glm(data, m2, cost = cost)$delta
 ```
 
 ## Leave-One-Out Cross-Validation (LOOCV)
+
 ### Performance
 
 According to LOOCV, the full model (M1) is a better fit due to a lower
@@ -729,6 +762,7 @@ loocv_tibble
 ```
 
 ## Monte Carlo Cross-Validation
+
 ### Resampling Function & Model Creation
 
 Unlike previous techniques, a mc_cv function was created to repeat the
@@ -739,6 +773,7 @@ resampled 100 times. Workflows were used to specify our model type
 models.
 
 ## Monte Carlo Cross-Validation
+
 ### Code
 
 ```{r, echo=TRUE}
@@ -762,6 +797,7 @@ m2_wflow <- # adding variables for model 2
 ```
 
 ## Monte Carlo Cross-Validation
+
 ### Resampling & Metric Calculation
 
 The fit_resamples() function applies our resampling function created
@@ -771,6 +807,7 @@ function generates the Brier score automatically, and it performs
 similarly to MSE in classification problems [@ferro2012bias].
 
 ## Monte Carlo Cross-Validation
+
 ### Resampling & Metric Calculation Code
 
 ```{r, echo=TRUE}
@@ -790,6 +827,7 @@ mccv_m2_auc <- as.numeric(m2_MCCV_metrics[3,3])
 ```
 
 ## Monte Carlo Cross-Validation
+
 ### Performance
 
 Similar to the previously discussed techniques, our full model had the
@@ -828,39 +866,38 @@ data is difficult.
 
 ## Conclusion
 
-  - The full models (which includes all predictor variables within
-the dataset) tends to have lower mean squared error (MSE) and higher
-Area under the Curve (AUC) values after testing.
-  - This essentially means the full model is more robust with predictive
-ability compared to the reduced model. 
-  - However, the difference in MSEs between the two
-models is marginal, but the full model by technicality does have
-slightly more predictive ability. It also has a better ability to
-distinguish between classes, whether or not the patient died within
-their follow-up period.
+-   The full models (which includes all predictor variables within the
+    dataset) tends to have lower mean squared error (MSE) and higher
+    Area under the Curve (AUC) values after testing.
+-   This essentially means the full model is more robust with predictive
+    ability compared to the reduced model.
+-   However, the difference in MSEs between the two models is marginal,
+    but the full model by technicality does have slightly more
+    predictive ability. It also has a better ability to distinguish
+    between classes, whether or not the patient died within their
+    follow-up period.
 
 ## Conclusion (cont.)
 
-  - The marginal difference between models supports the argument made by the
-researchers because the model with two predictor variables and the model
-with twelve predictor variables produced small differences in MSEs as
-seen in the analysis above; models with less predictor variables are
-typically preferred in statistical analysis.
-  - Since the AUC values did
-show differences between models, the model could perhaps benefit from
-some additional predictors. However, the reduced models still
-demonstrated acceptable class discrimination.
+-   The marginal difference between models supports the argument made by
+    the researchers because the model with two predictor variables and
+    the model with twelve predictor variables produced small differences
+    in MSEs as seen in the analysis above; models with less predictor
+    variables are typically preferred in statistical analysis.
+-   Since the AUC values did show differences between models, the model
+    could perhaps benefit from some additional predictors. However, the
+    reduced models still demonstrated acceptable class discrimination.
 
 ## Conclusion (cont.)
 
-  - Single hold-out CV stood out the most as having the worst
-performance, with MSE values that were significantly higher than that of
-the rest of the techniques. 
-- The rest of the models had only marginal differences in
-performance. However, when considering the process of administering the
-techniques, the k-folds, including leave-one-out, provided the most
-straight-forward approach.
-- Ultimately, most of these techniques seem
-sufficient to help validate a model based on this example.
+-   Single hold-out CV stood out the most as having the worst
+    performance, with MSE values that were significantly higher than
+    that of the rest of the techniques.
+-   The rest of the models had only marginal differences in performance.
+    However, when considering the process of administering the
+    techniques, the k-folds, including leave-one-out, provided the most
+    straight-forward approach.
+-   Ultimately, most of these techniques seem sufficient to help
+    validate a model based on this example.
 
 ## References
