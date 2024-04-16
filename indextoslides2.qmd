@@ -242,7 +242,9 @@ $$
 -   Reduced computational complexity than other techniques (ex., LOOCV)
     [@james1980monte]
 
-## Performance Metrics - MSE
+## Methods - Performance Metrics
+
+### MSE
 
 The MSE is the expectation of the squared norm of the difference between
 the estimated and the true parameter vectors, and can be calculated as:
@@ -258,7 +260,9 @@ total number of parameters [@jung2015ak].
 -   The lower the MSE, the better the model's predictions match the
     actual data.
 
-## Performance Metrics - AUC {.smaller}
+## Methods - Performance Metrics {.smaller}
+
+### AUC
 
 Another performance metric that will be used to determine model
 performance is the area under the ROC curve (AUC).
