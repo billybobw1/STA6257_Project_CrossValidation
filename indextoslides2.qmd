@@ -613,7 +613,7 @@ k5_m2_auc <- cv.glm(data, m2, K=5, cost=auc)$delta
 
 Model 1 once again performed the best based on its MSE and AUC values.
 Both AUC values are acceptable, and their MSE's are fairly low. However,
-model 1's ACU is significantly better.
+model 1's AUC is significantly better.
 
 ```{r}
 k5tibble = tibble(M1_K5_MSE = k5_m1_mse[2], M2_K5_MSE = k5_m2_mse[2], M1_K5_AUC = k5_m1_auc[2], M2_K5_AUC = k5_m2_auc[2])
