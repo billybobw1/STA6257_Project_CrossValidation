@@ -221,15 +221,11 @@ $$
 
 ### Leave-One-Out
 
-Leave-one-out cross-validation (LOOCV) is a variation of k-fold
-cross-validation in that the dataset gets divided into multiple folds to
-be used for training and validation sets, then the model gets fitted and
-evaluated until each fold has been used as the validation set. However,
-for LOOCV, the validation set is comprised of a single observation, so k
-is equal to the sample size [@shao2016efficient]. This method can be
-preferable to other methods when the sample size is small because the
-lack of randomness when dividing the dataset causes the accuracy
-estimate of the models to be constant [@wong2015performance].
+- LOOCV is a variation of k-fold cross-validation
+- The validation set is comprised of a single observation, so k is equal to the sample size [@shao2016efficient].
+- This technique can be ideal with smaller sample sizes, as the lack of randomization when dividing the dataset creates constant accuracy estimates  [@wong2015performance]
+- It can be computationally expensive due to the high number of folds for large datasets.
+
 
 ## Methods - CV Techniques {.smaller}
 
@@ -374,9 +370,7 @@ hist(data$serum_creatinine, main="Serum Creatinine")
     patient's blood, which is present when muscle tissue is damaged
     [@chicco2020machine].
 -   The serum creatinine is created by this creatinine when muscle
-    breaks down [@chicco2020machine], so this variable was included as
-    another potential indicator of injury.
--   Both creatinine features indicate some right-tailed skewness
+    breaks down [@chicco2020machine]
 :::
 :::
 
