@@ -242,13 +242,6 @@ $$
 -   Reduced computational complexity than other techniques (ex., LOOCV)
     [@james1980monte]
 
-## Methods - Performance Metrics
-
-The main performance metrics our analysis is focused on include:
-
--   Mean Squared Error (MSE)
--   Area Under the ROC Curve (AUC)
-
 ## Performance Metrics - MSE
 
 The MSE is the expectation of the squared norm of the difference between
@@ -297,15 +290,7 @@ Source:[@ROC_2024]
 
 ## Analysis and Results
 
-### Data Description
-
-This heart failure clinical records dataset, obtained via the UC Irvine
-Machine Learning Repository, contains the medical records of 299
-patients who had heart failure, collected during their follow-up period,
-where each patient profile has 13 clinical features
-[@chicco2020machine].
-
-## Data Description & Features {.smaller}
+### Data Description & Features {.smaller}
 
 ::: columns
 ::: {.column width="40%"}
