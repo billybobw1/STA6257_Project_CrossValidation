@@ -348,7 +348,7 @@ data <- read.csv('heart_failure_clinical_records_dataset.csv')
 ## Continuous Variables {.smaller}
 
 ::: columns
-::: {.column width="50%"}
+::: {.column width="60%"}
 ```{r}
 par(mfrow=c(2,2))
 hist(data$age, main="Age")
@@ -358,9 +358,8 @@ hist(data$serum_creatinine, main="Serum Creatinine")
 ```
 :::
 
-::: {.column width="50%"}
--   The age of patients ranged from 40 to 95 years old, which the
-    majority aged below 70 years old.
+::: {.column width="40%"}
+-   The age of patients ranged from 40 to 95 years old
 -   The time variable is the number of days in the follow-up period for
     each patient, ranging from 4 to 285 days.
 -   Creatinine phosphokinase indicates the level of this enzyme in the
