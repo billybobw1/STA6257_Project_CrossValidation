@@ -869,7 +869,7 @@ data is difficult.
 -   The marginal difference between models supports the argument made by
     the researchers because the model with two predictor variables and
     the model with twelve predictor variables produced small differences
-    in MSEs as seen in the analysis above; models with less predictor
+    in MSEs as seen in our analysis; models with less predictor
     variables are typically preferred in statistical analysis.
 -   Since the AUC values did show differences between models, the model
     could perhaps benefit from some additional predictors. However, the
