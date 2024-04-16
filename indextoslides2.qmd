@@ -523,6 +523,9 @@ In model 1, all predictor variables are included. The default metric for cv.glm
 is MSE, so a cost function was created to calculate the AUC values for
 the models. This cost function will be used for both k-folds and LOOCV.
 
+## 10-fold Cross Validation
+### Model 1 Code
+
 ```{r, echo=TRUE}
 library(boot)
 auc <- function(obs, pred.p){
@@ -632,6 +635,9 @@ manually. Here, we are using a 50-50 split. Our functions for creating
 each model was identical to our previous techniques, using glm() to
 perform logistic regression.
 
+## Single Hold-Out Method
+### Test/Train Split & Model Code
+
 ```{r, echo=TRUE}
 #add obs # for each row
 library(dplyr)
@@ -665,6 +671,9 @@ was found for each model. To calculate the AUC values, we only needed to
 use the auc() function with the original outcome variable and the
 predicted outcome variables of our validation set.
 
+## Single Hold-Out Method
+### MSE & AUC Calculation
+
 ```{r, echo=TRUE}
 #calculate MSE
 validation_SHO <- validation_SHO %>% 
@@ -686,10 +695,10 @@ SHO_m2_auc = auc(validation_SHO$DEATH_EVENT,validation_SHO$yhat_m2_SHO)
 ## Single Hold-Out Method
 ### Performance
 
-After conducting the analysis, it can be seen that model 2 provides us
+After conducting the analysis, it can be seen that model 2 (m2) provides us
 with a significantly lower mean squared error. Both models have very
 similar AUC values, with the first model only producing a marginally
-higher value. Model 2 includes only ejection fraction and serum
+higher value. M2 includes only ejection fraction and serum
 creatinine as predictor variables, meaning this reduced model is a
 better fit according to this cross-validation technique. This result
 aligns with the opinion of the original article this data was sourced
@@ -702,15 +711,14 @@ SHOtibble
 
 ## Leave-One-Out Cross-Validation (LOOCV)
 
-Leave-One-Out cross-validation (LOOCV) follows a similar data set
-splitting technique to the previous k-fold examples, but in this case,
-the data is split k-ways, where k is equal to the number of data points.
-In this case, k would be 299. Since LOOCV is a form of k-folds, cv.glm
-can be used for data splitting. The "K=" argument isn't necessary when
-performing LOOCV, as the function assumes that the number of folds will
-be equal to the number of observations. Once again, the cost function is
-used to find our AUC values. The same function (glm()) was used to fit
-our logistic regression models as the other k-fold techniques.
+LOOCV follows a similar data set splitting technique to the previous
+k-fold examples, but in this case, the data is split k-ways, where k is
+equal to the number of data points. In this case, k would be 299. Since
+LOOCV is a form of k-folds, cv.glm can be used for data splitting. The
+"K=" argument isn't necessary when performing LOOCV, as the function
+assumes that the number of folds will be equal to the number of observations.
+Once again, the cost function is used to find our AUC values. The same function
+(glm()) was used to fit our logistic regression models as the other k-fold techniques.
 
 ## LOOCV (cont.)
 
@@ -761,6 +769,9 @@ resampled 100 times. Workflows were used to specify our model type
 (logistic regression), as and plug in the variables for each of our
 models.
 
+## Monte Carlo Cross-Validation
+### Code
+
 ```{r, echo=TRUE}
 data$DEATH_EVENT=as.factor(data$DEATH_EVENT)
 set.seed(30)
@@ -789,6 +800,9 @@ earlier to our models to perform our cross-validation. For the MSE of
 the models, we'll be using the Brier score as our resampling fitting
 function generates the Brier score automatically, and it performs
 similarly to MSE in classification problems [@ferro2012bias].
+
+## Monte Carlo Cross-Validation
+### Resampling & Metric Calculation Code
 
 ```{r, echo=TRUE}
 keep_pred <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
