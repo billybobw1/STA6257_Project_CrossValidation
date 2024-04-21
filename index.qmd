@@ -331,7 +331,13 @@ Another performance metric that will be used to determine model
 performance is the area under the ROC curve (AUC). AUC conveys how well
 a model can differentiate between different classes, and it is
 preferable to other metrics, such as accuracy, because it accounts for
-both specificity and sensitivity [@cantor2000determining]. AUC scores
+both true and false positives [@cantor2000determining], which is demonstrated in Figure 2. 
+
+![Figure 2: ROC AUC Curve](images/auc pic.png)
+
+Source:[@ROC_2024]
+
+AUC scores
 can range from 0 to 1, with 0 indicating the model has no ability to
 discern between classes, and 1 indicating the model perfectly predicts
 classfication. Figure 6 demonstrates how AUC uses the positive and
@@ -410,17 +416,6 @@ data <- read.csv('heart_failure_clinical_records_dataset.csv')
 
 #### Continuous Variables
 
-```{r}
-par(mfrow=c(2,4))
-hist(data$age, main="Age")
-hist(data$creatinine_phosphokinase, main="Creatinine Phosphokinase")
-hist(data$ejection_fraction, main="Ejection Fraction")
-hist(data$platelets, main="Platelets")
-hist(data$serum_creatinine, main="Serum Creatinine")
-hist(data$serum_sodium, main="Serum Sodium")
-hist(data$time, main="Time")
-```
-
 The age of patients ranged from 40 to 95 years old, which the majority
 aged below 70 years old. The time variable is the number of days in the
 follow-up period for each patient, ranging from 4 to 285 days.
@@ -432,10 +427,28 @@ included as another potential indicator of injury. Variables were
 included that observe the levels of sodium (serum sodium) and number of
 platelets in the patient's blood. The ejection fraction variable is the
 percentage of blood leaving the left ventricle during each contraction
-of the heart [@chicco2020machine].
+of the heart [@chicco2020machine]. Both creatinine features indicate some right-tailed skewness. These all look fairly normally distributed, but there is some potential skewing for the platelet and serum sodium features.
+```{r}
+par(mfrow=c(2,4))
+hist(data$age, main="Age")
+hist(data$creatinine_phosphokinase, main="Creatinine Phosphokinase")
+hist(data$ejection_fraction, main="Ejection Fraction")
+hist(data$platelets, main="Platelets")
+hist(data$serum_creatinine, main="Serum Creatinine")
+hist(data$serum_sodium, main="Serum Sodium")
+hist(data$time, main="Time")
+```
+
 
 #### Categorical Variables
 
+All of our categorical variables are Boolean and are encoded as '0' and
+'1' to indicate negative or positive occurrence of a variable's
+condition, respectively. These variables include whether the patient is
+a smoker, has diabetes, anaemia, or high blood pressure. The sex
+variable indicates whether the patient is a female ('0') or male ('1').
+Our target variable, death event, indicates whether the patient died
+before the end of the follow-up period. All variables except sex had more negative occurences than positive. The dataset included more males than females. 
 ```{r}
 par(mfrow=c(2,3))
 hist(data$anaemia, main="Anaemia", breaks=2)
@@ -445,14 +458,6 @@ hist(data$sex, main="Sex", breaks=2)
 hist(data$smoking, main = "Smoking", breaks = 2)
 hist(data$DEATH_EVENT,main = "Death Event",breaks=2)
 ```
-
-"All of our categorical variables are Boolean and are encoded as '0' and
-'1' to indicate negative or positive occurrence of a variable's
-condition, respectively. These variables include whether the patient is
-a smoker, has diabetes, anaemia, or high blood pressure. The sex
-variable indicates whether the patient is a female ('0') or male ('1').
-Our target variable, death event, indicates whether the patient died
-before the end of the follow-up period."
 
 #### Missing Values
 
@@ -466,6 +471,16 @@ imputation of values.
 
 #### Checking for Outliers
 
+Boxplots for our continuous variables were created in our exploratory
+analysis to evaluate if any variables have outlier that need to be
+addressed. The boxplots do indicate that some of our variables have
+potential outliers, namely creatinine phosphokinase, ejection fraction,
+platelets, serum creatinine, and serum sodium. However, these data
+points will remain untouched for our analysis. The indicated outlier do
+not appear to be recording errors, such as a negative time variable or
+unrealistic age. The outliers in the boxplots appear to be genuine
+observations and should be considered in our model. The original article
+also did not remove any outliers [@chicco2020machine.]
 ```{r}
 #Boxplots to look for outliers
 par(mfrow=c(2,4))
@@ -478,16 +493,6 @@ boxplot(data$serum_sodium, main="Serum Sodium")
 boxplot(data$time, main="Time")
 ```
 
-Boxplots for our continuous variables were created in our exploratory
-analysis to evaluate if any variables have outlier that need to be
-addressed. The boxplots do indicate that some of our variables have
-potential outliers, namely creatinine phosphokinase, ejection fraction,
-platelets, serum creatinine, and serum sodium. However, these data
-points will remain untouched for our analysis. The indicated outlier do
-not appear to be recording errors, such as a negative time variable or
-unrealistic age. The outliers in the boxplots appear to be genuine
-observations and should be considered in our model. The original article
-also did not remove any outliers [@chicco2020machine.]
 
 #### Correlation
 
@@ -520,6 +525,14 @@ using their MSE and AUC values.
 
 #### 10-fold Cross Validation:
 
+With any variation of k-fold cross validation, the dataset is split into
+k sized folds that will all be equal. Here, the dataset is split in 10
+folds.As previously discussed, [@wong2019reliable] mentions 10-fold
+cross validation analysis to be most effective in most cases. The `cv.glm()` function from the `boot` package will be utilized to perform our cross-validation, where we will specify our dataset, the model, the number of k-folds, and an optional cost function to calculate the performance metric. Our models were created using the `glm()` function, changing the `family=` argument to perform logistic regression. In model 1, all predictor variables are included. In model 2, only ejection
+fraction and serum creatinine are included, as the researchers that
+provided the data set came to the conclusion that death events could be
+predicted using those 2 variables alone. Our performance metrics are calculated by the `$delta` of the `cv.glm()` function. The default metric for `cv.glm()` is MSE, so the cost argument isn't necessary to find our MSE. An AUC cost function was created to add to another `cv.glm()` in order to get this metric as well. This cost function will be used for both k-folds
+and LOOCV. 
 ```{r}
 library(boot)
 auc <- function(obs, pred.p){
@@ -545,30 +558,26 @@ m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
          family = "binomial"(link = "logit"), data=data)
 
 k10_m2_mse <- cv.glm(data, m2, K=10)$delta
-
-
 k10_m2_auc <- cv.glm(data=data, glmfit=m2, cost=auc, K=10)$delta
-
-
+```
+```{r}
 k10tibble = tibble(M1_K5_MSE = k10_m1_mse[2], M2_K5_MSE = k10_m2_mse[2], M1_K5_AUC = k10_m1_auc[2], M2_K5_AUC = k10_m2_auc[2])
 k10tibble
-
 ```
 
-With any variation of k-fold cross validation, the dataset is split into
-k sized folds that will all be equal. Here, the dataset is split in 10
-folds. As previously discussed, [@wong2019reliable] mentions 10-fold
-cross validation analysis to be most effective in most cases. In model
-1, all predictor variables are included. In model 2, only ejection
-fraction and serum creatinine are included, as the researchers that
-provided the data set came to the conclusion that death events could be
-predicted using those 2 variables alone. Interestingly enough, the first
-model that included all variables produced a lower MSE (mean square
-error), indicating that from this CV test, model one would be better to
-use than model 2.
+Interestingly enough, the first model that included all variables
+produced a lower MSE and a higher AUC, indicating that from this CV
+test, model one would be better to use than model 2. Model 2 has an AUC
+that is still acceptable, but the AUC of the first model is
+significantly better.
 
 #### 5-fold Cross Validation:
 
+Similar to the 10-fold models above, our dataset is split into equal
+pieces. However, in this case, we are only doing 5 folds compared to our
+10-fold analysis above. The process for creating the models is exactly the same as in the 10-folds techniques, using `glm()` to create logistic regression models with differing numbers of variables. Again, in model 1, all predictor variables are
+included. In model 2, only ejection fraction and serum creatinine are
+included. The `cv.glm()` function is also being used the same as in the 10-fold techniques, with the only difference being the argument specifying the number of k-folds being changed to five. The performance metrics are also using the delta from `cv.glm()`, with the cost function determining which metric is calculated.
 ```{r}
 library(boot)
 
@@ -587,23 +596,22 @@ m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
          family = "binomial"(link = "logit"))
 
 k5_m2_mse <- cv.glm(data, m2, K=5)$delta
-
 k5_m2_auc <- cv.glm(data, m2, K=5, cost=auc)$delta
-
+```
+```{r}
 k5tibble = tibble(M1_K5_MSE = k5_m1_mse[2], M2_K5_MSE = k5_m2_mse[2], M1_K5_AUC = k5_m1_auc[2], M2_K5_AUC = k5_m2_auc[2])
 k5tibble
 ```
-
-Similar to the 10-fold models above, our dataset is split into equal
-pieces. However, in this case, we are only doing 5 folds compared to our
-10-fold analysis above. Again, in model 1, all predictor variables are
-included. In model 2, only ejection fraction and serum creatinine are
-included. With 5-fold cross validation, the data set is divided into 5
-parts (as opposed to 10 in 10-fold). Model 1 still has a lower MSE than
-the full model that includes all predictor variables.
+Model 1 once again performed the best based on its MSE and AUC values. Both AUC values are acceptable, and their MSE's are fairly low. However, model 1's AUC is significantly better.
 
 #### Single Hold-Out Method:
 
+Using the Single Hold-Out Method, the data set is split into a training
+set and a test/validation set. Since the `cv.glm()` function only applies to
+k-fold cross-validation, the splitting of the data will be done
+manually. Here, we are using a 50-50 split, then the `training()` and `testing()` functions created the respective subsets. Our functions for creating
+each model were identical to our previous techniques, using `glm()` to
+perform logistic regression.
 ```{r}
 #add obs # for each row
 library(dplyr)
@@ -626,7 +634,14 @@ m1_SHO <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes 
 m2_SHO <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
          data = training_SHO, 
          family = "binomial"(link = "logit"))
+```
 
+The models were applied to the validation set to find the predicted
+outcome values. The means of the squared errors of our predicted values
+was found for each model. To calculate the AUC values, we only needed to
+use the auc() function with the original outcome variable and the
+predicted outcome variables of our validation set.
+```{r}
 #calculate MSE
 validation_SHO <- validation_SHO %>% 
   mutate(yhat_m1_SHO = predict(m1_SHO, newdata = validation_SHO),
@@ -643,20 +658,31 @@ SHO_m2_mse <- mean(validation_SHO$sqerr_m2_SHO, na.rm = TRUE)
 #Calculate AUC
 SHO_m1_auc = auc(validation_SHO$DEATH_EVENT,validation_SHO$yhat_m1_SHO)
 SHO_m2_auc = auc(validation_SHO$DEATH_EVENT,validation_SHO$yhat_m2_SHO)
-
+```
+```{r}
 SHOtibble = tibble(M1_SHO_MSE = SHO_m1_mse, M2_SHO_MSE = SHO_m2_mse, M1_SHO_AUC = SHO_m1_auc, M2_SHO_AUC = SHO_m2_auc)
 SHOtibble
 ```
 
-Using the Single Hold-Out Method, the data set is split into a training
-set and a test/validation set. Here, we are using a 50-50 split. After
-conducting the analysis, it can be seen that model 2 provides us with a
-lower mean squared error. Model 2 includes only ejection fraction and
-serum creatinine as predictor variables, meaning this reduced model is a
-better fit according to this cross-validation technique.
+After conducting the analysis, it can be seen that model 2 provides
+us with a significantly lower mean squared error. Both models have very
+similar AUC values, with the first model only producing a marginally
+higher value. M2 includes only ejection fraction and serum creatinine as
+predictor variables, meaning this reduced model is a better fit
+according to this cross-validation technique. This result aligns with
+the opinion of the original article this data was sourced from.
 
 #### Leave-One-Out Cross-Validation (LOOCV):
 
+LOOCV follows a similar data set splitting technique to the previous
+k-fold examples, but in this case, the data is split k-ways, where k is
+equal to the number of data points. In this case, k would be 299. Since
+LOOCV is a form of k-folds, `cv.glm()` can be used for data splitting. The
+`K=` argument isn't necessary when performing LOOCV, as the function
+assumes that the number of folds will be equal to the number of
+observations. Once again, the `$delta` of the `cv.glm()` function is used to create our performance metric, using a cost function to find our AUC
+values. The same function, `glm()`, was used to fit our logistic
+regression models as the other k-fold techniques.
 ```{r}
 set.seed(7432)
 m1 <- glm(DEATH_EVENT ~ age + anaemia + creatinine_phosphokinase + diabetes + ejection_fraction + high_blood_pressure + platelets + serum_creatinine + serum_sodium + sex + smoking + time,
@@ -678,21 +704,23 @@ m2 <- glm(DEATH_EVENT ~ ejection_fraction + serum_creatinine,
 loocv_m2_mse <- cv.glm(data, m2)$delta
 
 loocv_m2_auc <- cv.glm(data, m2, cost = cost)$delta
-
+```
+```{r}
 loocv_tibble <- tibble("M1 LOOCV MSE" = loocv_m1_mse[2], "M2 LOOCV MSE" = loocv_m2_mse[2], "M1 LOOCV AUC" = loocv_m1_auc[2], "M2 LOOCV AUC" = loocv_m2_auc[2])
 loocv_tibble
-
 ```
 
-Leave-One-Out cross-validation (LOOCV) follows a similar data set
-splitting technique, but in this case, the data is split k-ways, where k
-is equal to the number of data points. In this case, k would be 299.
-According to LOOCV, the full model (which includes all predictor
-variables) is a better fit due to a lower mean squared error compared to
-the reduced model (which only includes serum creatinine and ejection
-fraction).
+According to LOOCV, the full model (M1) is a better fit due to a lower
+MSE compared to the reduced model (M2). The AUC models follow a similar
+pattern, with model 1 having a higher AUC than model 2.
 
 #### Monte Carlo Cross-Validation:
+
+For the Monte Carlo technique, logistic regression will be used to
+create the models. Unlike previous techniques, a resampling function was
+created from the `mc_cv()` function to repeat the splitting of the data many times. Our proportion
+of training to validation sets is the standard 70/30 split, and the data
+will be resampled 100 times. Workflows were used to specify the logistic regression and the variables being used in each of our models. Once again, the first model contains all twelve predictor variables, and the second model contains only the serum creatinine and ejection fraction variables.
 
 ```{r}
 data$DEATH_EVENT=as.factor(data$DEATH_EVENT)
@@ -713,9 +741,14 @@ m2_wflow <- # adding variables for model 2
   add_formula(
     DEATH_EVENT ~ ejection_fraction + serum_creatinine) %>%
   add_model(mccv_model)
+```
 
-
-
+The `fit_resamples()` function applies our resampling function created
+earlier to our models to perform our cross-validation. For the MSE of the models, we'll be using
+the Brier score as the `fit_resamples()` function generates the Brier
+score automatically, and it performs similarly to MSE in classification
+problems [@ferro2012bias]. The function also calculates the AUC automatically. The `collect_metrics()` function was used to gather these metrics. 
+```{r}
 keep_pred <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
 set.seed(30)
 m1_MCCV <-m1_wflow %>% fit_resamples(resamples = resample1, control = keep_pred)
@@ -733,14 +766,7 @@ MCCVtibble = tibble(M1_MCCV_MSE = mccv_m1_mse, M2_MCCV_MSE = mccv_m2_mse, M1_MCC
 MCCVtibble
 ```
 
-For the Monte Carlo technique, logistic regression will be used to
-create the models. Unlike previous techniques, a resampling function was
-created to repeat the splitting of the data many times. Our proportion
-of training to validation sets is the standard 70/30 split, and the data
-will be resampled 100 times. For the MSE of the models, we'll be using
-the Brier score as our resampling fitting function generates the Brier
-score automatically, and it performs similarly to MSE in classification
-problems [@ferro2012bias]. Similar to the previously discussed
+Similar to the previously discussed
 techniques, our full model had the lower MSE/ Brier score and higher
 AUC. The smaller model's AUC of 0.763 is still acceptable as far as the
 metric's ideal scores go, but the increase of about 0.1 indicates there
@@ -760,6 +786,16 @@ MODEL_COMP <- data.frame(
 MODEL_COMP
 ```
 
+The only technique that stands out as having significantly different
+results was single hold-out cross-validation. It's the only technique
+that clearly indicated the reduced model as the superior model. The
+significant difference leads us to believe the simplicity of the
+technique could have caused some overfitting and higher bias. Other
+training/testing split ratios could be considered to try to combat this.
+The rest of the techniques performed so similarly with all measures
+considered, that choosing the technique that best fit and predicted our
+data is difficult.
+
 ## Conclusion
 
 This paper shows various cross-validation techniques that can be used
@@ -768,23 +804,38 @@ leave-one-out, and Monte Carlo cross-validation.
 
 While the researchers that provided the dataset found that survival of
 heart attack patients can be predicted using only serum creatinine and
-ejection fraction as predictor variables. The linear regression analysis
-we conducted using various cross-validation techniques has shown that
-the full model (which includes all predictor variables within the
-dataset) has a lower mean squared error (MSE) after testing. This
-essentially means the full model is more robust with predictive ability
-compared to the reduced model. That being said, the difference in MSEs
-between the two models is marginal, however, the full model by
-technicality does have slightly more predictive ability.
+ejection fraction as predictor variables. The logistic regression
+analysis we conducted using various cross-validation techniques has
+shown that the full model (which includes all predictor variables within
+the dataset) tends to have lower mean squared error (MSE) and higher
+Area under the Curve (AUC) values after testing. This essentially means
+the full model is more robust with predictive ability compared to the
+reduced model. That being said, the difference in MSEs between the two
+models is marginal, however, the full model by technicality does have
+slightly more predictive ability. It also has a better ability to
+distinguish between classes, whether or not the patient died within
+their follow-up period.
 
 The marginal difference between models supports the argument made by the
 researchers because the model with two predictor variables and the model
 with twelve predictor variables produced small differences in MSEs as
 seen in the analysis above; models with less predictor variables are
-typically preferred in statistical analysis.
+typically preferred in statistical analysis. Since the AUC values did
+show differences between models, the model could perhaps benefit from
+some additional predictors. However, the reduced models still
+demonstrated acceptable class discrimination.
 
-Ultimately, while the k-folds CV technique (particularly 10 folds)
-seemed to perform the best, most of these techniques seem sufficient to
-help validate a model based on this example.
+Single hold-out cross-validation stood out the most as having the worst
+performance, with MSE values that were significantly higher than that of
+the rest of the techniques. This result indicates that this technique
+will not always be the best route to take when trying to validate a
+model. The rest of the models had only marginal differences in
+performance. However, when considering the process of administering the
+techniques, the k-folds, including leave-one-out, provided the most
+straight-forward approach. Having a function that performed the
+cross-validation from the logistic regression model removed some of the
+opportunity for human error. Ultimately, most of these techniques seem
+sufficient to help validate a model based on this example.
+
 
 ### References
